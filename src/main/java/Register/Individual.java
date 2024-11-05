@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Register {
+public class Individual {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -24,13 +24,10 @@ public class Register {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
-            tearDown();
         }
     }
 
     public static void setUpDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromeDriver\\chromedriver.exe");
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
@@ -40,13 +37,13 @@ public class Register {
     }
 
     public static void fillForm() throws InterruptedException {
-        enterText(By.id("ion-input-0"), "sahin.jcb1@gmail.com");
+        enterText(By.id("ion-input-0"), "uyaruyr73@gmail.com");
         Thread.sleep(1000);
-        enterText(By.id("ion-input-1"), "Yakup");
+        enterText(By.id("ion-input-1"), "Mirhan");
         Thread.sleep(1000);
-        enterText(By.id("ion-input-2"), "ŞAHİN");
+        enterText(By.id("ion-input-2"), "Uyar");
         Thread.sleep(1000);
-        enterText(By.id("ion-input-4"), "Yakup65100");
+        enterText(By.id("ion-input-4"), "i");
         Thread.sleep(1000);
 
         clickElement(By.id("register-select-language"));
@@ -75,11 +72,5 @@ public class Register {
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
-    }
-
-    public static void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }
