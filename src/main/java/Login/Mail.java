@@ -1,4 +1,4 @@
-package Reset;
+package Login;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
-public class Password {
+public class Mail {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -32,7 +32,7 @@ public class Password {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
     public static void openRegistrationPage(){
-        driver.get("https://alasouq.com/my-account");
+        driver.get("https://alasouq.com/auth/login");
     }
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
