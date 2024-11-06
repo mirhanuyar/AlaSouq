@@ -1,4 +1,4 @@
-package Login;
+package Advert;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,9 +8,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 
-public class Mail {
+public class Create {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -23,13 +24,31 @@ public class Mail {
             Thread.sleep(1000);
             submitForm();
             Thread.sleep(1000);
+            createAdvert();
+            Thread.sleep(1000);
+            emlak();
+            Thread.sleep(1000);
+            isyeri();
+            Thread.sleep(1000);
+            kiralik();
+            Thread.sleep(1000);
+            clickItemByText();
+            Thread.sleep(1000);
+            akaryakitIst();
+            Thread.sleep(1000);
+
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
+    private static void clickItemByText() {
+    }
+
     public static void setUpDriver(){
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
     public static void openRegistrationPage(){
         driver.get("https://alasouq.com/my-account");
@@ -53,8 +72,42 @@ public class Mail {
         Thread.sleep(2000);
     }
 
+    public static void createAdvert() throws InterruptedException {
+        clickElement(By.id("icon-circle-outline"));
+        Thread.sleep(2000);
+    }
+
+    public static void emlak() throws InterruptedException {
+        clickElement(By.xpath("//ion-item[contains(text(), 'Emlak')]"));
+        Thread.sleep(2000);
+    }
+
+    public static void clickItemByText(String text) throws InterruptedException {
+        List<WebElement> items = driver.findElements(By.cssSelector("ion-item"));
+        for (WebElement item : items) {
+            if (item.getText().contains(text)) {
+                item.click();
+                Thread.sleep(2000);
+                break;
+            }
+        }
+    }
+
+    public static void isyeri() throws InterruptedException {
+        clickItemByText("İş Yeri");
+    }
+
+    public static void kiralik() throws InterruptedException{
+        clickItemByText("Kiralık");
+    }
+
+    public static void akaryakitIst() throws InterruptedException{
+        clickItemByText("Akaryakıt İstasyonu");
+    }
+
+
     public static void clickElement(By locator) throws InterruptedException {
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
     }
 }
