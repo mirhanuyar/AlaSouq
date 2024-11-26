@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class Complaint {
+public class Favorite {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -33,13 +33,13 @@ public class Complaint {
             Thread.sleep(1000);
             clickAdvert();
             Thread.sleep(1000);
-            clickComplaintButton();
+            clickFavorite();
             Thread.sleep(1000);
-            selectComplaintOptionByText("İlan kategorisi hatalı");
+            clickFavoriteList();
             Thread.sleep(1000);
-            enterComplaintDescription("bu ilan hatalı bilgiler içeriyor");
+            favoriteListName("emlak favori listem");
             Thread.sleep(1000);
-            clickSendButton();
+            clickSaveFavoriteListButton();
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -50,9 +50,9 @@ public class Complaint {
         List<WebElement> listItems = driver.findElements(By.tagName("ion-item"));
 
         for (WebElement item : listItems) {
-            if (item.getText().contains(text)) {  // Verilen metni içeren öğe bulunuyor
+            if (item.getText().contains(text)) {
                 item.click();
-                break; // Öğeyi bulup tıkladıktan sonra döngüden çıkıyoruz
+                break;
             }
         }
     }
@@ -117,41 +117,42 @@ public class Complaint {
         }
     }
 
-    public static void clickComplaintButton() throws InterruptedException {
+    public static void clickFavorite() throws InterruptedException {
         try {
-            WebElement complaintButton = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//ion-item[@id='advert-complaint-link']//span[contains(text(), 'İlan ile ilgili şikayetim var')]")));
-            complaintButton.click();
+            WebElement favoriteButton = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//*[@id=\"open-favorite-modal\"]")));
+            favoriteButton.click();
         } catch (Exception e) {
-            System.out.println("Şikayet butonu bulunamadı veya tıklanamadı: " + e.getMessage());
-        }
-     }
-    public static void selectComplaintOptionByText(String optionText) throws InterruptedException {
-        try {
-            WebElement complaintOption = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//ion-radio[contains(text(), '" + optionText + "')]")));
-            complaintOption.click();  // Radyo kutucuğuna tıklıyoruz
-        } catch (Exception e) {
-            System.out.println("Şikayet seçeneği bulunamadı veya tıklanamadı: " + e.getMessage());
+            System.out.println("Favori butonuna tıklanamadı: " + e.getMessage());
         }
     }
 
-    public static void enterComplaintDescription(String message) throws InterruptedException {
+    public static void clickFavoriteList() throws InterruptedException {
+        try {
+            WebElement favoriteListButton = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//*[@id=\"ion-overlay-5\"]/div/app-add-to-favorite/ion-content/ion-list/ion-item[2]")));
+            favoriteListButton.click();
+        } catch (Exception e) {
+            System.out.println("Favori listesi eklenemedi: " + e.getMessage());
+        }
+    }
+
+    public static void favoriteListName(String message) throws InterruptedException {
         try {
             WebElement descriptionInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
                     By.id("ion-input-2")));
             descriptionInput.sendKeys(message);
         } catch (Exception e) {
-            System.out.println("Şikayet açıklaması alanına yazılamadı: " + e.getMessage());
+            System.out.println("yeni favori listesi alanına yazılamadı: " + e.getMessage());
         }
     }
 
-    public static void clickSendButton() throws InterruptedException {
+    public static void clickSaveFavoriteListButton() throws InterruptedException {
         try {
-            WebElement sendButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-complaint-send")));
-            sendButton.click();
+            WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-save-favorite-list")));
+            saveButton.click();
         } catch (Exception e) {
-            System.out.println("Gönder butonuna tıklanamadı: " + e.getMessage());
+            System.out.println("Kaydet butonuna tıklanamadı: " + e.getMessage());
         }
     }
 }
