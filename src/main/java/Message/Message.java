@@ -1,4 +1,4 @@
-package Notification;
+package Message;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -119,16 +119,18 @@ public class Message {
 
     public static void sendMessage() {
         try {
-            WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ion-textarea-0")));
-            message.sendKeys("merhaba");
+            for (int i = 0; i < 10; i++) {
+                WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ion-textarea-0")));
+                message.sendKeys("merhaba" + i);
 
-            WebElement sendMessageButton = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.id("btn-send-message")));
-            sendMessageButton.click();
+                WebElement sendMessageButton = wait.until(ExpectedConditions.elementToBeClickable(
+                        By.id("btn-send-message")));
+                sendMessageButton.click();
 
+                Thread.sleep(1000);
+            }
         } catch (Exception e) {
             e.getMessage();
         }
     }
-
 }

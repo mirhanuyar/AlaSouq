@@ -54,7 +54,7 @@ public class Password {
         Thread.sleep(1000);
 
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("mirhan225@gmail.com");
+        emailField.sendKeys("uyaruyr73@gmail.com");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
         currentPasswordField.sendKeys("uyar6565");
@@ -72,7 +72,7 @@ public class Password {
 
     public static void hesapBilgilerim() throws InterruptedException {
         WebElement accountInfoButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//span[contains(@class, 'sc-ion-label-ios') and text()='Hesap Bilgilerim']")));
+                By.id("link-account-info")));
         accountInfoButton.click();
         Thread.sleep(2000);
     }

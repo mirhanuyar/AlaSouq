@@ -4,12 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Scanner;
 
 public class Create {
     public static WebDriver driver;
@@ -45,7 +45,11 @@ public class Create {
         tamam();
         location();
         devamEt();
-        buttonAddress();
+        mapClick();
+        adresBilgisiButton();
+        iletisimButton();
+        photoUpload();
+        photoButton();
     }
 
     public static void openRegistrationPage() {
@@ -59,7 +63,7 @@ public class Create {
         Thread.sleep(1000);
 
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("mirhan.uyar@solidsoft.com.tr");
         Thread.sleep(1000);
 
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
@@ -120,7 +124,7 @@ public class Create {
         Thread.sleep(1000);
     }
 
-    public static void tamam() throws InterruptedException {
+      public static void tamam() throws InterruptedException {
         clickElement(By.id("btn-continue-details-advert"));
     }
 
@@ -132,8 +136,31 @@ public class Create {
         clickElement(By.id("btn-continue-communication"));
     }
 
-    public static void buttonAddress() throws InterruptedException {
-        clickElement(By.id("btn-continue-communication"));
+    public static void adresBilgisiButton()  throws InterruptedException {
+        clickElement(By.id("btn-continue-address"));
+    }
+
+    public static void mapClick() throws InterruptedException {
+        System.out.println("devam etmek için enter tuşuna basın");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
+
+
+    public static void iletisimButton() throws InterruptedException {
+        List<WebElement> buttons = driver.findElements(By.id("btn-continue-communication"));
+        WebElement correctButton = buttons.get(1);
+        correctButton.click();
+    }
+
+    public static void photoUpload() throws InterruptedException {
+        System.out.println("devam etmek için enter tuşuna basın");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
+
+    public static void photoButton() throws InterruptedException {
+        clickElement(By.id("btn-continue-photo-select"));
     }
 
     public static void clickElement(By locator) throws InterruptedException {
@@ -141,22 +168,4 @@ public class Create {
         element.click();
         Thread.sleep(1000);
     }
-
-
-
-    /*public static void mapClick() throws InterruptedException {
-        WebElement mapElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".map-container-inner")));
-
-        Actions actions = new Actions(driver);
-
-        int xOffset = 100;
-        int yOffset = 100;
-
-        actions.moveToElement(mapElement, xOffset, yOffset).click().perform();
-
-        System.out.println("Harita üzerinde belirtilen alana tıklama işlemi gerçekleştirildi.");
-        Thread.sleep(2000);
-    }*/
-
-
 }

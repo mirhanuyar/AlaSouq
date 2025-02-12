@@ -50,9 +50,9 @@ public class Complaint {
         List<WebElement> listItems = driver.findElements(By.tagName("ion-item"));
 
         for (WebElement item : listItems) {
-            if (item.getText().contains(text)) {  // Verilen metni içeren öğe bulunuyor
+            if (item.getText().contains(text)) {
                 item.click();
-                break; // Öğeyi bulup tıkladıktan sonra döngüden çıkıyoruz
+                break;
             }
         }
     }
@@ -73,10 +73,10 @@ public class Complaint {
         Thread.sleep(1000);
 
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("mirhan225@gmail.com");
+        emailField.sendKeys("uyaruyr73@gmail.com");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("uyar6565");
+        currentPasswordField.sendKeys("mirhan6565");
         Thread.sleep(3000);
     }
 
@@ -120,7 +120,7 @@ public class Complaint {
     public static void clickComplaintButton() throws InterruptedException {
         try {
             WebElement complaintButton = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//ion-item[@id='advert-complaint-link']//span[contains(text(), 'İlan ile ilgili şikayetim var')]")));
+                    By.id("advert-complaint-link")));
             complaintButton.click();
         } catch (Exception e) {
             System.out.println("Şikayet butonu bulunamadı veya tıklanamadı: " + e.getMessage());
@@ -130,7 +130,7 @@ public class Complaint {
         try {
             WebElement complaintOption = wait.until(ExpectedConditions.elementToBeClickable(
                     By.xpath("//ion-radio[contains(text(), '" + optionText + "')]")));
-            complaintOption.click();  // Radyo kutucuğuna tıklıyoruz
+            complaintOption.click();
         } catch (Exception e) {
             System.out.println("Şikayet seçeneği bulunamadı veya tıklanamadı: " + e.getMessage());
         }
