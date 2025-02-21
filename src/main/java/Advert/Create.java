@@ -1,6 +1,7 @@
 package Advert;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -50,10 +51,14 @@ public class Create {
         iletisimButton();
         photoUpload();
         photoButton();
+        acceptRulesAdvert();
+        btnContinue();
+        clickProButton();
+
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/my-account");
+        driver.get("http://localhost:4200/home");
     }
 
     public static void fillForm() throws InterruptedException {
@@ -63,7 +68,7 @@ public class Create {
         Thread.sleep(1000);
 
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("mirhan.uyar@solidsoft.com.tr");
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(1000);
 
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
@@ -76,7 +81,7 @@ public class Create {
     }
 
     public static void createAdvert() throws InterruptedException {
-        clickElement(By.id("icon-circle-outline"));
+        clickElement(By.id("btn-construct"));
     }
 
     public static void emlak() throws InterruptedException {
@@ -162,6 +167,27 @@ public class Create {
     public static void photoButton() throws InterruptedException {
         clickElement(By.id("btn-continue-photo-select"));
     }
+
+    public static void acceptRulesAdvert() throws InterruptedException {
+        clickElement(By.id("checkbox-accept-rules-advert"));
+        Thread.sleep(1000);
+    }
+
+    public static void btnContinue() throws InterruptedException {
+        clickElement(By.id("btn-continue"));
+    }
+
+    public static void clickProButton() throws InterruptedException {
+        WebElement proButton = driver.findElement(By.xpath("//ion-segment-button[@id='btn-offer-segment']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", proButton);
+
+        Thread.sleep(1000);
+    }
+
+
+
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));

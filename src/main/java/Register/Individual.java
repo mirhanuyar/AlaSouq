@@ -17,15 +17,15 @@ public class Individual {
         setUpDriver();
         try {
             openRegistrationPage();
-            Thread.sleep(1000);
+            clickRegisterButton();
+            clickRegisterEmail();
             fillForm();
-            Thread.sleep(1000);
             submitForm();
-            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -33,7 +33,16 @@ public class Individual {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/auth/register-user");
+        driver.get("http://localhost:4200/");
+    }
+
+    public static void clickRegisterButton() throws InterruptedException {
+        clickElement(By.xpath("//ion-item[contains(@class, 'item')]//ion-label[@id='link-register']"));
+        Thread.sleep(1000);
+    }
+
+    public static void clickRegisterEmail() throws InterruptedException {
+        clickElement(By.xpath("//ion-button[contains(text(), 'Register with email')]"));
     }
 
     public static void fillForm() throws InterruptedException {

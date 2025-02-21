@@ -63,7 +63,7 @@ public class Complaint {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/my-account");
+        driver.get("http://localhost:4200/");
     }
 
     public static void fillForm() throws InterruptedException {
@@ -73,10 +73,10 @@ public class Complaint {
         Thread.sleep(1000);
 
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("uyaruyr73@gmail.com");
+        emailField.sendKeys("mirhan.uyar@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("mirhan6565");
+        currentPasswordField.sendKeys("admin");
         Thread.sleep(3000);
     }
 

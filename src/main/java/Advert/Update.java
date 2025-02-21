@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Update {
     public static WebDriver driver;
@@ -33,12 +34,15 @@ public class Update {
         fillForm();
         submitForm();
         activeAdvert();
+        searchBar();
         clickSpecificAdvert();
         update();
+        updateAdvertTitle();
+        updateDescription();
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/my-account");
+        driver.get("http://localhost:4200/home");
     }
 
     public static void fillForm() throws InterruptedException {
@@ -64,13 +68,37 @@ public class Update {
         clickElement(By.id("link-active"));
     }
 
+
+    public static void searchBar() throws InterruptedException {
+        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
+        searchBar.sendKeys("AYDIN GERMENCİKTE BAHÇELİ 2 +1 MÜSTAKİL EV");
+        Thread.sleep(1000);
+        searchBar.clear();
+        searchBar.sendKeys("100003");
+    }
+
     public static void clickSpecificAdvert() throws InterruptedException {
-        clickElement(By.xpath("//li[normalize-space()='450 Görüntülenme']"));
+        clickElement(By.xpath("//li[normalize-space()='184 Görüntülenme']"));
     }
 
     public static void update() throws InterruptedException {
         clickElement(By.id("btn-edit-advert"));
     }
+
+    public static void updateAdvertTitle() throws InterruptedException {
+        WebElement titleInput = driver.findElement(By.xpath("//ion-input[@id='value-change']//input"));
+        titleInput.clear();
+        titleInput.sendKeys("SAHİBİNDEN BUTİK SİTE İÇİ 3+1 ULTRA LÜKS SIFIR DAİREEE");
+        Thread.sleep(1000);
+    }
+
+    public static void updateDescription() throws InterruptedException {
+        WebElement descriptionInput = driver.findElement(By.xpath("//ion-input[@id='html-mode-active']//input"));
+        descriptionInput.clear();  // Mevcut metni sil
+        descriptionInput.sendKeys("Hawaaiiii maleeeee");  // Yeni metni yaz
+        Thread.sleep(1000); // UI'nin güncellenmesi için bekleme süresi
+    }
+
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -78,3 +106,6 @@ public class Update {
         Thread.sleep(1000);
     }
 }
+
+
+

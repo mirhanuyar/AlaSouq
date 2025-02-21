@@ -32,7 +32,7 @@ public class Mail {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
     public static void openRegistrationPage(){
-        driver.get("https://alasouq.com/my-account");
+        driver.get("http://localhost:4200/");
     }
     public static void fillForm() throws InterruptedException {
 
