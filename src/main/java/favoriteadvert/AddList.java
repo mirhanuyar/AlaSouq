@@ -1,11 +1,9 @@
-package Advert;
+package favoriteadvert;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteAdd {
+public class AddList {
     public static WebDriver driver;
     public static WebDriverWait wait;
     private static List<String> favoriteAdverts = new ArrayList<>();
@@ -37,10 +35,9 @@ public class FavoriteAdd {
             emlakListeleme();
             Thread.sleep(2000);
             clickAdvert();
-            Thread.sleep(5000);
-            Thread.sleep(5000);
+            Thread.sleep(2000);
             addFavoriteAdvert("208 M2 ARSA ÜZERİNDE SIFIRLANMIŞ 2+1 BAHÇELİ MÜSTAKİL");
-
+            Thread.sleep(3000);
             createMultipleFavoriteLists(3);
 
         } catch (InterruptedException e) {
@@ -165,8 +162,6 @@ public class FavoriteAdd {
             System.out.println("Kaydet butonuna tıklanamadı: " + e.getMessage());
         }
     }
-
-
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
