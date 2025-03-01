@@ -1,4 +1,4 @@
-package Message;
+package message;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,9 +8,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
-public class Message {
+public class SwearMessage {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -57,7 +59,7 @@ public class Message {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/my-account");
+        driver.get("http://localhost:4200/home");
     }
 
     public static void fillForm() throws InterruptedException {
@@ -67,10 +69,10 @@ public class Message {
         Thread.sleep(1000);
 
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("uyaruyr73@gmail.com");
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("uyar6565");
+        currentPasswordField.sendKeys("admin");
         Thread.sleep(3000);
     }
 
@@ -101,10 +103,10 @@ public class Message {
         emlakListAllButton.click();
     }
 
-    public static void clickAdvert() throws InterruptedException {
+    public static void clickAdvert() {
         try {
             WebElement advertItem = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//h3[contains(text(), 'AYDIN GERMENCİKTE BAHÇELİ 2 +1 MÜSTAKİL EV')]")));
+                    By.xpath("//h3[contains(text(), 'KİREÇHANE KİRALIK DENİZ MANZARALI ARSA')]")));
             advertItem.click();
         } catch (Exception e) {
             System.out.println("İlan bulunamadı veya tıklanamadı: " + e.getMessage());
@@ -119,9 +121,13 @@ public class Message {
 
     public static void sendMessage() {
         try {
+            List<String> swear = Arrays.asList("dalyarak","amcık","orospu çocuğu","piç","amk","götveren","yarrak","yavşak","amına koyduğum");
+
+            Random random = new Random();
             for (int i = 0; i < 10; i++) {
                 WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ion-textarea-0")));
-                message.sendKeys("merhaba" + i);
+                String randomSwear = swear.get(random.nextInt(swear.size()));
+                message.sendKeys(randomSwear);
 
                 WebElement sendMessageButton = wait.until(ExpectedConditions.elementToBeClickable(
                         By.id("btn-send-message")));

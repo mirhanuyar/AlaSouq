@@ -1,6 +1,7 @@
-package Advert;
+package advert;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,9 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 
-public class Update {
+public class PriceReduction {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -31,14 +31,22 @@ public class Update {
 
     public static void executeSteps() throws InterruptedException {
         openRegistrationPage();
+        Thread.sleep(2000);
         fillForm();
+        Thread.sleep(2000);
         submitForm();
+        Thread.sleep(2000);
         activeAdvert();
-        searchBar();
-        clickSpecificAdvert();
-        update();
-        updateAdvertTitle();
-        updateDescription();
+        Thread.sleep(2000);
+        clickAdvert();
+        Thread.sleep(2000);
+        clickUpdateAdvert();
+        Thread.sleep(2000);
+        decreasePrice();
+        Thread.sleep(2000);
+        acceptRules();
+        Thread.sleep(2000);
+        clickContinue();
     }
 
     public static void openRegistrationPage() {
@@ -52,7 +60,7 @@ public class Update {
         Thread.sleep(1000);
 
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("onder.backoffice@solidsoft.com.tr");
         Thread.sleep(1000);
 
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
@@ -68,42 +76,37 @@ public class Update {
         clickElement(By.id("link-active"));
     }
 
+    public static void clickAdvert() throws InterruptedException {
+        WebElement advertItem = driver.findElement(By.xpath("//ion-item[div/div/label[text()='#100012']]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", advertItem);
 
-    public static void searchBar() throws InterruptedException {
-        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
-        searchBar.sendKeys("AYDIN GERMENCİKTE BAHÇELİ 2 +1 MÜSTAKİL EV");
-        Thread.sleep(1000);
-        searchBar.clear();
-        searchBar.sendKeys("100003");
     }
 
-    public static void clickSpecificAdvert() throws InterruptedException {
-        clickElement(By.xpath("//li[normalize-space()='184 Görüntülenme']"));
-    }
-
-    public static void update() throws InterruptedException {
+    public static void clickUpdateAdvert() throws InterruptedException{
         clickElement(By.id("btn-edit-advert"));
     }
 
-    public static void updateAdvertTitle() throws InterruptedException {
-        WebElement titleInput = driver.findElement(By.xpath("//ion-input[@id='value-change']//input"));
-        titleInput.clear();
-        titleInput.sendKeys("SAHİBİNDEN BUTİK SİTE İÇİ 3+1 ULTRA LÜKS SIFIR DAİREEE");
-        Thread.sleep(1000);
+    public static void decreasePrice() throws InterruptedException{
+        WebElement element = clickElement(By.id("ion-input-3"));
+        element.clear();
+        element.sendKeys("1000");
+        Thread.sleep(1500);
+        clickElement(By.id("btn-update-advert-details"));
     }
 
-    public static void updateDescription() throws InterruptedException {
-        WebElement descriptionInput = driver.findElement(By.xpath("//ion-input[@id='html-mode-active']//input"));
-        descriptionInput.clear();  // Mevcut metni sil
-        descriptionInput.sendKeys("Hawaaiiii maleeeee");  // Yeni metni yaz
-        Thread.sleep(1000); // UI'nin güncellenmesi için bekleme süresi
+    public static void acceptRules() throws InterruptedException{
+        clickElement(By.id("checkbox-accept-rules-advert"));
     }
 
+    public static void clickContinue() throws InterruptedException{
+        clickElement(By.id("btn-continue"));
+    }
 
-    public static void clickElement(By locator) throws InterruptedException {
+    public static WebElement clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
         Thread.sleep(1000);
+        return element;
     }
 }
 

@@ -1,4 +1,4 @@
-package Advert;
+package message;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,8 +9,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
-public class Complaint {
+public class Send {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -33,14 +34,8 @@ public class Complaint {
             Thread.sleep(1000);
             clickAdvert();
             Thread.sleep(1000);
-            clickComplaintButton();
-            Thread.sleep(1000);
-            selectComplaintOptionByText("İlan kategorisi hatalı");
-            Thread.sleep(1000);
-            enterComplaintDescription("bu ilan hatalı bilgiler içeriyor");
-            Thread.sleep(1000);
-            clickSendButton();
-            Thread.sleep(1000);
+            clickMessage();
+            sendMessage();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -63,7 +58,7 @@ public class Complaint {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4200/");
+        driver.get("http://localhost:4200/home");
     }
 
     public static void fillForm() throws InterruptedException {
@@ -73,7 +68,7 @@ public class Complaint {
         Thread.sleep(1000);
 
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("mirhan.uyar@solidsoft.com.tr");
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
         currentPasswordField.sendKeys("admin");
@@ -107,51 +102,37 @@ public class Complaint {
         emlakListAllButton.click();
     }
 
-    public static void clickAdvert() throws InterruptedException {
+    public static void clickAdvert() {
         try {
             WebElement advertItem = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//h3[contains(text(), 'AYDIN GERMENCİKTE BAHÇELİ 2 +1 MÜSTAKİL EV')]")));
+                    By.xpath("//h3[contains(text(), 'KİREÇHANE KİRALIK DENİZ MANZARALI ARSA')]")));
             advertItem.click();
         } catch (Exception e) {
             System.out.println("İlan bulunamadı veya tıklanamadı: " + e.getMessage());
         }
     }
 
-    public static void clickComplaintButton() throws InterruptedException {
-        try {
-            WebElement complaintButton = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.id("advert-complaint-link")));
-            complaintButton.click();
-        } catch (Exception e) {
-            System.out.println("Şikayet butonu bulunamadı veya tıklanamadı: " + e.getMessage());
-        }
-     }
-    public static void selectComplaintOptionByText(String optionText) throws InterruptedException {
-        try {
-            WebElement complaintOption = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//ion-radio[contains(text(), '" + optionText + "')]")));
-            complaintOption.click();
-        } catch (Exception e) {
-            System.out.println("Şikayet seçeneği bulunamadı veya tıklanamadı: " + e.getMessage());
-        }
+    public static void clickMessage() throws InterruptedException {
+        WebElement messageButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.id("btn-go-to-message")));
+        messageButton.click();
     }
 
-    public static void enterComplaintDescription(String message) throws InterruptedException {
+    public static void sendMessage() {
         try {
-            WebElement descriptionInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.id("ion-input-2")));
-            descriptionInput.sendKeys(message);
-        } catch (Exception e) {
-            System.out.println("Şikayet açıklaması alanına yazılamadı: " + e.getMessage());
-        }
-    }
 
-    public static void clickSendButton() throws InterruptedException {
-        try {
-            WebElement sendButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-complaint-send")));
-            sendButton.click();
+            for (int i = 0; i < 10; i++) {
+                WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ion-textarea-0")));
+                message.sendKeys("merhaba" + i);
+
+                WebElement sendMessageButton = wait.until(ExpectedConditions.elementToBeClickable(
+                        By.id("btn-send-message")));
+                sendMessageButton.click();
+
+                Thread.sleep(1000);
+            }
         } catch (Exception e) {
-            System.out.println("Gönder butonuna tıklanamadı: " + e.getMessage());
+            e.getMessage();
         }
     }
 }

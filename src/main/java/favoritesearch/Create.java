@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Save {
+public class Create {
     public static WebDriver driver;
     public static WebDriverWait wait;
     private static List<String> favoriteAdverts = new ArrayList<>();
@@ -125,13 +125,9 @@ public class Save {
         saveButton.click();
     }
 
-
-
-
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
         Thread.sleep(1000);
     }
-
 }

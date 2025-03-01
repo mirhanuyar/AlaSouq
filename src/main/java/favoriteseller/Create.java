@@ -1,20 +1,18 @@
-package Advert;
+package favoriteseller;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.Duration;
 import java.util.List;
 
-public class FavoriteAdd {
+public class Create {
     public static WebDriver driver;
     public static WebDriverWait wait;
     private static List<String> favoriteAdverts = new ArrayList<>();
@@ -30,18 +28,17 @@ public class FavoriteAdd {
             Thread.sleep(2000);
             clickItemByText("Konut");
             Thread.sleep(2000);
-            arama();
+            search();
             Thread.sleep(2000);
             emlak();
             Thread.sleep(2000);
             emlakListeleme();
             Thread.sleep(2000);
             clickAdvert();
-            Thread.sleep(5000);
-            Thread.sleep(5000);
-            addFavoriteAdvert("208 M2 ARSA ÜZERİNDE SIFIRLANMIŞ 2+1 BAHÇELİ MÜSTAKİL");
-
-            createMultipleFavoriteLists(3);
+            Thread.sleep(2000);
+            clickTenantName();
+            Thread.sleep(2000);
+            clickAddSellerToFavorites();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -86,7 +83,7 @@ public class FavoriteAdd {
         Thread.sleep(2000);
     }
 
-    public static void arama() throws InterruptedException {
+    public static void search() throws InterruptedException {
         WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#btn-search")));
         searchButton.click();
     }
@@ -112,60 +109,15 @@ public class FavoriteAdd {
         }
     }
 
-    public static void addFavoriteAdvert(String advertTitle) {
-        try {
-            WebElement favoriteButton = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//*[@id=\"open-favorite-modal\"]")));
-            favoriteButton.click();
-
-            favoriteAdverts.add(advertTitle);
-            System.out.println("Favorilere eklendi: " + advertTitle);
-
-            clickSaveFavoriteListButton();
-        } catch (Exception e) {
-            System.out.println("Favori butonuna tıklanamadı: " + e.getMessage());
-        }
+    public static void clickTenantName() {
+        WebElement tenantElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='tenant-name']/span")));
+        tenantElement.click();
     }
 
-    public static void createMultipleFavoriteLists(int listCount) throws InterruptedException {
-        for (int i = 1; i <= listCount; i++) {
-            System.out.println("Favori listesi oluşturuluyor: Favori Listem " + i);
-
-            WebElement addNewListButton = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//ion-item[.//span[text()='Yeni Liste Ekle']]")));
-            addNewListButton.click();
-
-            Thread.sleep(1000);
-
-            favoriteListName("Favori Listem " + LocalDateTime.now().toString().replace(":", "-"));
-
-            clickSaveFavoriteListButton();
-
-            Thread.sleep(1000);
-        }
+    public static void clickAddSellerToFavorites() {
+        WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@type='button']//span[contains(text(),'Satıcıyı Favorilere Ekle')]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
     }
-
-    public static void favoriteListName(String message) {
-        try {
-            WebElement descriptionInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.id("ion-input-2")));
-            descriptionInput.sendKeys(message);
-        } catch (Exception e) {
-            System.out.println("Yeni favori listesi alanına yazılamadı: " + e.getMessage());
-        }
-    }
-
-    public static void clickSaveFavoriteListButton() {
-        try {
-            WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-save-favorite-list")));
-            saveButton.click();
-
-            wait.until(ExpectedConditions.invisibilityOf(saveButton));
-        } catch (Exception e) {
-            System.out.println("Kaydet butonuna tıklanamadı: " + e.getMessage());
-        }
-    }
-
 
 
     public static void clickElement(By locator) throws InterruptedException {

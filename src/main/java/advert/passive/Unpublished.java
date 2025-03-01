@@ -1,4 +1,4 @@
-package Advert;
+package advert.passive;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,39 +9,35 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class DeleteAdvert {
+public class Unpublished {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
     public static void main(String[] args) {
         setUpDriver();
-
         try {
-            executeSteps();
+            openRegistrationPage();
+            Thread.sleep(2000);
+            fillForm();
+            Thread.sleep(2000);
+            submitForm();
+            Thread.sleep(2000);
+            activeAdvert();
+            Thread.sleep(2000);
+            searchBar();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+
     public static void setUpDriver() {
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-    }
-
-    public static void executeSteps() throws InterruptedException {
-        openRegistrationPage();
-        fillForm();
-        submitForm();
-        activeAdvert();
-        clickSpecificAdvert();
-        update();
-        radioButton();
-        activateToggleButton();
-        clickRempveButton();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/my-account");
+        driver.get("http://localhost:4200/home");
     }
 
     public static void fillForm() throws InterruptedException {
@@ -52,49 +48,30 @@ public class DeleteAdvert {
 
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
-        Thread.sleep(1000);
-
+        Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
         currentPasswordField.sendKeys("admin");
-        Thread.sleep(1000);
+        Thread.sleep(3000);
     }
 
     public static void submitForm() throws InterruptedException {
         clickElement(By.id("btn-lgn-email"));
+        Thread.sleep(2000);
     }
 
     public static void activeAdvert() throws InterruptedException {
         clickElement(By.id("link-active"));
     }
 
-    public static void clickSpecificAdvert() throws InterruptedException {
-        clickElement(By.xpath("//ion-item[.//label[text()='#101135']]"));
-    }
-
-    public static void update() throws InterruptedException {
-        clickElement(By.id("btn-take-down-advert"));
-    }
-
-    public static void radioButton() throws InterruptedException {
-        clickElement(By.id("radio-complaint-item"));
-    }
-
-    public static void activateToggleButton() throws InterruptedException {
-        WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//ion-toggle[contains(@class, 'toggle-justify-space-between')]")
-        ));
-
-        toggleButton.click();
+    public static void searchBar() throws InterruptedException {
+        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
+        searchBar.sendKeys("AYDIN GERMENCİKTE BAHÇELİ 2 +1 MÜSTAKİL EV");
         Thread.sleep(1000);
+        searchBar.clear();
+        searchBar.sendKeys("100003");
     }
-
-    public static void clickRempveButton() throws InterruptedException {
-        clickElement(By.xpath("//ion-button[contains(@class, 'button-full') and text()='Yayından Kaldır']"));
-    }
-
     public static void clickElement(By locator) throws InterruptedException {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
-        Thread.sleep(1000);
     }
 }
