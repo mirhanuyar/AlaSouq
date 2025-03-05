@@ -1,7 +1,6 @@
-package advert.passive;
+package user_ınformation;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,8 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Scanner;
 
-public class Unpublished {
+public class UpdateProfilePhoto {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -23,19 +23,17 @@ public class Unpublished {
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            passiveAdvert();
+            userInformation();
             Thread.sleep(2000);
-            searchBar();
+            personalInformation();
             Thread.sleep(2000);
-            clickAdvert();
+            clickUpdatePhoto();
             Thread.sleep(2000);
-            clickEdit();
+            loadPhoto();
             Thread.sleep(2000);
-            backPage();
+            choosingPhoto();
             Thread.sleep(2000);
-            clickPublish();
-            Thread.sleep(2000);
-            scrollToBottom();
+            saveButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -70,36 +68,31 @@ public class Unpublished {
         Thread.sleep(2000);
     }
 
-    public static void passiveAdvert() throws InterruptedException {
-        clickElement(By.id("link-passive"));
+    public static void userInformation() throws InterruptedException {
+        clickElement(By.id("link-account-info"));
     }
 
-    public static void searchBar() throws InterruptedException {
-        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
-        searchBar.sendKeys("DENİZ MANZARALI YOLA SIFIR İMARLI TEK TAPU ARSA-ARAÇ TAKASLI");
-        Thread.sleep(1000);
-        searchBar.clear();
-        searchBar.sendKeys("100036");
+    public static void personalInformation() throws InterruptedException {
+        clickElement(By.id("link-profile"));
     }
 
-    public static void clickAdvert() throws InterruptedException {
-        clickElement(By.xpath("//div[contains(@class, 'advert-content')]"));
+    public static void clickUpdatePhoto() throws InterruptedException{
+        clickElement(By.id("btn-take-photo"));
     }
 
-    public static void clickEdit() throws InterruptedException {
-        clickElement(By.id("btn-edit-advert"));
+    public static void loadPhoto() throws InterruptedException{
+        WebElement galleryButton = driver.findElement(By.xpath("//div[span[text()='Galeriden Seç']]"));
+        galleryButton.click();
     }
 
-    public static void backPage() throws InterruptedException {
-        driver.navigate().back();
+    public static void choosingPhoto() throws InterruptedException{
+        System.out.println("devam etmek için enter tuşuna basın");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 
-    public static void clickPublish() throws InterruptedException {
-        clickElement(By.id("btn-take-down-advert"));
-    }
-
-    public static void scrollToBottom() {
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    public static void saveButton() throws InterruptedException{
+        clickElement(By.id("btn-update"));
     }
 
     public static void clickElement(By locator) throws InterruptedException {

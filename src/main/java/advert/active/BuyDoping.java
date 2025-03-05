@@ -42,11 +42,15 @@ public class BuyDoping {
             Thread.sleep(2000);
             dopingContinue();
             Thread.sleep(2000);
-            selectOffer();
+            urgentUrgentSelect();
             Thread.sleep(2000);
-            chooseOffer();
+            updateSelect();
             Thread.sleep(2000);
-            paymentMethod();
+            boldText();
+            Thread.sleep(2000);
+            selectTopListing();
+            Thread.sleep(2000);
+            //paymentMethod();
             Thread.sleep(2000);
             continuePayment();
         } catch (InterruptedException e) {
@@ -128,26 +132,63 @@ public class BuyDoping {
         clickElement(By.id("btn-doping-info-continue"));
     }
 
-    public static void selectOffer() throws InterruptedException {
-        WebElement chevronIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'select-offer')]//ion-icon[@name='chevron-down-outline']")));
-        chevronIcon.click();
+    public static void urgentUrgentSelect() throws InterruptedException {
+        WebElement selectOffer = driver.findElement(By.cssSelector(".select-offer"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", selectOffer);
+        Thread.sleep(2000);
+        WebElement fourWeeksOption = driver.findElement(By.xpath("//ion-item/div/span[contains(text(), '4 Hafta')]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", fourWeeksOption);
+
     }
 
-    public static void chooseOffer() throws InterruptedException {
-        WebElement offer = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//ion-item[div/span[text()='4 Hafta'] and div/span[contains(text(), '109.8 USD')]]")));
-        offer.click();
+    public static void updateSelect() throws InterruptedException {
+        WebElement guncelimOffer = driver.findElement(By.xpath("//div[contains(@class, 'offer-item')][.//span[text()='Güncelim']]"));
+
+        WebElement selectOffer = guncelimOffer.findElement(By.cssSelector(".select-offer"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", selectOffer);
+        Thread.sleep(2000);
+
+        WebElement oneAdetOption = driver.findElement(By.xpath("//ion-list//ion-item/div/span[contains(text(), '1 Adet')]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", oneAdetOption);
     }
 
-    public static void paymentMethod() throws InterruptedException {
+    public static void boldText() throws InterruptedException {
+        WebElement kalinYaziOffer = driver.findElement(By.xpath("//div[contains(@class, 'offer-item')][.//span[text()='Kalın Yazı & Renkli Çerçeve']]"));
+
+        WebElement selectOffer = kalinYaziOffer.findElement(By.cssSelector(".select-offer"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", selectOffer);
+        Thread.sleep(2000);
+
+        WebElement oneWeekOption = driver.findElement(By.xpath("//ion-list//ion-item/div/span[contains(text(), '4 Hafta')]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", oneWeekOption);
+    }
+
+    public static void selectTopListing() throws InterruptedException {
+        WebElement topListingOffer = driver.findElement(By.xpath("//div[contains(@class, 'offer-item')][.//span[text()='Üst Sıradayım']]"));
+
+        WebElement selectOffer = topListingOffer.findElement(By.cssSelector(".select-offer"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", selectOffer);
+        Thread.sleep(2000);
+
+        WebElement oneWeekOption = driver.findElement(By.xpath("//ion-list//ion-item/div/span[contains(text(), '4 Hafta')]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", oneWeekOption);
+    }
+
+
+    /*public static void paymentMethod() throws InterruptedException {
         WebElement radioButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//ion-radio[span[text()='PayPal']]")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", radioButton);
-    }
+    }*/
 
     public static void continuePayment() throws InterruptedException {
-        WebElement devamEtButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("btn-doping-info-continue")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", devamEtButton);
-        devamEtButton.click();
+        WebElement continueButton = driver.findElement(By.xpath("//*[text()='Devam Et' or contains(@id, 'doping-info-continue')]"));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", continueButton);
+        Thread.sleep(1000);
+
+        wait.until(ExpectedConditions.elementToBeClickable(continueButton));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", continueButton);
     }
 
     public static void clickElement(By locator) throws InterruptedException {

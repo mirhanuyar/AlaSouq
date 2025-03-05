@@ -1,4 +1,4 @@
-package advert.passive;
+package user_ınformation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,8 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Scanner;
 
-public class Unpublished {
+public class UpdatePassword {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -23,19 +24,18 @@ public class Unpublished {
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            passiveAdvert();
+            userInformation();
             Thread.sleep(2000);
-            searchBar();
+            changePassword();
             Thread.sleep(2000);
-            clickAdvert();
+            currentPassword();
             Thread.sleep(2000);
-            clickEdit();
+            newPassword();
             Thread.sleep(2000);
-            backPage();
+            confirmPassword();
             Thread.sleep(2000);
-            clickPublish();
-            Thread.sleep(2000);
-            scrollToBottom();
+            updateButton();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -70,36 +70,32 @@ public class Unpublished {
         Thread.sleep(2000);
     }
 
-    public static void passiveAdvert() throws InterruptedException {
-        clickElement(By.id("link-passive"));
+    public static void userInformation() throws InterruptedException {
+        clickElement(By.id("link-account-info"));
     }
 
-    public static void searchBar() throws InterruptedException {
-        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
-        searchBar.sendKeys("DENİZ MANZARALI YOLA SIFIR İMARLI TEK TAPU ARSA-ARAÇ TAKASLI");
-        Thread.sleep(1000);
-        searchBar.clear();
-        searchBar.sendKeys("100036");
+    public static void changePassword() throws InterruptedException {
+        clickElement(By.id("link-change-password"));
     }
 
-    public static void clickAdvert() throws InterruptedException {
-        clickElement(By.xpath("//div[contains(@class, 'advert-content')]"));
+    public static void currentPassword() throws InterruptedException {
+        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='currentPassword']//input"));
+        changePassword.sendKeys("admin");
     }
 
-    public static void clickEdit() throws InterruptedException {
-        clickElement(By.id("btn-edit-advert"));
+    public static void newPassword() throws InterruptedException {
+        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='newPassword']//input"));
+        changePassword.sendKeys("adminttest");
     }
 
-    public static void backPage() throws InterruptedException {
-        driver.navigate().back();
+    public static void confirmPassword() throws InterruptedException {
+        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='confirmPassword']//input"));
+        changePassword.sendKeys("adminttest");
     }
 
-    public static void clickPublish() throws InterruptedException {
-        clickElement(By.id("btn-take-down-advert"));
-    }
-
-    public static void scrollToBottom() {
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    public static void updateButton() throws InterruptedException {
+        WebElement button = driver.findElement(By.id("btn-password-update"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
     }
 
     public static void clickElement(By locator) throws InterruptedException {
