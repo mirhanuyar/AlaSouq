@@ -1,18 +1,17 @@
-package message;
+package homepage_categories;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
 
-public class GoAdvert{
+public class CategoryControls {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -25,18 +24,15 @@ public class GoAdvert{
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            viewMessages();
+            clickSearch();
             Thread.sleep(2000);
-            clickMessage();
-            Thread.sleep(2000);
-            clickDetails();
-            Thread.sleep(2000);
-            goToAdvert();
+            clickAllCategories();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -57,7 +53,7 @@ public class GoAdvert{
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin6565");
+        currentPasswordField.sendKeys("adminadmin");
         Thread.sleep(3000);
     }
 
@@ -66,25 +62,25 @@ public class GoAdvert{
         Thread.sleep(2000);
     }
 
-
-    public static void viewMessages() throws InterruptedException {
-        clickElement(By.id("link-messages"));
+    public static void clickSearch() throws InterruptedException {
+        clickElement(By.id("btn-search"));
     }
 
-    public static void clickMessage() throws InterruptedException {
-        clickElement(By.id("click-message-detail"));
+    public static void clickAllCategories() throws InterruptedException {
+        List<WebElement> categories = driver.findElements(By.id("category-selected"));
+        for (int i = 0; i < categories.size(); i++) {
+            categories = driver.findElements(By.xpath("//ion-col[@id='category-selected']"));
+            WebElement clickableDiv = categories.get(i).findElement(By.cssSelector(".category-icon div"));
+
+            wait.until(ExpectedConditions.elementToBeClickable(clickableDiv)).click();
+            Thread.sleep(2000);
+
+            driver.navigate().back();
+            Thread.sleep(2000);
+        }
     }
 
-    public static void clickDetails() throws InterruptedException {
-        clickElement(By.id("btn-mdl-msg"));
-    }
 
-    public static void goToAdvert() throws InterruptedException {
-        WebElement ilanButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[.//span[text()='İlana Git']]")));
-        ilanButton.click();
-
-    }
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();

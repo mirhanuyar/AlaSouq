@@ -1,4 +1,4 @@
-package user_ınformation;
+package account_ınformation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,9 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Scanner;
 
-public class UpdateProfilePhoto {
+public class AccountDelete {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -25,15 +24,14 @@ public class UpdateProfilePhoto {
             Thread.sleep(2000);
             userInformation();
             Thread.sleep(2000);
-            personalInformation();
+            accountDeleted();
             Thread.sleep(2000);
-            clickUpdatePhoto();
+            deletedButton();
             Thread.sleep(2000);
-            loadPhoto();
+            checkbox();
             Thread.sleep(2000);
-            choosingPhoto();
-            Thread.sleep(2000);
-            saveButton();
+            buttonDelete();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -59,7 +57,7 @@ public class UpdateProfilePhoto {
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin");
+        currentPasswordField.sendKeys("admin6565");
         Thread.sleep(3000);
     }
 
@@ -72,27 +70,23 @@ public class UpdateProfilePhoto {
         clickElement(By.id("link-account-info"));
     }
 
-    public static void personalInformation() throws InterruptedException {
-        clickElement(By.id("link-profile"));
+    public static void accountDeleted() throws InterruptedException {
+        clickElement(By.id("link-delete-account"));
     }
 
-    public static void clickUpdatePhoto() throws InterruptedException{
-        clickElement(By.id("btn-take-photo"));
+    public static void deletedButton() throws InterruptedException {
+        WebElement deleteButton = driver.findElement(By.xpath("//ion-button[contains(text(), 'Hesabımı İptal Et')]"));
+        deleteButton.click();
     }
 
-    public static void loadPhoto() throws InterruptedException{
-        WebElement galleryButton = driver.findElement(By.xpath("//div[span[text()='Galeriden Seç']]"));
-        galleryButton.click();
+    public static void checkbox() throws InterruptedException {
+        WebElement checkbox = driver.findElement(By.xpath("//ion-checkbox//span[contains(text(), 'Hesap İptalini Onaylıyorum')]"));
+        checkbox.click();
     }
 
-    public static void choosingPhoto() throws InterruptedException{
-        System.out.println("devam etmek için enter tuşuna basın");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-    }
-
-    public static void saveButton() throws InterruptedException{
-        clickElement(By.id("btn-update"));
+    public static void buttonDelete() throws InterruptedException{
+        WebElement deleteButton = driver.findElement(By.xpath("//ion-button[contains(text(), 'Hesabımı İptal Et')]"));
+        deleteButton.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

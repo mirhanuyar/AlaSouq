@@ -1,4 +1,4 @@
-package MailLogin;
+package mail_login;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

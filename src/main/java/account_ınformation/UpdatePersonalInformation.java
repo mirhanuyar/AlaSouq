@@ -1,4 +1,4 @@
-package user_ınformation;
+package account_ınformation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,9 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Scanner;
 
-public class UpdateProfile {
+public class UpdatePersonalInformation {
     public static WebDriver driver;
     public static WebDriverWait wait;
 

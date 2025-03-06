@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class GoAdvert{
+public class UnreadMessage{
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -27,11 +27,7 @@ public class GoAdvert{
             Thread.sleep(2000);
             viewMessages();
             Thread.sleep(2000);
-            clickMessage();
-            Thread.sleep(2000);
-            clickDetails();
-            Thread.sleep(2000);
-            goToAdvert();
+            clickUnreadMessages();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -71,20 +67,10 @@ public class GoAdvert{
         clickElement(By.id("link-messages"));
     }
 
-    public static void clickMessage() throws InterruptedException {
-        clickElement(By.id("click-message-detail"));
+    public static void clickUnreadMessages() throws InterruptedException {
+        clickElement(By.id("btn-unread-msg"));
     }
 
-    public static void clickDetails() throws InterruptedException {
-        clickElement(By.id("btn-mdl-msg"));
-    }
-
-    public static void goToAdvert() throws InterruptedException {
-        WebElement ilanButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[.//span[text()='İlana Git']]")));
-        ilanButton.click();
-
-    }
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();

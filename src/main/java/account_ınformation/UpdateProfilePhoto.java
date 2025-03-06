@@ -1,18 +1,16 @@
-package message;
+package account_ınformation;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.Scanner;
 
-public class GoAdvert{
+public class UpdateProfilePhoto {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -25,18 +23,22 @@ public class GoAdvert{
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            viewMessages();
+            userInformation();
             Thread.sleep(2000);
-            clickMessage();
+            personalInformation();
             Thread.sleep(2000);
-            clickDetails();
+            clickUpdatePhoto();
             Thread.sleep(2000);
-            goToAdvert();
-
+            loadPhoto();
+            Thread.sleep(2000);
+            choosingPhoto();
+            Thread.sleep(2000);
+            saveButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -57,7 +59,7 @@ public class GoAdvert{
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin6565");
+        currentPasswordField.sendKeys("admin");
         Thread.sleep(3000);
     }
 
@@ -66,25 +68,33 @@ public class GoAdvert{
         Thread.sleep(2000);
     }
 
-
-    public static void viewMessages() throws InterruptedException {
-        clickElement(By.id("link-messages"));
+    public static void userInformation() throws InterruptedException {
+        clickElement(By.id("link-account-info"));
     }
 
-    public static void clickMessage() throws InterruptedException {
-        clickElement(By.id("click-message-detail"));
+    public static void personalInformation() throws InterruptedException {
+        clickElement(By.id("link-profile"));
     }
 
-    public static void clickDetails() throws InterruptedException {
-        clickElement(By.id("btn-mdl-msg"));
+    public static void clickUpdatePhoto() throws InterruptedException{
+        clickElement(By.id("btn-take-photo"));
     }
 
-    public static void goToAdvert() throws InterruptedException {
-        WebElement ilanButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[.//span[text()='İlana Git']]")));
-        ilanButton.click();
-
+    public static void loadPhoto() throws InterruptedException{
+        WebElement galleryButton = driver.findElement(By.xpath("//div[span[text()='Galeriden Seç']]"));
+        galleryButton.click();
     }
+
+    public static void choosingPhoto() throws InterruptedException{
+        System.out.println("devam etmek için enter tuşuna basın");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
+
+    public static void saveButton() throws InterruptedException{
+        clickElement(By.id("btn-update"));
+    }
+
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();

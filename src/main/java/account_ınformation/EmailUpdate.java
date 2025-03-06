@@ -1,18 +1,16 @@
-package message;
+package account_ınformation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
-public class GoAdvert{
+public class EmailUpdate {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -25,18 +23,20 @@ public class GoAdvert{
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            viewMessages();
+            userInformation();
             Thread.sleep(2000);
-            clickMessage();
+            updateEmail();
             Thread.sleep(2000);
-            clickDetails();
+            newEmail();
             Thread.sleep(2000);
-            goToAdvert();
-
+            enterAccountPassword();
+            Thread.sleep(2000);
+            clickChangeEmail();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -66,25 +66,31 @@ public class GoAdvert{
         Thread.sleep(2000);
     }
 
-
-    public static void viewMessages() throws InterruptedException {
-        clickElement(By.id("link-messages"));
+    public static void userInformation() throws InterruptedException {
+        clickElement(By.id("link-account-info"));
     }
 
-    public static void clickMessage() throws InterruptedException {
-        clickElement(By.id("click-message-detail"));
+    public static void updateEmail() throws InterruptedException {
+        clickElement(By.id("link-reset-email"));
     }
 
-    public static void clickDetails() throws InterruptedException {
-        clickElement(By.id("btn-mdl-msg"));
+    public static void newEmail() throws InterruptedException {
+        WebElement newEmail = driver.findElement(By.xpath("//ion-input[@formcontrolname='newEmail']//input"));
+        newEmail.sendKeys("yako.backoffice+testt@solidsoft.com.tr");
     }
 
-    public static void goToAdvert() throws InterruptedException {
-        WebElement ilanButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[.//span[text()='İlana Git']]")));
-        ilanButton.click();
-
+    public static void enterAccountPassword() throws InterruptedException {
+        WebElement password = driver.findElement(By.xpath("//ion-input[@formcontrolname='password']//input"));
+        password.sendKeys("admin6565");
     }
+
+    public static void clickChangeEmail() throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement changeEmailButton = driver.findElement(By.xpath("//ion-button[@id='change-email-init']"));
+        js.executeScript("arguments[0].click();", changeEmailButton);
+    }
+
+
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();

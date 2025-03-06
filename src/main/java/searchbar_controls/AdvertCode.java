@@ -1,20 +1,21 @@
-package message;
+package searchbar_controls;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-public class GoAdvert{
+public class AdvertCode {
     public static WebDriver driver;
     public static WebDriverWait wait;
+    private static List<String> favoriteAdverts = new ArrayList<>();
 
     public static void main(String[] args) {
         setUpDriver();
@@ -25,16 +26,24 @@ public class GoAdvert{
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            viewMessages();
+            clickItemByText("Konut");
             Thread.sleep(2000);
-            clickMessage();
+            arama();
             Thread.sleep(2000);
-            clickDetails();
-            Thread.sleep(2000);
-            goToAdvert();
+            clickSearchBar();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void clickItemByText(String text) {
+        List<WebElement> listItems = driver.findElements(By.tagName("ion-item"));
+        for (WebElement item : listItems) {
+            if (item.getText().contains(text)) {
+                item.click();
+                break;
+            }
         }
     }
 
@@ -57,7 +66,7 @@ public class GoAdvert{
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin6565");
+        currentPasswordField.sendKeys("adminadmin");
         Thread.sleep(3000);
     }
 
@@ -66,27 +75,25 @@ public class GoAdvert{
         Thread.sleep(2000);
     }
 
-
-    public static void viewMessages() throws InterruptedException {
-        clickElement(By.id("link-messages"));
+    public static void arama() throws InterruptedException {
+        WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#btn-search")));
+        searchButton.click();
     }
 
-    public static void clickMessage() throws InterruptedException {
-        clickElement(By.id("click-message-detail"));
+    public static void clickSearchBar() throws InterruptedException {
+        WebElement searchInput = wait.until(ExpectedConditions.elementToBeClickable(
+                By.cssSelector("ion-searchbar#filter-search-advert-no input.searchbar-input")));
+        searchInput.click();
+        searchInput.sendKeys("100024");
+        Thread.sleep(2000);
     }
 
-    public static void clickDetails() throws InterruptedException {
-        clickElement(By.id("btn-mdl-msg"));
-    }
 
-    public static void goToAdvert() throws InterruptedException {
-        WebElement ilanButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[.//span[text()='İlana Git']]")));
-        ilanButton.click();
 
-    }
     public static void clickElement(By locator) throws InterruptedException {
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
+        Thread.sleep(1000);
     }
+
 }

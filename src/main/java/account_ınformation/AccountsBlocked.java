@@ -1,4 +1,4 @@
-package user_ınformation;
+package account_ınformation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,9 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Scanner;
 
-public class UpdatePassword {
+public class AccountsBlocked {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -26,15 +25,7 @@ public class UpdatePassword {
             Thread.sleep(2000);
             userInformation();
             Thread.sleep(2000);
-            changePassword();
-            Thread.sleep(2000);
-            currentPassword();
-            Thread.sleep(2000);
-            newPassword();
-            Thread.sleep(2000);
-            confirmPassword();
-            Thread.sleep(2000);
-            updateButton();
+            blockedAccounts();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -61,7 +52,7 @@ public class UpdatePassword {
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin");
+        currentPasswordField.sendKeys("admin6565");
         Thread.sleep(3000);
     }
 
@@ -74,28 +65,8 @@ public class UpdatePassword {
         clickElement(By.id("link-account-info"));
     }
 
-    public static void changePassword() throws InterruptedException {
-        clickElement(By.id("link-change-password"));
-    }
-
-    public static void currentPassword() throws InterruptedException {
-        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='currentPassword']//input"));
-        changePassword.sendKeys("admin");
-    }
-
-    public static void newPassword() throws InterruptedException {
-        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='newPassword']//input"));
-        changePassword.sendKeys("adminttest");
-    }
-
-    public static void confirmPassword() throws InterruptedException {
-        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='confirmPassword']//input"));
-        changePassword.sendKeys("adminttest");
-    }
-
-    public static void updateButton() throws InterruptedException {
-        WebElement button = driver.findElement(By.id("btn-password-update"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+    public static void blockedAccounts() throws InterruptedException {
+        clickElement(By.id("blocked-account-link"));
     }
 
     public static void clickElement(By locator) throws InterruptedException {
