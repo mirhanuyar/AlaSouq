@@ -142,20 +142,20 @@ public class BuyDoping {
     }
 
     public static void updateSelect() throws InterruptedException {
-        WebElement guncelimOffer = driver.findElement(By.xpath("//div[contains(@class, 'offer-item')][.//span[text()='Güncelim']]"));
+        WebElement updateOffer = driver.findElement(By.xpath("//div[contains(@class, 'offer-item')][.//span[text()='Güncelim']]"));
 
-        WebElement selectOffer = guncelimOffer.findElement(By.cssSelector(".select-offer"));
+        WebElement selectOffer = updateOffer.findElement(By.cssSelector(".select-offer"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", selectOffer);
         Thread.sleep(2000);
 
-        WebElement oneAdetOption = driver.findElement(By.xpath("//ion-list//ion-item/div/span[contains(text(), '1 Adet')]"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", oneAdetOption);
+        WebElement onePieceOption = driver.findElement(By.xpath("//ion-list//ion-item/div/span[contains(text(), '1 Adet')]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", onePieceOption);
     }
 
     public static void boldText() throws InterruptedException {
-        WebElement kalinYaziOffer = driver.findElement(By.xpath("//div[contains(@class, 'offer-item')][.//span[text()='Kalın Yazı & Renkli Çerçeve']]"));
+        WebElement boldText = driver.findElement(By.xpath("//div[contains(@class, 'offer-item')][.//span[text()='Kalın Yazı & Renkli Çerçeve']]"));
 
-        WebElement selectOffer = kalinYaziOffer.findElement(By.cssSelector(".select-offer"));
+        WebElement selectOffer = boldText.findElement(By.cssSelector(".select-offer"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", selectOffer);
         Thread.sleep(2000);
 
@@ -181,11 +181,11 @@ public class BuyDoping {
     }*/
 
     public static void continuePayment() throws InterruptedException {
+
         WebElement continueButton = driver.findElement(By.xpath("//*[text()='Devam Et' or contains(@id, 'doping-info-continue')]"));
-
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", continueButton);
-        Thread.sleep(1000);
 
+        Thread.sleep(1000);
         wait.until(ExpectedConditions.elementToBeClickable(continueButton));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", continueButton);
