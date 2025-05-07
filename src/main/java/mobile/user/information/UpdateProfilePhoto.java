@@ -1,7 +1,6 @@
-package mobile.information;
+package mobile.user.information;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,8 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Scanner;
 
-public class UpdatePassword {
+public class UpdateProfilePhoto {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -25,16 +25,15 @@ public class UpdatePassword {
             Thread.sleep(2000);
             userInformation();
             Thread.sleep(2000);
-            changePassword();
+            personalInformation();
             Thread.sleep(2000);
-            currentPassword();
+            clickUpdatePhoto();
             Thread.sleep(2000);
-            newPassword();
+            loadPhoto();
             Thread.sleep(2000);
-            confirmPassword();
+            choosingPhoto();
             Thread.sleep(2000);
-            updateButton();
-
+            saveButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -60,7 +59,7 @@ public class UpdatePassword {
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin6565");
+        currentPasswordField.sendKeys("admin");
         Thread.sleep(3000);
     }
 
@@ -73,28 +72,27 @@ public class UpdatePassword {
         clickElement(By.id("link-account-info"));
     }
 
-    public static void changePassword() throws InterruptedException {
-        clickElement(By.id("link-change-password"));
+    public static void personalInformation() throws InterruptedException {
+        clickElement(By.id("link-profile"));
     }
 
-    public static void currentPassword() throws InterruptedException {
-        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='currentPassword']//input"));
-        changePassword.sendKeys("admin6565");
+    public static void clickUpdatePhoto() throws InterruptedException{
+        clickElement(By.id("btn-take-photo"));
     }
 
-    public static void newPassword() throws InterruptedException {
-        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='newPassword']//input"));
-        changePassword.sendKeys("adminadmin");
+    public static void loadPhoto() throws InterruptedException{
+        WebElement galleryButton = driver.findElement(By.xpath("//div[span[text()='Galeriden Seç']]"));
+        galleryButton.click();
     }
 
-    public static void confirmPassword() throws InterruptedException {
-        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='confirmPassword']//input"));
-        changePassword.sendKeys("adminadmin");
+    public static void choosingPhoto() throws InterruptedException{
+        System.out.println("devam etmek için enter tuşuna basın");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 
-    public static void updateButton() throws InterruptedException {
-        WebElement button = driver.findElement(By.id("btn-password-update"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+    public static void saveButton() throws InterruptedException{
+        clickElement(By.id("btn-update"));
     }
 
     public static void clickElement(By locator) throws InterruptedException {

@@ -1,4 +1,4 @@
-package mobile.information;
+package mobile.user.information;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AccountsBlocked {
+public class UpdatePassword {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -25,7 +25,15 @@ public class AccountsBlocked {
             Thread.sleep(2000);
             userInformation();
             Thread.sleep(2000);
-            blockedAccounts();
+            changePassword();
+            Thread.sleep(2000);
+            currentPassword();
+            Thread.sleep(2000);
+            newPassword();
+            Thread.sleep(2000);
+            confirmPassword();
+            Thread.sleep(2000);
+            updateButton();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -65,8 +73,28 @@ public class AccountsBlocked {
         clickElement(By.id("link-account-info"));
     }
 
-    public static void blockedAccounts() throws InterruptedException {
-        clickElement(By.id("blocked-account-link"));
+    public static void changePassword() throws InterruptedException {
+        clickElement(By.id("link-change-password"));
+    }
+
+    public static void currentPassword() throws InterruptedException {
+        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='currentPassword']//input"));
+        changePassword.sendKeys("admin6565");
+    }
+
+    public static void newPassword() throws InterruptedException {
+        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='newPassword']//input"));
+        changePassword.sendKeys("adminadmin");
+    }
+
+    public static void confirmPassword() throws InterruptedException {
+        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='confirmPassword']//input"));
+        changePassword.sendKeys("adminadmin");
+    }
+
+    public static void updateButton() throws InterruptedException {
+        WebElement button = driver.findElement(By.id("btn-password-update"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
     }
 
     public static void clickElement(By locator) throws InterruptedException {

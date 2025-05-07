@@ -1,4 +1,4 @@
-package mobile.advert.active;
+package mobile.user.information;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Published {
+public class UpdatePersonalInformation {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -19,33 +19,34 @@ public class Published {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
-            accountClick();
-            Thread.sleep(2000);
-            changeLanguage();
-            Thread.sleep(2000);
             fillForm();
-            Thread.sleep(2000);
-            clickTurkishButton();
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            activeAdvert();
+            userInformation();
             Thread.sleep(2000);
-            searchBar();
+            personalInformation();
             Thread.sleep(2000);
-            clickAdvert();
+            updateFirstName();
             Thread.sleep(2000);
-            scrollToBottom();
+            updateLastName();
             Thread.sleep(2000);
             scrollByAmount(500);
             Thread.sleep(2000);
-            scrollToElement(By.id("click-goto-doping"));
+            scrollToElement(By.id("account-phone-number-0"));
             Thread.sleep(2000);
-            clickDoping();
+            updateAccountDisplayName();
+            Thread.sleep(2000);
+            updatePhoneNumber();
+            Thread.sleep(2000);
+            radioCheckBox();
+            Thread.sleep(2000);
+            saveButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -55,24 +56,6 @@ public class Published {
     public static void openRegistrationPage() {
         driver.get("http://localhost:4200/home");
     }
-
-    public static void accountClick() throws InterruptedException {
-        clickElement(By.id("btn-my-account"));
-    }
-
-
-    public static void changeLanguage() throws InterruptedException {
-        clickElement(By.id("present-action-sheet"));
-    }
-
-    public static void clickTurkishButton() throws InterruptedException {
-        WebElement turkishButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(@class, 'action-sheet-button') and span[text()='Türkçe']]")));
-
-        turkishButton.click();
-        Thread.sleep(2000);
-    }
-
 
     public static void fillForm() throws InterruptedException {
         WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(
@@ -84,7 +67,7 @@ public class Published {
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("adminadmin");
+        currentPasswordField.sendKeys("admin");
         Thread.sleep(3000);
     }
 
@@ -93,24 +76,25 @@ public class Published {
         Thread.sleep(2000);
     }
 
-    public static void activeAdvert() throws InterruptedException {
-        clickElement(By.id("link-active"));
+    public static void userInformation() throws InterruptedException {
+        clickElement(By.id("link-account-info"));
     }
 
-    public static void searchBar() throws InterruptedException {
-        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
-        searchBar.sendKeys("AYDIN GERMENCİKTE BAHÇELİ 2 +1 MÜSTAKİL EV");
-        Thread.sleep(1000);
-        searchBar.clear();
-        searchBar.sendKeys("100003");
+    public static void personalInformation() throws InterruptedException {
+        clickElement(By.id("link-profile"));
     }
 
-    public static void clickAdvert() throws InterruptedException {
-        clickElement(By.xpath("//div[contains(@class, 'advert-content')]"));
+    public static void updateFirstName() throws InterruptedException {
+        WebElement inputField = driver.findElement(By.xpath("//ion-input[@formcontrolname='firstName']//input"));
+        inputField.clear();
+        inputField.sendKeys("Yakup Adm. TEST");
     }
 
-    public static void scrollToBottom() {
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    public static void updateLastName() throws InterruptedException {
+        WebElement lastNameField = driver.findElement(By.xpath("//ion-input[@formcontrolname='lastName']//input"));
+        lastNameField.clear();
+        lastNameField.sendKeys("Şahin TEST");
+
     }
 
     public static void scrollByAmount(int pixels) {
@@ -122,8 +106,27 @@ public class Published {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
     }
 
-    public static void clickDoping() throws InterruptedException {
-        clickElement(By.id("click-goto-doping"));
+    public static void updateAccountDisplayName() throws InterruptedException {
+        WebElement lastNameField = driver.findElement(By.xpath("//ion-input[@formcontrolname='displayName']//input"));
+        lastNameField.clear();
+        lastNameField.sendKeys("Yakup Adm. Ş. TEST");
+    }
+
+    public static void updatePhoneNumber() throws InterruptedException {
+        WebElement lastNameField = driver.findElement(By.xpath("//ion-input[@formcontrolname='phoneNumber']//input"));
+        lastNameField.clear();
+        lastNameField.sendKeys("+90(501) 337 00 70");
+    }
+
+    public static void radioCheckBox() throws InterruptedException {
+        WebElement radioButton = driver.findElement(By.xpath("//ion-radio[contains(text(), 'Yakup Adm. TEST Şahin TEST')]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", radioButton);
+
+    }
+
+    public static void saveButton() throws InterruptedException {
+        WebElement button = driver.findElement(By.id("btn-update"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
     }
 
     public static void clickElement(By locator) throws InterruptedException {

@@ -1,6 +1,7 @@
-package mobile.information;
+package mobile.user.information;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AccountDelete {
+public class AccountsBlocked {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -24,13 +25,7 @@ public class AccountDelete {
             Thread.sleep(2000);
             userInformation();
             Thread.sleep(2000);
-            accountDeleted();
-            Thread.sleep(2000);
-            deletedButton();
-            Thread.sleep(2000);
-            checkbox();
-            Thread.sleep(2000);
-            buttonDelete();
+            blockedAccounts();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -70,23 +65,8 @@ public class AccountDelete {
         clickElement(By.id("link-account-info"));
     }
 
-    public static void accountDeleted() throws InterruptedException {
-        clickElement(By.id("link-delete-account"));
-    }
-
-    public static void deletedButton() throws InterruptedException {
-        WebElement deleteButton = driver.findElement(By.xpath("//ion-button[contains(text(), 'Hesabımı İptal Et')]"));
-        deleteButton.click();
-    }
-
-    public static void checkbox() throws InterruptedException {
-        WebElement checkbox = driver.findElement(By.xpath("//ion-checkbox//span[contains(text(), 'Hesap İptalini Onaylıyorum')]"));
-        checkbox.click();
-    }
-
-    public static void buttonDelete() throws InterruptedException{
-        WebElement deleteButton = driver.findElement(By.xpath("//ion-button[contains(text(), 'Hesabımı İptal Et')]"));
-        deleteButton.click();
+    public static void blockedAccounts() throws InterruptedException {
+        clickElement(By.id("blocked-account-link"));
     }
 
     public static void clickElement(By locator) throws InterruptedException {
