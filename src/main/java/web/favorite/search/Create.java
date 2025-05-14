@@ -36,7 +36,6 @@ public class Create {
         }
     }
 
-
     public static void setUpDriver() {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -52,7 +51,6 @@ public class Create {
         userIcon.click();
         Thread.sleep(1000);
     }
-
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
@@ -81,5 +79,4 @@ public class Create {
         element.click();
         Thread.sleep(1000);
     }
-
 }

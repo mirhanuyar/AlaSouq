@@ -85,7 +85,7 @@ public class Delete {
     }
 
     public static void clickMyFavorite() throws InterruptedException {
-        driver.findElement(By.linkText("My Favorites")).click();
+        driver.findElement(By.id("link-my-favorites")).click();
     }
 
     public static void clickFavoriteAdvert() throws InterruptedException {
@@ -100,7 +100,7 @@ public class Delete {
     }
 
     public static void deleteFavoriteAdvert() throws InterruptedException {
-        driver.findElement(By.xpath("//button[contains(text(),'Remove from My Favorites')]")).click();
+        driver.findElement(By.id("favorite-product-remove-1")).click();
 
         Thread.sleep(2000);
 

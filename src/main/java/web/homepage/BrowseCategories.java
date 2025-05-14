@@ -104,7 +104,6 @@ public class BrowseCategories {
         }
     }
 
-
     public static void setUpDriver() {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));

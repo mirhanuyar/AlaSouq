@@ -20,6 +20,8 @@ public class Transport {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            saveModal();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -52,7 +54,12 @@ public class Transport {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void saveModal() throws InterruptedException {
+        WebElement modal = driver.findElement(By.xpath("//button[text()='Kaydet']"));
+        modal.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -87,7 +94,7 @@ public class Transport {
     }
 
     public static void clickMyFavorite() throws InterruptedException {
-        driver.findElement(By.linkText("My Favorites")).click();
+        driver.findElement(By.id("link-my-favorites")).click();
     }
 
     public static void clickFavoriteAdvert() throws InterruptedException {
@@ -102,17 +109,17 @@ public class Transport {
     }
 
     public static void transportClick() throws InterruptedException {
-        driver.findElement(By.xpath("//button[contains(text(),'Move Favorite Advert to Another List')]")).click();
+        driver.findElement(By.id("favorite-product-move-1")).click();
     }
 
     public static void selectListToMove() throws InterruptedException {
-        WebElement radio = driver.findElement(By.id("list-4"));
+        WebElement radio = driver.findElement(By.id("list-2"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", radio);
     }
 
     public static void saveButton() throws InterruptedException {
-        WebElement moveButton = driver.findElement(By.cssSelector("button.btn.w-25.btn-outline-primary"));
+        WebElement moveButton = driver.findElement(By.id("btn-move-product"));
         moveButton.click();
     }
 

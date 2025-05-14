@@ -80,16 +80,16 @@ public class Delete {
     }
 
     public static void clickMyFavorite() throws InterruptedException {
-        driver.findElement(By.linkText("My Favorites")).click();
+        driver.findElement(By.id("link-my-favorites")).click();
     }
 
     public static void clickFavoriteSeller() throws InterruptedException {
-        WebElement favoriteSellersLink = driver.findElement(By.linkText("Favorite Sellers"));
+        WebElement favoriteSellersLink = driver.findElement(By.id("tab-favorite-sellers"));
         favoriteSellersLink.click();
     }
 
     public static void deleteFavoriteSeller() throws InterruptedException{
-        WebElement deleteButton = driver.findElement(By.cssSelector("div.search-actions-button button"));
+        WebElement deleteButton = driver.findElement(By.id("btn-seller-delete-5"));
         deleteButton.click();
     }
 

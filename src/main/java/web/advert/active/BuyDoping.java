@@ -42,7 +42,7 @@ public class BuyDoping {
             Thread.sleep(2000);
             clickContinueButton();
             Thread.sleep(2000);
-            scrollToElement(By.id("ngb-accordion-item-1"));
+            scrollToElement(By.id("ngb-accordion-item-3-toggle"));
             Thread.sleep(2000);
             checkPaymentMethod();
             Thread.sleep(2000);
@@ -94,32 +94,32 @@ public class BuyDoping {
     }
 
     public static void clickMyAdverts() throws InterruptedException {
-        WebElement myAdverts = driver.findElement(By.xpath("//a[contains(@href, '/account/my-adverts')]"));
+        WebElement myAdverts = driver.findElement(By.id("link-my-adverts"));
         myAdverts.click();
     }
 
     public static void clickDoping() throws InterruptedException {
-        WebElement dopingButton = driver.findElement(By.xpath("//button[contains(@class, 'my-advert-action-button')]"));
+        WebElement dopingButton = driver.findElement(By.id("btn-do-doping-100011"));
         dopingButton.click();
     }
 
     public static void checkBoldText() throws InterruptedException {
-        WebElement bold = driver.findElement(By.id("boost-boost-bold-text-colored-frame"));
+        WebElement bold = driver.findElement(By.id("boost-boost-kalin-yazi-renkli-cerceve"));
         bold.click();
     }
 
     public static void checkScrollPositionIsTop() throws InterruptedException {
-        WebElement top = driver.findElement(By.id("boost-boost-im-at-top"));
+        WebElement top = driver.findElement(By.id("boost-boost-ust-siradayim"));
         top.click();
     }
 
     public static void checkImFresh() throws InterruptedException {
-        WebElement fresh = driver.findElement(By.id("boost-boost-im-fresh"));
+        WebElement fresh = driver.findElement(By.id("boost-boost-güncelim"));
         fresh.click();
     }
 
     public static void checkUrgent() throws InterruptedException {
-        WebElement urgent = driver.findElement(By.id("boost-boost-urgent-urgent"));
+        WebElement urgent = driver.findElement(By.id("boost-boost-acil-acil"));
         urgent.click();
     }
 

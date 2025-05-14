@@ -143,7 +143,7 @@ public class CreateRealEstate {
     }
 
     public static void enterDescription() throws InterruptedException {
-        WebElement editor = driver.findElement(By.xpath("//div[@class='ql-editor ql-blank']"));
+        WebElement editor = driver.findElement(By.id("//div[@class='ql-editor ql-blank']"));
         editor.click();
         Thread.sleep(500);
         editor.sendKeys("TEST");

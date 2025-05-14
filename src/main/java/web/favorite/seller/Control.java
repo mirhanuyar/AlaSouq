@@ -29,7 +29,6 @@ public class Control {
             clickMyFavorite();
             Thread.sleep(2000);
             clickFavoriteSeller();
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
