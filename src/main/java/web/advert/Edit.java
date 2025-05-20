@@ -93,7 +93,7 @@ public class Edit {
             Thread.sleep(2000);
             scrollToElement8(By.xpath("//button[contains(text(), 'Buy')]"));
             Thread.sleep(2000);
-            clickBuyButton();
+            clickBuyDopingButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -347,6 +347,7 @@ public class Edit {
         System.out.println("Yeni bir fotoğraf ekleyin ve devam etmek için enter tuşuna basın");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
+        //uzantı ile fotoğraf eklemelisin.
     }
 
     public static void clickNextButton2() throws InterruptedException {
@@ -372,7 +373,7 @@ public class Edit {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
     }
 
-    public static void clickBuyButton() throws InterruptedException {
+    public static void clickBuyDopingButton() throws InterruptedException {
         WebElement buyButton = driver.findElement(By.cssSelector("button.btn.btn-STANDARD"));
         buyButton.click();
     }

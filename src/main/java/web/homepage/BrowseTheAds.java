@@ -2,6 +2,7 @@ package web.homepage;
 
 import org.openqa.selenium.By;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,6 +22,8 @@ public class BrowseTheAds {
         setUpDriver();
         try {
             openRegistrationPage();
+            Thread.sleep(1000);
+            clickSaveButton();
             Thread.sleep(1000);
             clickUserIcon();
             Thread.sleep(1000);
@@ -42,6 +45,12 @@ public class BrowseTheAds {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/");
+    }
+
+
+    public static void clickSaveButton() throws InterruptedException {
+        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Save']"));
+        saveButton.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -69,7 +78,7 @@ public class BrowseTheAds {
     }
 
     public static void browseAds() throws InterruptedException {
-        List<WebElement> links = driver.findElements(By.cssSelector("a.product-title"));
+        List<WebElement> links = driver.findElements(By.id("home-search-result"));
 
         List<String> hrefs = new ArrayList<>();
         for (WebElement link : links) {

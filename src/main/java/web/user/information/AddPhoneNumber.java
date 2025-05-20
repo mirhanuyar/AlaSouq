@@ -1,6 +1,7 @@
-package web.favorite.seller;
+package web.user.information;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,7 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Control {
+
+public class AddPhoneNumber {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -26,9 +28,17 @@ public class Control {
             Thread.sleep(2000);
             clickUserIcon2();
             Thread.sleep(2000);
-            clickMyFavorite();
+            scrollToElement(By.linkText("Edit"));
             Thread.sleep(2000);
-            clickFavoriteSeller();
+            addNewPhoneNumber();
+            Thread.sleep(2000);
+            clickCountryCodeComboBox();
+            Thread.sleep(2000);
+            clickInputPhoneNumber();
+            Thread.sleep(2000);
+            submitButton();
+            Thread.sleep(2000);
+            clickSubmitButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -41,7 +51,7 @@ public class Control {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -75,13 +85,39 @@ public class Control {
         Thread.sleep(1000);
     }
 
-    public static void clickMyFavorite() throws InterruptedException {
-        driver.findElement(By.id("link-my-favorites")).click();
+    public static void scrollToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
     }
 
-    public static void clickFavoriteSeller() throws InterruptedException {
-        WebElement favoriteSellersLink = driver.findElement(By.id("tab-favorite-sellers"));
-        favoriteSellersLink.click();
+    public static void addNewPhoneNumber() throws InterruptedException {
+        WebElement number = driver.findElement(By.id("add-first-phone"));
+        number.click();
+    }
+
+    public static void clickSubmitButton() throws InterruptedException {
+        WebElement submit = driver.findElement(By.id("submit_profile_btn"));
+        submit.click();
+    }
+
+    public static void clickCountryCodeComboBox() throws InterruptedException {
+        WebElement comboBox = driver.findElement(By.id("pn"));
+        comboBox.click();
+        Thread.sleep(1000);
+        WebElement countryCode = driver.findElement(By.id("pn-option-227"));
+        countryCode.click();
+    }
+
+    public static void clickInputPhoneNumber() throws InterruptedException {
+        WebElement input = driver.findElement(By.id("input-phone-number"));
+        input.click();
+        Thread.sleep(400);
+        input.sendKeys("5444033986");
+    }
+
+    public static void submitButton() throws InterruptedException {
+        WebElement submit = driver.findElement(By.id("submit_profile_btn"));
+        submit.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {
@@ -89,4 +125,6 @@ public class Control {
         element.click();
         Thread.sleep(1000);
     }
+
+
 }

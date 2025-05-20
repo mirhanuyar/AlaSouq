@@ -24,7 +24,7 @@ public class Create {
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
-            clickProductByTitle("208 M2 ARSA ÜZERİNDE SIFIRLANMIŞ 2+1 BAHÇELİ MÜSTAKİL");
+            clickAdvert();
             Thread.sleep(2000);
             clickAddSellerFavorite();
 
@@ -67,9 +67,9 @@ public class Create {
         Thread.sleep(1000);
     }
 
-    public static void clickProductByTitle(String titleText) throws InterruptedException {
+    public static void clickAdvert() throws InterruptedException {
         WebElement productLink = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//a[contains(@class, 'product-title')]/h6[text()='" + titleText + "']")));
+                By.id("featured-product-box-17")));
         productLink.click();
         Thread.sleep(2000);
     }

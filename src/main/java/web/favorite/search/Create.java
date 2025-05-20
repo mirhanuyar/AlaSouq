@@ -10,13 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Create {
     public static WebDriver driver;
     public static WebDriverWait wait;
-    private static List<String> favoriteAdverts = new ArrayList<>();
 
     public static void main(String[] args) {
         setUpDriver();

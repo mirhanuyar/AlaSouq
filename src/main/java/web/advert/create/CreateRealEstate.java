@@ -22,6 +22,8 @@ public class CreateRealEstate {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveButton();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -79,6 +81,11 @@ public class CreateRealEstate {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/");
+    }
+
+    public static void clickSaveButton() throws InterruptedException {
+        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Save']"));
+        saveButton.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -139,11 +146,12 @@ public class CreateRealEstate {
         WebElement title = driver.findElement(By.id("value-change"));
         title.click();
         Thread.sleep(500);
+        title.clear();
         title.sendKeys("TEST");
     }
 
     public static void enterDescription() throws InterruptedException {
-        WebElement editor = driver.findElement(By.id("//div[@class='ql-editor ql-blank']"));
+        WebElement editor = driver.findElement(By.xpath("//div[@class='ql-editor ql-blank']"));
         editor.click();
         Thread.sleep(500);
         editor.sendKeys("TEST");
@@ -236,7 +244,7 @@ public class CreateRealEstate {
     }
 
     public static void clickAdCreateConfirmationCheckbox() throws InterruptedException {
-        WebElement checkbox = driver.findElement(By.id("ad-create-confirmation"));
+        WebElement checkbox = driver.findElement(By.id("advert-create-confirmation"));
         checkbox.click();
     }
 
