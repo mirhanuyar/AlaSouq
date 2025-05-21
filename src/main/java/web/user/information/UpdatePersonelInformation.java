@@ -20,6 +20,8 @@ public class UpdatePersonelInformation {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -28,7 +30,7 @@ public class UpdatePersonelInformation {
             Thread.sleep(2000);
             clickUserIcon2();
             Thread.sleep(2000);
-            scrollToElement(By.linkText("Edit"));
+            scrollToElement(By.id("edit-email"));
             Thread.sleep(2000);
             clickEditProfile();
             Thread.sleep(2000);
@@ -38,9 +40,9 @@ public class UpdatePersonelInformation {
             Thread.sleep(2000);
             clickDisplayNameInput();
             Thread.sleep(2000);
-            clickSelectLanguage();
+            //clickSelectLanguage();
             Thread.sleep(2000);
-            chooseLanguage();
+            //chooseLanguage();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -53,16 +55,20 @@ public class UpdatePersonelInformation {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
-
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
@@ -82,7 +88,7 @@ public class UpdatePersonelInformation {
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -93,7 +99,7 @@ public class UpdatePersonelInformation {
     }
 
     public static void clickEditProfile() throws InterruptedException {
-        WebElement edit = driver.findElement(By.linkText("Edit Profile"));
+        WebElement edit = driver.findElement(By.id("edit-profile"));
         edit.click();
     }
 
@@ -125,12 +131,12 @@ public class UpdatePersonelInformation {
         WebElement language = driver.findElement(By.id("selection-language"));
         language.click();
         Thread.sleep(500);
-
     }
 
     public static void chooseLanguage() throws InterruptedException {
-        WebElement choose = driver.findElement(By.xpath("//span[contains(text(), 'Türkçe')]"));
-        choose.click();
+        WebElement language = driver.findElement(By.id("a6ff4f75bfa9-3"));//türkçe
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", language);
     }
 
     public static void clickElement(By locator) throws InterruptedException {

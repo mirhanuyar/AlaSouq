@@ -20,6 +20,8 @@ public class UpdatePassword {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -28,7 +30,7 @@ public class UpdatePassword {
             Thread.sleep(2000);
             clickUserIcon2();
             Thread.sleep(2000);
-            scrollToElement(By.linkText("Edit"));
+            scrollToElement(By.id("edit-email"));
             Thread.sleep(2000);
             clickEditPassword();
             Thread.sleep(2000);
@@ -52,12 +54,17 @@ public class UpdatePassword {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -81,7 +88,7 @@ public class UpdatePassword {
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -92,7 +99,7 @@ public class UpdatePassword {
     }
 
     public static void clickEditPassword() throws InterruptedException {
-        driver.findElement(By.xpath("//h6[contains(text(), 'Password')]/following-sibling::a")).click();
+        driver.findElement(By.id("edit-password")).click();
     }
 
     public static void clickCurrentPassword() throws InterruptedException {
