@@ -21,6 +21,8 @@ public class UpdateProfilePhoto {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -47,12 +49,17 @@ public class UpdateProfilePhoto {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -68,25 +75,25 @@ public class UpdateProfilePhoto {
 
     public static void signIn() throws InterruptedException {
         WebElement clickSignIn;
-        clickSignIn = driver.findElement(By.cssSelector("button.custom-login-button"));
+        clickSignIn = driver.findElement(By.id("button.custom-login-button"));
         clickSignIn.click();
         Thread.sleep(1000);
     }
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
 
     public static void clickProfilePhoto() throws InterruptedException {
-        WebElement photo = driver.findElement(By.cssSelector(".user-icon i.ri-image-edit-line, .user-icon i.ri-pencil-fill"));
+        WebElement photo = driver.findElement(By.id("profile-edit-icon"));
         photo.click();
     }
 
     public static void loadPhoto() throws InterruptedException {
-        WebElement icon = driver.findElement(By.cssSelector(".user-icon i.edit-icon"));
+        WebElement icon = driver.findElement(By.id("input-profile-img"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", icon);
     }
 

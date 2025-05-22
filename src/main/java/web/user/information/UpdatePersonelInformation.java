@@ -127,17 +127,6 @@ public class UpdatePersonelInformation {
         displayName.sendKeys("Yakup Adm. Ş TEST");
     }
 
-    public static void clickSelectLanguage() throws InterruptedException {
-        WebElement language = driver.findElement(By.id("selection-language"));
-        language.click();
-        Thread.sleep(500);
-    }
-
-    public static void chooseLanguage() throws InterruptedException {
-        WebElement language = driver.findElement(By.id("a6ff4f75bfa9-3"));//türkçe
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", language);
-    }
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));

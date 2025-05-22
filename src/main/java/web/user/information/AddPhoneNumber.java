@@ -20,6 +20,8 @@ public class AddPhoneNumber {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -28,7 +30,7 @@ public class AddPhoneNumber {
             Thread.sleep(2000);
             clickUserIcon2();
             Thread.sleep(2000);
-            scrollToElement(By.linkText("Edit"));
+            scrollToElement(By.id("edit-email"));
             Thread.sleep(2000);
             addNewPhoneNumber();
             Thread.sleep(2000);
@@ -54,9 +56,14 @@ public class AddPhoneNumber {
         driver.get("https://alasouq.com/tr/");
     }
 
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
+    }
+
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -80,7 +87,7 @@ public class AddPhoneNumber {
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -125,6 +132,4 @@ public class AddPhoneNumber {
         element.click();
         Thread.sleep(1000);
     }
-
-
 }
