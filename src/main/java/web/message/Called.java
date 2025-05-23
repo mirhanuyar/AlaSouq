@@ -8,8 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
-
 
 public class Called {
     public static WebDriver driver;
@@ -46,12 +44,17 @@ public class Called {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -75,24 +78,22 @@ public class Called {
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
 
     public static void clickMessagesMenu() throws InterruptedException {
-        driver.findElement(By.linkText("Messages")).click();
+        driver.findElement(By.id("link-messages")).click();
     }
 
     public static void clickMessage() throws InterruptedException {
-        List<WebElement> messages = driver.findElements(By.cssSelector("section.message-list .message"));
-
-        WebElement firstMessage = messages.get(0);
-        firstMessage.click();
+        WebElement messages = driver.findElement(By.id("conversation-detail-7"));
+        messages.click();
     }
 
     public static void clickCalledButton() throws InterruptedException {
-        WebElement blockButton = driver.findElement(By.cssSelector("button.call-button"));
+        WebElement blockButton = driver.findElement(By.id("button.call-button"));
         blockButton.click();
     }
 

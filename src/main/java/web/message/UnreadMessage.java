@@ -9,10 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 
 public class UnreadMessage {
     public static WebDriver driver;
@@ -22,6 +18,8 @@ public class UnreadMessage {
         setUpDriver();
         try {
             openRegistrationPage();
+            Thread.sleep(2000);
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -41,19 +39,23 @@ public class UnreadMessage {
         }
     }
 
-
     public static void setUpDriver() {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -77,13 +79,13 @@ public class UnreadMessage {
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
 
     public static void clickMessagesMenu() throws InterruptedException {
-        driver.findElement(By.linkText("Messages")).click();
+        driver.findElement(By.id("link-messages")).click();
     }
 
     public static void clickUnreadMessages() throws InterruptedException {

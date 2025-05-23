@@ -20,6 +20,8 @@ public class Deleted {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -32,7 +34,7 @@ public class Deleted {
             Thread.sleep(2000);
             clickMessage();
             Thread.sleep(2000);
-            clickBlockButton();
+            clickDeletedButton();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -46,12 +48,17 @@ public class Deleted {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -75,24 +82,24 @@ public class Deleted {
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
 
     public static void clickMessagesMenu() throws InterruptedException {
-        driver.findElement(By.linkText("Messages")).click();
+        driver.findElement(By.id("link-messages")).click();
     }
 
     public static void clickMessage() throws InterruptedException {
-        List<WebElement> messages = driver.findElements(By.cssSelector("section.message-list .message"));
+        List<WebElement> messages = driver.findElements(By.id("conversation-detail-5"));
 
         WebElement firstMessage = messages.get(0);
         firstMessage.click();
     }
 
-    public static void clickBlockButton() throws InterruptedException {
-        WebElement blockButton = driver.findElement(By.cssSelector("button.delete-button"));
+    public static void clickDeletedButton() throws InterruptedException {
+        WebElement blockButton = driver.findElement(By.id("btn-delete-conversation-5"));
         blockButton.click();
     }
 

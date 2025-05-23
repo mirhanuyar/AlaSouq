@@ -22,6 +22,8 @@ public class SwearMessage {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -35,7 +37,6 @@ public class SwearMessage {
             clickMessage();
             Thread.sleep(2000);
             sendMessage();
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -48,12 +49,17 @@ public class SwearMessage {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -77,7 +83,7 @@ public class SwearMessage {
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -87,7 +93,7 @@ public class SwearMessage {
     }
 
     public static void clickMessage() throws InterruptedException {
-        List<WebElement> messages = driver.findElements(By.cssSelector("section.message-list .message"));
+        List<WebElement> messages = driver.findElements(By.id("conversation-detail-7"));
 
         WebElement firstMessage = messages.get(0);
         firstMessage.click();
