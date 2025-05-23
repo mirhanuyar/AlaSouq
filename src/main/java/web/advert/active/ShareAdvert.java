@@ -1,6 +1,5 @@
 package web.advert.active;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class PriceInformation {
+public class ShareAdvert {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -31,7 +30,14 @@ public class PriceInformation {
             Thread.sleep(2000);
             clickAction();
             Thread.sleep(2000);
-            clickPriceHistory();
+            clickShareAdvert();
+            Thread.sleep(2000);
+            //clickShareFacebook();
+            //clickShareTwitter();
+            //clickShareWhatsapp();
+            //clickShareMail();
+            //clickCopyButton();
+            clickCloseButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -87,15 +93,41 @@ public class PriceInformation {
         action.click();
     }
 
-    public static void clickPriceHistory() throws InterruptedException {
-        WebElement priceHistory = driver.findElement(By.cssSelector("button[id*='price']"));
-        priceHistory.click();
+    public static void clickShareAdvert() throws InterruptedException {
+        WebElement shareAdvert = driver.findElement(By.cssSelector("button[id*='btn-share']"));
+        shareAdvert.click();
         Thread.sleep(3500);
-        WebElement closePriceHistory = driver.findElement(By.id("price_history_modal_close_btn"));
-        closePriceHistory.click();
     }
 
+    public static void clickShareTwitter() throws InterruptedException {
+        WebElement facebookIcon = driver.findElement(By.id("social-btn-twitter"));
+        facebookIcon.click();
+        Thread.sleep(3500);
+    }
 
+    public static void clickShareWhatsapp() throws InterruptedException {
+        WebElement facebookIcon = driver.findElement(By.id("social-btn-whatsapp"));
+        facebookIcon.click();
+        Thread.sleep(3500);
+    }
+
+    public static void clickShareMail() throws InterruptedException {
+        WebElement facebookIcon = driver.findElement(By.id("social-btn-mail"));
+        facebookIcon.click();
+        Thread.sleep(3500);
+    }
+
+    public static void clickCopyButton() throws InterruptedException {
+        WebElement copyButton = driver.findElement(By.id("button-addon1"));
+        copyButton.click();
+        Thread.sleep(3500);
+    }
+
+    public static void clickCloseButton() throws InterruptedException {
+        WebElement closeButton = driver.findElement(By.id("share_modal_close_btn"));
+        closeButton.click();
+        Thread.sleep(3500);
+    }
 
 
 
