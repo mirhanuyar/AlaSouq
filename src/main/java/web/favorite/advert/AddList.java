@@ -19,13 +19,15 @@ public class AddList {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
-            clickProductByTitle("208 M2 ARSA ÜZERİNDE SIFIRLANMIŞ 2+1 BAHÇELİ MÜSTAKİL");
+            clickAdvert();
             Thread.sleep(2000);
             addFavoriteAdvert();
             Thread.sleep(2000);
@@ -42,12 +44,17 @@ public class AddList {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -70,16 +77,15 @@ public class AddList {
     }
 
 
-    public static void clickProductByTitle(String titleText) throws InterruptedException {
-        WebElement productLink = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//a[contains(@class, 'product-title')]/h6[text()='" + titleText + "']")));
+    public static void clickAdvert() throws InterruptedException {
+        WebElement productLink = driver.findElement(By.id("featured-product-100011"));
         productLink.click();
         Thread.sleep(2000);
     }
 
     public static void addFavoriteAdvert() {
         WebElement addToFavorite = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//span[text()='Add to My Favorite']")));
+                By.id("btn-toggle-favorite-11")));
         addToFavorite.click();
     }
 
@@ -92,7 +98,7 @@ public class AddList {
         Thread.sleep(1000);
 
         WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(@class, 'btn-outline-primary') and text()=' Save ']")));
+                By.id("add-favorite_save_btn")));
         saveButton.click();
     }
 

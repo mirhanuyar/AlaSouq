@@ -18,6 +18,8 @@ public class Create {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -40,12 +42,17 @@ public class Create {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -69,13 +76,13 @@ public class Create {
 
     public static void clickAdvert() throws InterruptedException {
         WebElement productLink = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("featured-product-box-17")));
+                By.id("featured-product-100011")));
         productLink.click();
         Thread.sleep(2000);
     }
 
-    public static void clickAddSellerFavorite() throws InterruptedException{
-        WebElement addToFavoriteButton = driver.findElement(By.cssSelector("a.add-to-favorite-seller"));
+    public static void clickAddSellerFavorite() throws InterruptedException {
+        WebElement addToFavoriteButton = driver.findElement(By.id("btn-toggle-favorite-11"));
         addToFavoriteButton.click();
     }
 

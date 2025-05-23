@@ -94,9 +94,4 @@ public class PriceInformation {
         WebElement closePriceHistory = driver.findElement(By.id("price_history_modal_close_btn"));
         closePriceHistory.click();
     }
-
-
-
-
-
 }

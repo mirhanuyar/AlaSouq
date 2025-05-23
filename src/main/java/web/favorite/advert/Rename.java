@@ -19,6 +19,8 @@ public class Rename {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -46,12 +48,17 @@ public class Rename {
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+        driver.get("https://alasouq.com/tr/");
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -75,7 +82,7 @@ public class Rename {
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -84,11 +91,11 @@ public class Rename {
         driver.findElement(By.id("link-my-favorites")).click();
     }
 
-    public static void favoriteListEdit() throws InterruptedException{
+    public static void favoriteListEdit() throws InterruptedException {
         driver.findElement(By.id("favorite-list-edit-0")).click();
     }
 
-    public static void clickListNameInput() throws InterruptedException{
+    public static void clickListNameInput() throws InterruptedException {
         WebElement input = driver.findElement(By.id("listName"));
         input.click();
         Thread.sleep(500);
@@ -96,7 +103,7 @@ public class Rename {
         input.sendKeys("RENAME TEST");
     }
 
-    public static void saveCreateList() throws InterruptedException{
+    public static void saveCreateList() throws InterruptedException {
         WebElement saveButton = driver.findElement(By.id("btn-save-list"));
         saveButton.click();
     }

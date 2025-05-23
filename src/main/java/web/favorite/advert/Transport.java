@@ -20,7 +20,7 @@ public class Transport {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
-            saveModal();
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -57,14 +57,14 @@ public class Transport {
         driver.get("https://alasouq.com/tr/");
     }
 
-    public static void saveModal() throws InterruptedException {
-        WebElement modal = driver.findElement(By.xpath("//button[text()='Kaydet']"));
-        modal.click();
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
@@ -88,7 +88,7 @@ public class Transport {
 
     public static void clickUserIcon2() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
