@@ -13,7 +13,7 @@ public class Login {
         WebDriver driver = new ChromeDriver();
 
         try {
-            driver.get("http://localhost:4200/auth/login");
+            driver.get("https://m.alasouq.com/home");
 
             Thread.sleep(2000);
             WebElement username = driver.findElement(By.xpath("//*[@id=\"ion-input-0\"]"));
