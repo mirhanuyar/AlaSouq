@@ -39,10 +39,8 @@ public class UpdatePersonelInformation {
             clickLastNameInput();
             Thread.sleep(2000);
             clickDisplayNameInput();
-            Thread.sleep(2000);
-            //clickSelectLanguage();
-            Thread.sleep(2000);
-            //chooseLanguage();
+           Thread.sleep(2000);
+            clickSaveButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -75,7 +73,7 @@ public class UpdatePersonelInformation {
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
-        currentPasswordField.sendKeys("admin");
+        currentPasswordField.sendKeys("admin6565");
         Thread.sleep(3000);
     }
 
@@ -125,6 +123,11 @@ public class UpdatePersonelInformation {
         Thread.sleep(500);
         displayName.clear();
         displayName.sendKeys("Yakup Adm. Ş TEST");
+    }
+
+    public static void clickSaveButton() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("submit_profile_btn"));
+        save.click();
     }
 
 

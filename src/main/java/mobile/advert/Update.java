@@ -4,10 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Update {
     public static WebDriver driver;
@@ -15,32 +18,34 @@ public class Update {
 
     public static void main(String[] args) {
         setUpDriver();
-
         try {
-            executeSteps();
+            openRegistrationPage();
+            fillForm();
+            submitForm();
+            activeAdvert();
+            searchBar();
+            update();
+            updateAdvertTitle();
+            updateDescription();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     public static void setUpDriver() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        Map<String, String> mobileEmulation = new HashMap<>();
+        mobileEmulation.put("deviceName", "Pixel 2");
+
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+
+        driver = new ChromeDriver(chromeOptions);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    public static void executeSteps() throws InterruptedException {
-        openRegistrationPage();
-        fillForm();
-        submitForm();
-        activeAdvert();
-        searchBar();
-        update();
-        updateAdvertTitle();
-        updateDescription();
-    }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4200/home");
+        driver.get("https://alasouq.com/tr/");
     }
 
     public static void fillForm() throws InterruptedException {

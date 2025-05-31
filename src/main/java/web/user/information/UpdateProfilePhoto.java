@@ -36,7 +36,8 @@ public class UpdateProfilePhoto {
             loadPhoto();
             Thread.sleep(2000);
             choosingPhoto();
-
+            Thread.sleep(2000);
+            clickSaveButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -69,13 +70,13 @@ public class UpdateProfilePhoto {
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
-        currentPasswordField.sendKeys("admin");
+        currentPasswordField.sendKeys("admin6565");
         Thread.sleep(3000);
     }
 
     public static void signIn() throws InterruptedException {
         WebElement clickSignIn;
-        clickSignIn = driver.findElement(By.id("button.custom-login-button"));
+        clickSignIn = driver.findElement(By.id("btn-sign-in"));
         clickSignIn.click();
         Thread.sleep(1000);
     }
@@ -101,6 +102,11 @@ public class UpdateProfilePhoto {
         System.out.println("devam etmek için enter tuşuna basın");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
+    }
+
+    public static void clickSaveButton() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save"));
+        save.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

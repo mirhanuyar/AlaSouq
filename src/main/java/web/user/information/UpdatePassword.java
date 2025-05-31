@@ -75,7 +75,7 @@ public class UpdatePassword {
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
-        currentPasswordField.sendKeys("admin");
+        currentPasswordField.sendKeys("admin6565");
         Thread.sleep(3000);
     }
 
@@ -106,7 +106,7 @@ public class UpdatePassword {
         WebElement password = driver.findElement(By.id("cpass"));
         password.click();
         Thread.sleep(500);
-        password.sendKeys("admin");
+        password.sendKeys("admin6565");
     }
 
     public static void clickNewPassword() throws InterruptedException {

@@ -65,7 +65,7 @@ public class Blocked {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -91,12 +91,12 @@ public class Blocked {
     }
 
     public static void clickMessage() throws InterruptedException {
-        WebElement messages = driver.findElement(By.id("conversation-detail-7"));
+        WebElement messages = driver.findElement(By.id("conversation-detail-1"));
         messages.click();
     }
 
     public static void clickBlockButton() throws InterruptedException {
-        WebElement blockButton = driver.findElement(By.cssSelector("button.block-button"));
+        WebElement blockButton = driver.findElement(By.cssSelector("btn-block-user"));
         blockButton.click();
     }
 

@@ -1,6 +1,7 @@
 package web.message;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,6 +18,8 @@ public class Called {
         setUpDriver();
         try {
             openRegistrationPage();
+            Thread.sleep(2000);
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -59,10 +62,9 @@ public class Called {
         Thread.sleep(1000);
     }
 
-
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -88,13 +90,14 @@ public class Called {
     }
 
     public static void clickMessage() throws InterruptedException {
-        WebElement messages = driver.findElement(By.id("conversation-detail-7"));
+        WebElement messages = driver.findElement(By.id("conversation-detail-1"));
         messages.click();
     }
 
     public static void clickCalledButton() throws InterruptedException {
-        WebElement blockButton = driver.findElement(By.id("button.call-button"));
-        blockButton.click();
+        WebElement button = driver.findElement(By.id("btn-call-user"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", button);
     }
 
     public static void clickElement(By locator) throws InterruptedException {
