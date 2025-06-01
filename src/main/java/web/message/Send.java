@@ -1,6 +1,7 @@
 package web.message;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -35,12 +36,12 @@ public class Send {
             clickMessage();
             Thread.sleep(2000);
             sendMessage();
-
+            Thread.sleep(2000);
+            scrollToElement(By.id("btn-send-message"));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -65,7 +66,7 @@ public class Send {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -91,12 +92,11 @@ public class Send {
     }
 
     public static void clickMessage() throws InterruptedException {
-        List<WebElement> messages = driver.findElements(By.id("conversation-detail-5"));
+        List<WebElement> messages = driver.findElements(By.id("conversation-detail-4"));
 
         WebElement firstMessage = messages.get(0);
         firstMessage.click();
     }
-
 
     public static void sendMessage() {
         try {
@@ -116,6 +116,10 @@ public class Send {
         }
     }
 
+    public static void scrollToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+    }
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));

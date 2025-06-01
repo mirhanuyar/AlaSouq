@@ -50,7 +50,9 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             chooseCurrency();
             Thread.sleep(2000);
-            selectAvailableForViewingOption();
+            //clickAvailableForViewingOption();
+            Thread.sleep(2000);
+            //selectAvailableForViewingOption();
             Thread.sleep(2000);
             scrollToElement2(By.xpath("//h5[span[text()='Contact Information']]"));
             Thread.sleep(2000);
@@ -67,6 +69,19 @@ public class CreateRealEstate {
             clickAdCreateConfirmationCheckbox();
             Thread.sleep(2000);
             clickNextButton();
+            Thread.sleep(2000);
+            uploadPhoto();
+            Thread.sleep(2000);
+            clickNextButton2();
+            Thread.sleep(2000);
+            scrollToElement4(By.xpath("//button[contains(text(),'Next')]"));
+            Thread.sleep(2000);
+            clickNextButton3();
+            Thread.sleep(2000);
+            scrollToElement5(By.xpath("//button[contains(text(),'Buy')]"));
+            Thread.sleep(2000);
+            clickBuyDopingButton();
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -175,19 +190,24 @@ public class CreateRealEstate {
         option.click();
     }
 
-    public static void selectAvailableForViewingOption() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("facet-undefined"));
+    public static void clickAvailableForViewingOption() throws InterruptedException {
+        WebElement selectDropdown = driver.findElement(By.id("facet-available-for-viewing-via-vid-call"));
         selectDropdown.click();
 
         Thread.sleep(2000);
 
-        WebElement yesButton = driver.findElement(By.xpath("//div[@role='option' and .//span[text()='Yes']]"));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(yesButton).click().perform();
+
 
         /*WebElement noButton = driver.findElement(By.xpath("//div[@role='option' and .//span[text()='Yes']]"));
         Actions actions = new Actions(driver);
         actions.moveToElement(yesButton).click().perform();*/
+    }
+
+    public static void selectAvailableForViewingOption() throws InterruptedException {
+        WebElement yesButton = driver.findElement(By.id("ad6b85888305-1"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", yesButton);
     }
 
     public static void scrollToElement2(By locator) {
@@ -225,7 +245,7 @@ public class CreateRealEstate {
         neighbourhoodDropdown.click();
         Thread.sleep(2000);
 
-        String neighbourhood = "Al Madhatiya";
+        String neighbourhood = "Al Qasim";
         WebElement neighbourhoodOption = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//div[@class='ng-option ng-star-inserted']//span[text()='" + neighbourhood + "']")
         ));
@@ -251,6 +271,37 @@ public class CreateRealEstate {
     public static void clickNextButton() throws InterruptedException {
         WebElement next = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
         next.click();
+    }
+
+    public static void uploadPhoto() throws InterruptedException {
+        System.out.println("Fotoğraf seçip herhangi bir tuşa basınız");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
+
+    public static void clickNextButton2() throws InterruptedException {
+        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
+        nextButton.click();
+    }
+
+    public static void scrollToElement4(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+    }
+
+    public static void clickNextButton3() throws InterruptedException {
+        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
+        nextButton.click();
+    }
+
+    public static void scrollToElement5(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+    }
+
+    public static void clickBuyDopingButton() throws InterruptedException {
+        WebElement buyButton =  driver.findElement(By.xpath("//button[contains(text(),'Buy')]"));
+        buyButton.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

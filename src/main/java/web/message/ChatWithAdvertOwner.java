@@ -1,6 +1,7 @@
 package web.message;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -29,10 +30,17 @@ public class ChatWithAdvertOwner {
             Thread.sleep(2000);
             backPage();
             Thread.sleep(2000);
+            clickAdvertDetails();
+            Thread.sleep(2000);
             clickAdvert();
             Thread.sleep(2000);
             clickSendMessageButton();
-
+            Thread.sleep(2000);
+            clickMessageInput();
+            Thread.sleep(2000);
+            clickSendButton();
+            Thread.sleep(2000);
+            scrollToElement(By.id("btn-send-message"));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -63,7 +71,7 @@ public class ChatWithAdvertOwner {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -77,18 +85,39 @@ public class ChatWithAdvertOwner {
         Thread.sleep(1000);
     }
 
-    public static void backPage(){
+    public static void backPage() {
         driver.navigate().back();
     }
 
+    public static void clickAdvertDetails() throws InterruptedException {
+        WebElement details = driver.findElement(By.id("quick-view-link"));
+        details.click();
+    }
+
     public static void clickAdvert() throws InterruptedException {
-        WebElement productLink = driver.findElement(By.id("featured-product-100011"));
-        productLink.click();
+        WebElement advert = driver.findElement(By.id("product-link-10"));
+        advert.click();
     }
 
     public static void clickSendMessageButton() throws InterruptedException {
-        WebElement sendMessage = driver.findElement(By.id("send-message-11"));
+        WebElement sendMessage = driver.findElement(By.id("send-message-10"));
         sendMessage.click();
+    }
+
+    public static void clickMessageInput() throws InterruptedException {
+        WebElement messageInput = driver.findElement(By.id("enter-message-textarea"));
+        messageInput.click();
+        messageInput.sendKeys("selamın aleyküm");
+    }
+
+    public static void clickSendButton() throws InterruptedException {
+        WebElement sendButton = driver.findElement(By.id("btn-send-message"));
+        sendButton.click();
+    }
+
+    public static void scrollToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
     }
 
     public static void clickElement(By locator) throws InterruptedException {

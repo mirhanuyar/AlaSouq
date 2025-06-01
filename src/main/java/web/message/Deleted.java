@@ -35,6 +35,8 @@ public class Deleted {
             clickMessage();
             Thread.sleep(2000);
             clickDeletedButton();
+            Thread.sleep(2000);
+            clickYesButton();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -66,7 +68,7 @@ public class Deleted {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -92,15 +94,20 @@ public class Deleted {
     }
 
     public static void clickMessage() throws InterruptedException {
-        List<WebElement> messages = driver.findElements(By.id("conversation-detail-5"));
+        List<WebElement> messages = driver.findElements(By.id("conversation-detail-1"));
 
         WebElement firstMessage = messages.get(0);
         firstMessage.click();
     }
 
     public static void clickDeletedButton() throws InterruptedException {
-        WebElement blockButton = driver.findElement(By.id("btn-delete-conversation-5"));
+        WebElement blockButton = driver.findElement(By.id("btn-delete-conversation"));
         blockButton.click();
+    }
+
+    public static void clickYesButton() throws InterruptedException {
+        WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
+        yesButton.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {
