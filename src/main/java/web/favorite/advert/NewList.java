@@ -100,11 +100,11 @@ public class NewList {
         listName = driver.findElement(By.id("listName"));
         listName.click();
         Thread.sleep(1000);
-        listName.sendKeys("TEST");
+        listName.sendKeys("TESTt");
     }
 
     public static void saveCreateList() throws InterruptedException{
-        WebElement saveButton = driver.findElement(By.id("btn-save-list"));
+        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Kaydet']"));
         saveButton.click();
     }
 

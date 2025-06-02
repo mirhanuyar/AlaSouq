@@ -27,6 +27,10 @@ public class AddList {
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
+            backPage();
+            Thread.sleep(2000);
+            clickAdvertDetails();
+            Thread.sleep(2000);
             clickAdvert();
             Thread.sleep(2000);
             addFavoriteAdvert();
@@ -76,11 +80,18 @@ public class AddList {
         Thread.sleep(1000);
     }
 
+    public static void backPage() throws InterruptedException {
+        driver.navigate().back();
+    }
+
+    public static void clickAdvertDetails() throws InterruptedException {
+        WebElement details = driver.findElement(By.id("quick-view-link"));
+        details.click();
+    }
 
     public static void clickAdvert() throws InterruptedException {
-        WebElement productLink = driver.findElement(By.id("featured-product-100011"));
-        productLink.click();
-        Thread.sleep(2000);
+        WebElement advert = driver.findElement(By.id("product-link-33"));
+        advert.click();
     }
 
     public static void addFavoriteAdvert() {
@@ -107,5 +118,4 @@ public class AddList {
         element.click();
         Thread.sleep(1000);
     }
-
 }

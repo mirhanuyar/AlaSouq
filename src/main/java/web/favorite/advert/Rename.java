@@ -35,7 +35,7 @@ public class Rename {
             Thread.sleep(2000);
             clickListNameInput();
             Thread.sleep(2000);
-            saveCreateList();
+            saveList();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -103,8 +103,8 @@ public class Rename {
         input.sendKeys("RENAME TEST");
     }
 
-    public static void saveCreateList() throws InterruptedException {
-        WebElement saveButton = driver.findElement(By.id("btn-save-list"));
+    public static void saveList() throws InterruptedException {
+        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Düzenle']"));
         saveButton.click();
     }
 

@@ -99,7 +99,6 @@ public class SwearMessage {
         firstMessage.click();
     }
 
-
     public static void sendMessage() {
         try {
             List<String> swear = Arrays.asList("dalyarak", "amcık", "piç", "amk", "götveren", "yarrak", "yavşak", "amına koyduğum");
