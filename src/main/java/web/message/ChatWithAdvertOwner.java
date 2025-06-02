@@ -95,12 +95,12 @@ public class ChatWithAdvertOwner {
     }
 
     public static void clickAdvert() throws InterruptedException {
-        WebElement advert = driver.findElement(By.id("product-link-10"));
+        WebElement advert = driver.findElement(By.id("product-link-33"));
         advert.click();
     }
 
     public static void clickSendMessageButton() throws InterruptedException {
-        WebElement sendMessage = driver.findElement(By.id("send-message-10"));
+        WebElement sendMessage = driver.findElement(By.id("send-message-33"));
         sendMessage.click();
     }
 

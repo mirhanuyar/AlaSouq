@@ -94,7 +94,7 @@ public class Deleted {
     }
 
     public static void clickMessage() throws InterruptedException {
-        List<WebElement> messages = driver.findElements(By.id("conversation-detail-1"));
+        List<WebElement> messages = driver.findElements(By.id("info"));
 
         WebElement firstMessage = messages.get(0);
         firstMessage.click();
