@@ -49,7 +49,7 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             enterPrice();
             Thread.sleep(2000);
-            scrollToElement(By.id("value-num"));
+            scrollScreen(300);
             Thread.sleep(2000);
             chooseCurrency();
             Thread.sleep(2000);
@@ -57,7 +57,7 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             //selectAvailableForViewingOption();
             Thread.sleep(2000);
-            scrollToElement2(By.xpath("//h5[span[text()='Contact Information']]"));
+            scrollScreen(300);
             Thread.sleep(2000);
             clickProvince();
             Thread.sleep(2000);
@@ -67,7 +67,7 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             selectMap();
             Thread.sleep(2000);
-            scrollToElement3(By.xpath("//span[text()='Display Name']"));
+            scrollScreen(800);
             Thread.sleep(2000);
             clickAdCreateConfirmationCheckbox();
             Thread.sleep(2000);
@@ -77,11 +77,11 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             clickNextButton2();
             Thread.sleep(2000);
-            scrollToElement4(By.xpath("//button[contains(text(),'Next')]"));
+            scrollScreen(300);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollToElement5(By.xpath("//button[contains(text(),'Buy')]"));
+            scrollScreen(300);
             Thread.sleep(2000);
             clickBuyDopingButton();
 
@@ -154,11 +154,6 @@ public class CreateRealEstate {
         forRentCategory.click();
     }
 
-    /*public static void clickForSaleCategory() {
-        WebElement forSaleCategory = driver.findElement(By.id("sub-category-for-sale-buildings"));
-        forSaleCategory.click();
-    }*/
-
     public static void clickContinueButton() {
         WebElement continueButton = driver.findElement(By.id("btn-continue-selection"));
         continueButton.click();
@@ -184,11 +179,6 @@ public class CreateRealEstate {
         price.sendKeys("10000");
     }
 
-    public static void scrollToElement(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
-    }
-
     public static void chooseCurrency() throws InterruptedException {
         WebElement selectDropdown = driver.findElement(By.id("currency"));
         selectDropdown.click();
@@ -202,12 +192,6 @@ public class CreateRealEstate {
         selectDropdown.click();
 
         Thread.sleep(2000);
-
-
-
-        /*WebElement noButton = driver.findElement(By.xpath("//div[@role='option' and .//span[text()='Yes']]"));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(yesButton).click().perform();*/
     }
 
     public static void selectAvailableForViewingOption() throws InterruptedException {
@@ -215,11 +199,6 @@ public class CreateRealEstate {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", yesButton);
-    }
-
-    public static void scrollToElement2(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
     }
 
     public static void clickProvince() throws InterruptedException {
@@ -260,49 +239,10 @@ public class CreateRealEstate {
     }
 
     public static void selectMap() throws InterruptedException {
-
-        WebElement mapContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.cssSelector("div.map-container")
-        ));
-
+        WebElement mapDiv = driver.findElement(By.cssSelector("div[style*='z-index: 3'][style*='position: absolute']"));
         Actions actions = new Actions(driver);
+        actions.moveToElement(mapDiv).click().perform();
 
-        // Harita boyutlarını al
-        int mapWidth = mapContainer.getSize().getWidth();
-        int mapHeight = mapContainer.getSize().getHeight();
-        System.out.println("Harita Boyutları: " + mapWidth + "x" + mapHeight);
-
-        // Merkez tıklama (sınır kontrolü ile)
-        int centerX = mapWidth / 2;
-        int centerY = mapHeight / 2;
-        if (centerX > 0 && centerY > 0 && centerX < mapWidth && centerY < mapHeight) {
-            actions.moveToElement(mapContainer, centerX, centerY)
-                    .click()
-                    .build()
-                    .perform();
-        } else {
-            System.out.println("Merkez koordinatları geçersiz!");
-        }
-
-        // Necef için tahmini tıklama (sınır kontrolü ile)
-        int clickX = mapWidth / 2 - 100; // Sol tarafa kaydırma
-        int clickY = mapHeight / 2 - 150; // Üst tarafa kaydırma
-        if (clickX > 0 && clickY > 0 && clickX < mapWidth && clickY < mapHeight) {
-            actions.moveToElement(mapContainer, clickX, clickY)
-                    .click()
-                    .build()
-                    .perform();
-        } else {
-            System.out.println("Tıklama koordinatları harita sınırlarının dışında: (" + clickX + ", " + clickY + ")");
-        }
-
-        Thread.sleep(2000);
-    }
-
-
-    public static void scrollToElement3(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
     }
 
     public static void clickAdCreateConfirmationCheckbox() throws InterruptedException {
@@ -339,19 +279,9 @@ public class CreateRealEstate {
         nextButton.click();
     }
 
-    public static void scrollToElement4(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
-    }
-
     public static void clickNextButton3() throws InterruptedException {
         WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
         nextButton.click();
-    }
-
-    public static void scrollToElement5(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
     }
 
     public static void clickBuyDopingButton() throws InterruptedException {
@@ -363,5 +293,10 @@ public class CreateRealEstate {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
         Thread.sleep(1000);
+    }
+
+    public static void scrollScreen(int pixels) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
     }
 }
