@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
+import java.io.File;
 import java.time.Duration;
 import java.util.Scanner;
 
@@ -310,14 +311,27 @@ public class CreateRealEstate {
     }
 
     public static void clickNextButton() throws InterruptedException {
-        WebElement next = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
+        WebElement next = driver.findElement(By.id("advert-next-button"));
         next.click();
     }
 
     public static void uploadPhoto() throws InterruptedException {
-        System.out.println("Fotoğraf seçip herhangi bir tuşa basınız");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        String[] photoNames = {"download.jpeg", "download (1).jpeg", "download (2).jpeg"};
+        String basePath = "src/main/resources/images/";
+
+        StringBuilder allPaths = new StringBuilder();
+        for (String name : photoNames) {
+            File file = new File(basePath + name);
+            allPaths.append(file.getAbsolutePath()).append("\n");
+        }
+
+        WebElement fileInput = driver.findElement(By.cssSelector("input[type='file']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].style.display='block';", fileInput);
+
+        fileInput.sendKeys(allPaths.toString().trim());
+
     }
 
     public static void clickNextButton2() throws InterruptedException {
