@@ -15,7 +15,6 @@ import java.time.Duration;
 public class AddList {
     public static WebDriver driver;
     public static WebDriverWait wait;
-    private static WebElement addNewList ;
 
     public static void main(String[] args) {
         setUpDriver();
@@ -30,11 +29,9 @@ public class AddList {
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
-            clickHomepage();
+            backPage();
             Thread.sleep(2000);
             clickAdvert();
-            Thread.sleep(2000);
-            scrollScreen(800);
             Thread.sleep(2000);
             addFavoriteList();
             Thread.sleep(2000);
@@ -86,22 +83,19 @@ public class AddList {
         Thread.sleep(1000);
     }
 
-    public static void clickHomepage() throws InterruptedException {
-        WebElement clickHomepage = driver.findElement(By.cssSelector(".img-fluid"));
-
-        clickHomepage.click();
-
+    public static void backPage() throws InterruptedException {
+        driver.navigate().back();
     }
 
     public static void clickAdvert() throws InterruptedException {
-        List<WebElement> ilanlar = driver.findElements(By.cssSelector("a.product-title"));
+        List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
 
-        if (!ilanlar.isEmpty()) {
-            WebElement birinciIlan = ilanlar.get(0);
+        if (!advert.isEmpty()) {
+            WebElement firstAd = advert.get(0);
 
             Thread.sleep(1000);
 
-            birinciIlan.click();
+            firstAd.click();
         } else {
             System.out.println("İlan bulunamadı.");
         }
@@ -109,19 +103,12 @@ public class AddList {
         Thread.sleep(2000);
     }
 
-    public static void scrollScreen(int pixels) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
-    }
 
     public static void addFavoriteList() throws InterruptedException {
-
-        WebElement addFavoriebutoon = driver.findElement(By.cssSelector("[id^='btn-toggle-favorite-']"));
+        WebElement addFavoriebutoon = driver.findElement(By.id("btn-toggle-favorite-10"));
 
         addFavoriebutoon.click();
         Thread.sleep(2000);
-
-
     }
 
     public static void createNewFavoriteList() throws InterruptedException {
@@ -129,19 +116,8 @@ public class AddList {
                 By.id("listName")));
         addNewList .click();
         addNewList .sendKeys("TEST");
-
-        Thread.sleep(1000);
-
-        WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector(".btn.w-25.btn-outline-primary")));
-        saveButton.click();
     }
 
-    public static void selectFavoriteList() throws InterruptedException {
-        WebElement selectList = driver.findElement(By.id("add-to-list-7"));
-        selectList.click();
-        Thread.sleep(1000);
-    }
     public static void saveFavoriteList() throws InterruptedException {
         WebElement savebutton = driver.findElement(By.id("add-favorite_save_btn"));
         savebutton.click();
