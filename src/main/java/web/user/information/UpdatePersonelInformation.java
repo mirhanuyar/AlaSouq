@@ -73,7 +73,7 @@ public class UpdatePersonelInformation {
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
-        currentPasswordField.sendKeys("admin6565");
+        currentPasswordField.sendKeys("admin");
         Thread.sleep(3000);
     }
 

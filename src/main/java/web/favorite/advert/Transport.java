@@ -36,7 +36,7 @@ public class Transport {
             Thread.sleep(2000);
             dropDown();
             Thread.sleep(2000);
-            transportClick();
+            TransportFavoriteAdvert();
             Thread.sleep(2000);
             selectListToMove();
             Thread.sleep(2000);
@@ -72,7 +72,7 @@ public class Transport {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("onder.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -94,7 +94,7 @@ public class Transport {
     }
 
     public static void clickMyFavorite() throws InterruptedException {
-        driver.findElement(By.id("link-my-favorites")).click();
+        driver.findElement(By.cssSelector(".ri-heart-line")).click();
     }
 
     public static void clickFavoriteAdvert() throws InterruptedException {
@@ -107,10 +107,12 @@ public class Transport {
         dropdownToggle.click();
         Thread.sleep(500);
     }
-
-    public static void transportClick() throws InterruptedException {
+    public static void TransportFavoriteAdvert() throws InterruptedException {
         driver.findElement(By.id("favorite-product-move-1")).click();
+
+        Thread.sleep(2000);
     }
+
 
     public static void selectListToMove() throws InterruptedException {
         WebElement radio = driver.findElement(By.id("list-2"));
@@ -119,7 +121,7 @@ public class Transport {
     }
 
     public static void saveButton() throws InterruptedException {
-        WebElement moveButton = driver.findElement(By.id("btn-move-product"));
+        WebElement moveButton = driver.findElement(By.cssSelector(".btn.w-25.btn-outline-primary"));
         moveButton.click();
     }
 

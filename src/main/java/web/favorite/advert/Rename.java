@@ -23,19 +23,21 @@ public class Rename {
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
+
             fillForm();
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
-            clickUserIcon2();
-            Thread.sleep(2000);
-            clickMyFavorite();
+            clickAdvert();
             Thread.sleep(2000);
             favoriteListEdit();
             Thread.sleep(2000);
             clickListNameInput();
             Thread.sleep(2000);
-            saveCreateList();
+            clickorganise();
+            Thread.sleep(1000);
+            clickorganise();
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -80,19 +82,16 @@ public class Rename {
         Thread.sleep(1000);
     }
 
-    public static void clickUserIcon2() throws InterruptedException {
-        WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("user-icon-button")));
-        userIcon.click();
-        Thread.sleep(1000);
+    public static void clickAdvert() throws InterruptedException {
+        WebElement productLink = driver.findElement(By.xpath("//*[contains(@class, 'ri-heart-line')]"));
+        productLink.click();
+        Thread.sleep(2000);
     }
 
-    public static void clickMyFavorite() throws InterruptedException {
-        driver.findElement(By.id("link-my-favorites")).click();
-    }
 
     public static void favoriteListEdit() throws InterruptedException {
-        driver.findElement(By.id("favorite-list-edit-0")).click();
+        WebElement duzenleButonu = driver.findElement(By.xpath("//span[text()='Düzenle']"));
+        duzenleButonu.click();
     }
 
     public static void clickListNameInput() throws InterruptedException {
@@ -103,9 +102,17 @@ public class Rename {
         input.sendKeys("RENAME TEST");
     }
 
-    public static void saveCreateList() throws InterruptedException {
+ /*  public static void saveCreateList() throws InterruptedException {
         WebElement saveButton = driver.findElement(By.id("btn-save-list"));
         saveButton.click();
+    }*/
+
+    public static void clickorganise() throws InterruptedException {
+        WebElement organise = driver.findElement(By.cssSelector(".btn.w-25.btn-outline-primary"));
+
+        organise.click();
+
+
     }
 
     public static void clickElement(By locator) throws InterruptedException {

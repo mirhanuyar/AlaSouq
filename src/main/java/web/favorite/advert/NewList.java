@@ -88,7 +88,7 @@ public class NewList {
     }
 
     public static void clickMyFavorite() throws InterruptedException {
-        driver.findElement(By.id("link-my-favorites")).click();
+        driver.findElement(By.cssSelector(".ri-heart-line")).click();
     }
 
     public static void clickCreateNewList() throws InterruptedException{
@@ -104,7 +104,7 @@ public class NewList {
     }
 
     public static void saveCreateList() throws InterruptedException{
-        WebElement saveButton = driver.findElement(By.id("btn-save-list"));
+        WebElement saveButton = driver.findElement(By.cssSelector(".btn.w-25.btn-outline-primary"));
         saveButton.click();
     }
 
