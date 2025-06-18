@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Called {
     public static WebDriver driver;
@@ -90,8 +91,10 @@ public class Called {
     }
 
     public static void clickMessage() throws InterruptedException {
-        WebElement messages = driver.findElement(By.id("conversation-detail-1"));
-        messages.click();
+        List<WebElement> messages = driver.findElements(By.id("info"));
+
+        WebElement firstMessage = messages.get(0);
+        firstMessage.click();
     }
 
     public static void clickCalledButton() throws InterruptedException {

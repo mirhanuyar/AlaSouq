@@ -89,7 +89,7 @@ public class UnreadMessage {
     }
 
     public static void clickUnreadMessages() throws InterruptedException {
-        WebElement label = driver.findElement(By.cssSelector("label[for='danger-outlined']"));
+        WebElement label = driver.findElement(By.id("danger-outlined"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", label);
     }
 

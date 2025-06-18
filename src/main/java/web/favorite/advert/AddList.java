@@ -120,7 +120,7 @@ public class AddList {
 
         addFavoriebutoon.click();
         Thread.sleep(2000);
-        
+
 
     }
 

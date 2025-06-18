@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 
 public class Blocked {
@@ -91,12 +92,14 @@ public class Blocked {
     }
 
     public static void clickMessage() throws InterruptedException {
-        WebElement messages = driver.findElement(By.id("conversation-detail-1"));
-        messages.click();
+        List<WebElement> messages = driver.findElements(By.id("info"));
+
+        WebElement firstMessage = messages.get(0);
+        firstMessage.click();
     }
 
     public static void clickBlockButton() throws InterruptedException {
-        WebElement blockButton = driver.findElement(By.cssSelector("btn-block-user"));
+        WebElement blockButton = driver.findElement(By.id("btn-block-user"));
         blockButton.click();
     }
 

@@ -89,23 +89,22 @@ public class SwearMessage {
     }
 
     public static void clickMessagesMenu() throws InterruptedException {
-        driver.findElement(By.linkText("Messages")).click();
+        driver.findElement(By.id("link-messages")).click();
     }
 
     public static void clickMessage() throws InterruptedException {
-        List<WebElement> messages = driver.findElements(By.id("conversation-detail-7"));
+        List<WebElement> messages = driver.findElements(By.id("info"));
 
         WebElement firstMessage = messages.get(0);
         firstMessage.click();
     }
 
-
     public static void sendMessage() {
         try {
-            List<String> swear = Arrays.asList("dalyarak", "amcık", "orospu çocuğu", "piç", "amk", "götveren", "yarrak", "yavşak", "amına koyduğum");
+            List<String> swear = Arrays.asList("dalyarak", "amcık", "piç", "amk", "götveren", "yarrak", "yavşak", "amına koyduğum");
 
             Random random = new Random();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < swear.size(); i++) {
                 WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("enter-message-textarea")));
                 String randomSwear = swear.get(random.nextInt(swear.size()));
                 message.sendKeys(randomSwear);
@@ -120,7 +119,6 @@ public class SwearMessage {
             e.getMessage();
         }
     }
-
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
