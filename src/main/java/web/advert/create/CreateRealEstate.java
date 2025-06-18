@@ -1,14 +1,14 @@
 package web.advert.create;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.awt.*;
 import java.time.Duration;
 import java.util.Scanner;
 
@@ -29,6 +29,8 @@ public class CreateRealEstate {
             fillForm();
             Thread.sleep(2000);
             signIn();
+            Thread.sleep(2000);
+            backPage();
             Thread.sleep(2000);
             clickCreateAdvertButton();
             Thread.sleep(2000);
@@ -127,33 +129,37 @@ public class CreateRealEstate {
         Thread.sleep(1000);
     }
 
+    public static void backPage() throws InterruptedException {
+        driver.navigate().back();
+    }
+
     public static void clickCreateAdvertButton() throws InterruptedException {
-        WebElement createAdvert = driver.findElement(By.cssSelector("a.advert-create-button"));
+        WebElement createAdvert = driver.findElement(By.id("btn-post-free-ad"));
         createAdvert.click();
     }
 
     public static void clickRealEstate() throws InterruptedException {
-        WebElement realEstateCard = driver.findElement(By.xpath("//span[text()='Real Estate']"));
+        WebElement realEstateCard = driver.findElement(By.id("base-category-1"));
         realEstateCard.click();
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.xpath("//li[text()=' Building ']"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-buildings"));
         buildingCategory.click();
     }
 
     public static void clickForRentCategory() {
-        WebElement forRentCategory = driver.findElement(By.xpath("//li[normalize-space(text())='For Rent']"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-for-rent-buildings"));
         forRentCategory.click();
     }
 
     /*public static void clickForSaleCategory() {
-        WebElement forSaleCategory = driver.findElement(By.xpath("//li[normalize-space(text())='For Sale']"));
+        WebElement forSaleCategory = driver.findElement(By.id("sub-category-for-sale-buildings"));
         forSaleCategory.click();
     }*/
 
     public static void clickContinueButton() {
-        WebElement continueButton = driver.findElement(By.xpath("//button[normalize-space(text())='Continue']"));
+        WebElement continueButton = driver.findElement(By.id("btn-continue-selection"));
         continueButton.click();
     }
 
@@ -253,10 +259,45 @@ public class CreateRealEstate {
     }
 
     public static void selectMap() throws InterruptedException {
-        System.out.println("Haritada bir alan seçin ve devam etmek için enter tuşuna basın");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+
+        WebElement mapContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("div.map-container")
+        ));
+
+        Actions actions = new Actions(driver);
+
+        // Harita boyutlarını al
+        int mapWidth = mapContainer.getSize().getWidth();
+        int mapHeight = mapContainer.getSize().getHeight();
+        System.out.println("Harita Boyutları: " + mapWidth + "x" + mapHeight);
+
+        // Merkez tıklama (sınır kontrolü ile)
+        int centerX = mapWidth / 2;
+        int centerY = mapHeight / 2;
+        if (centerX > 0 && centerY > 0 && centerX < mapWidth && centerY < mapHeight) {
+            actions.moveToElement(mapContainer, centerX, centerY)
+                    .click()
+                    .build()
+                    .perform();
+        } else {
+            System.out.println("Merkez koordinatları geçersiz!");
+        }
+
+        // Necef için tahmini tıklama (sınır kontrolü ile)
+        int clickX = mapWidth / 2 - 100; // Sol tarafa kaydırma
+        int clickY = mapHeight / 2 - 150; // Üst tarafa kaydırma
+        if (clickX > 0 && clickY > 0 && clickX < mapWidth && clickY < mapHeight) {
+            actions.moveToElement(mapContainer, clickX, clickY)
+                    .click()
+                    .build()
+                    .perform();
+        } else {
+            System.out.println("Tıklama koordinatları harita sınırlarının dışında: (" + clickX + ", " + clickY + ")");
+        }
+
+        Thread.sleep(2000);
     }
+
 
     public static void scrollToElement3(By locator) {
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));

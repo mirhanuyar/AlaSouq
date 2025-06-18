@@ -91,7 +91,7 @@ public class Delete {
     }
 
     public static void clickMyFavorite() throws InterruptedException {
-        driver.findElement(By.cssSelector(".ri-heart-line")).click();
+        driver.findElement(By.id("link-my-favorites")).click();
     }
 
     public static void clickFavoriteAdvert() throws InterruptedException {
