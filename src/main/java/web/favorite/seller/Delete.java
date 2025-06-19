@@ -18,6 +18,8 @@ public class Delete {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -32,15 +34,14 @@ public class Delete {
             Thread.sleep(2000);
             deleteFavoriteSeller();
             Thread.sleep(2000);
-            deleteYesButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-
     public static void setUpDriver() {
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
@@ -60,9 +61,10 @@ public class Delete {
         Thread.sleep(1000);
     }
 
+
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("onder.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -85,21 +87,20 @@ public class Delete {
 
     public static void clickMyFavorite() throws InterruptedException {
         driver.findElement(By.id("link-my-favorites")).click();
+        Thread.sleep(1000);
     }
 
     public static void clickFavoriteSeller() throws InterruptedException {
-        WebElement favoriteSellersLink = driver.findElement(By.id("tab-favorite-sellers"));
-        favoriteSellersLink.click();
+        WebElement clickFavoriteSeller = driver.findElement(By.cssSelector("a[href='/tr/my-account/favorites/tenants']"));
+        clickFavoriteSeller.click();
+
     }
 
-    public static void deleteFavoriteSeller() throws InterruptedException{
-        WebElement deleteButton = driver.findElement(By.id("btn-seller-delete-5"));
-        deleteButton.click();
-    }
-
-    public static void deleteYesButton() throws InterruptedException{
-        WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
-        yesButton.click();
+      public static void deleteFavoriteSeller() throws InterruptedException{
+          WebElement deleteButton = driver.findElement(By.cssSelector("[id^='btn-seller-delete-']"));
+          deleteButton.click();
+        Thread.sleep(2000);
+        driver.findElement(By.id("confirm_yes_btn")).click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

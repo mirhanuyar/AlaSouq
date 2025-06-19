@@ -18,6 +18,8 @@ public class Control {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -34,9 +36,9 @@ public class Control {
         }
     }
 
-
     public static void setUpDriver() {
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
@@ -82,11 +84,14 @@ public class Control {
 
     public static void clickMyFavorite() throws InterruptedException {
         driver.findElement(By.id("link-my-favorites")).click();
+        Thread.sleep(1000);
     }
 
     public static void clickFavoriteSeller() throws InterruptedException {
-        WebElement favoriteSellersLink = driver.findElement(By.id("tab-favorite-sellers"));
-        favoriteSellersLink.click();
+      WebElement clickFavoriteSeller = driver.findElement(By.cssSelector("a[href='/tr/my-account/favorites/tenants']"));
+      clickFavoriteSeller.click();
+
+
     }
 
     public static void clickElement(By locator) throws InterruptedException {

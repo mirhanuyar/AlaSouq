@@ -26,9 +26,12 @@ public class Create {
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
+            backPage();
+            Thread.sleep(2000);
             clickAdvert();
             Thread.sleep(2000);
             clickAddSellerFavorite();
+            Thread.sleep(2000);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -38,6 +41,7 @@ public class Create {
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
@@ -57,10 +61,9 @@ public class Create {
         Thread.sleep(1000);
     }
 
-
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("onder.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -74,17 +77,24 @@ public class Create {
         Thread.sleep(1000);
     }
 
+    public static void backPage() throws InterruptedException {
+        driver.navigate().back();
+    }
+
     public static void clickAdvert() throws InterruptedException {
         WebElement productLink = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("featured-product-100011")));
+                By.id("quick-view-link")));
         productLink.click();
         Thread.sleep(2000);
     }
 
     public static void clickAddSellerFavorite() throws InterruptedException {
-        WebElement addToFavoriteButton = driver.findElement(By.id("btn-toggle-favorite-11"));
+        WebElement addToFavoriteButton = driver.findElement(By.cssSelector(".p-1"));
         addToFavoriteButton.click();
+        Thread.sleep(500);
+        driver.findElement(By.id("product_detail_close_modal_btn")).click();
     }
+
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
