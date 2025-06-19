@@ -19,6 +19,8 @@ public class Create {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -26,6 +28,12 @@ public class Create {
             signIn();
             Thread.sleep(2000);
             clickSearchButton();
+            Thread.sleep(2000);
+            searchButton();
+            Thread.sleep(2000);
+            saveSearch();
+            Thread.sleep(2000);
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -34,23 +42,29 @@ public class Create {
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+    }
+    public static void openRegistrationPage() {
+        driver.get("https://alasouq.com/tr/");
     }
 
-    public static void openRegistrationPage() {
-        driver.get("http://localhost:4300");
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
+                By.id("user-icon-button")));
         userIcon.click();
         Thread.sleep(1000);
     }
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("onder.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -65,10 +79,26 @@ public class Create {
     }
 
     public static void clickSearchButton() throws InterruptedException{
-        WebElement searchInput = driver.findElement(By.cssSelector("input[type='search']"));
-        searchInput.sendKeys("Konut");
+        WebElement searchInput = driver.findElement(By.id("nav-search-input"));
+        searchInput.sendKeys("Ev");
         searchInput.sendKeys(Keys.ENTER);
     }
+    public static void searchButton() throws InterruptedException {
+        WebElement searchInput = driver.findElement(By.id("search-by-term-kiralik-konut-müstakil-ev"));
+        searchInput.click();
+        Thread.sleep(2000);
+        driver.findElement(By.id("save-search")).click();
+        Thread.sleep(2000);
+
+    }
+    public static void saveSearch() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("searchName"));
+        save.click();
+        save.sendKeys("TEST");
+        driver.findElement(By.id("save-search-button")).click();
+
+    }
+
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
