@@ -1,16 +1,17 @@
 package web.advert.create;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.time.Duration;
-import java.util.Scanner;
 
 
 public class CreateRealEstate {
@@ -30,6 +31,8 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
+            backPage();
+            Thread.sleep(2000);
             clickCreateAdvertButton();
             Thread.sleep(2000);
             clickRealEstate();
@@ -46,7 +49,7 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             enterPrice();
             Thread.sleep(2000);
-            scrollToElement(By.id("value-num"));
+            scrollScreen(300);
             Thread.sleep(2000);
             chooseCurrency();
             Thread.sleep(2000);
@@ -54,7 +57,7 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             //selectAvailableForViewingOption();
             Thread.sleep(2000);
-            scrollToElement2(By.xpath("//h5[span[text()='Contact Information']]"));
+            scrollScreen(500);
             Thread.sleep(2000);
             clickProvince();
             Thread.sleep(2000);
@@ -64,7 +67,7 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             selectMap();
             Thread.sleep(2000);
-            scrollToElement3(By.xpath("//span[text()='Display Name']"));
+            scrollScreen(800);
             Thread.sleep(2000);
             clickAdCreateConfirmationCheckbox();
             Thread.sleep(2000);
@@ -74,17 +77,19 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             clickNextButton2();
             Thread.sleep(2000);
-            scrollToElement4(By.xpath("//button[contains(text(),'Next')]"));
+            scrollScreen(300);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollToElement5(By.xpath("//button[contains(text(),'Buy')]"));
+            scrollScreen(300);
             Thread.sleep(2000);
             clickBuyDopingButton();
 
 
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -127,33 +132,32 @@ public class CreateRealEstate {
         Thread.sleep(1000);
     }
 
+    public static void backPage() throws InterruptedException {
+        driver.navigate().back();
+    }
+
     public static void clickCreateAdvertButton() throws InterruptedException {
-        WebElement createAdvert = driver.findElement(By.cssSelector("a.advert-create-button"));
+        WebElement createAdvert = driver.findElement(By.id("btn-post-free-ad"));
         createAdvert.click();
     }
 
     public static void clickRealEstate() throws InterruptedException {
-        WebElement realEstateCard = driver.findElement(By.xpath("//span[text()='Real Estate']"));
+        WebElement realEstateCard = driver.findElement(By.id("base-category-1"));
         realEstateCard.click();
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.xpath("//li[text()=' Building ']"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-buildings"));
         buildingCategory.click();
     }
 
     public static void clickForRentCategory() {
-        WebElement forRentCategory = driver.findElement(By.xpath("//li[normalize-space(text())='For Rent']"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-for-rent-buildings"));
         forRentCategory.click();
     }
 
-    /*public static void clickForSaleCategory() {
-        WebElement forSaleCategory = driver.findElement(By.xpath("//li[normalize-space(text())='For Sale']"));
-        forSaleCategory.click();
-    }*/
-
     public static void clickContinueButton() {
-        WebElement continueButton = driver.findElement(By.xpath("//button[normalize-space(text())='Continue']"));
+        WebElement continueButton = driver.findElement(By.id("btn-continue-selection"));
         continueButton.click();
     }
 
@@ -177,11 +181,6 @@ public class CreateRealEstate {
         price.sendKeys("10000");
     }
 
-    public static void scrollToElement(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
-    }
-
     public static void chooseCurrency() throws InterruptedException {
         WebElement selectDropdown = driver.findElement(By.id("currency"));
         selectDropdown.click();
@@ -195,12 +194,6 @@ public class CreateRealEstate {
         selectDropdown.click();
 
         Thread.sleep(2000);
-
-
-
-        /*WebElement noButton = driver.findElement(By.xpath("//div[@role='option' and .//span[text()='Yes']]"));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(yesButton).click().perform();*/
     }
 
     public static void selectAvailableForViewingOption() throws InterruptedException {
@@ -208,11 +201,6 @@ public class CreateRealEstate {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", yesButton);
-    }
-
-    public static void scrollToElement2(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
     }
 
     public static void clickProvince() throws InterruptedException {
@@ -253,14 +241,9 @@ public class CreateRealEstate {
     }
 
     public static void selectMap() throws InterruptedException {
-        System.out.println("Haritada bir alan seçin ve devam etmek için enter tuşuna basın");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-    }
-
-    public static void scrollToElement3(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+        WebElement mapDiv = driver.findElement(By.cssSelector("div[style*='z-index: 3'][style*='position: absolute']"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(mapDiv).click().perform();
     }
 
     public static void clickAdCreateConfirmationCheckbox() throws InterruptedException {
@@ -269,14 +252,34 @@ public class CreateRealEstate {
     }
 
     public static void clickNextButton() throws InterruptedException {
-        WebElement next = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
+        WebElement next = driver.findElement(By.id("advert-next-button"));
         next.click();
     }
 
-    public static void uploadPhoto() throws InterruptedException {
-        System.out.println("Fotoğraf seçip herhangi bir tuşa basınız");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+    public static void uploadPhoto() throws InterruptedException, AWTException {
+        String[] photoNames = {"download.jpeg", "download (1).jpeg", "download (2).jpeg"};
+        String basePath = "/Users/mirhanuyar/IdeaProjects/AlaSouq/src/main/java/web/_images/";
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement addImageButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".add-new-image")));
+        addImageButton.click();
+
+        WebElement fileInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type='file']")));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].style.display = 'block';", fileInput);
+
+        for (String name : photoNames) {
+            String filePath = basePath + name;
+            fileInput.sendKeys(filePath);
+            Thread.sleep(1000);
+        }
+
+        Robot robot = new Robot();
+        robot.delay(2000);
+        robot.keyPress(KeyEvent.VK_ESCAPE);
+        robot.keyRelease(KeyEvent.VK_ESCAPE);
     }
 
     public static void clickNextButton2() throws InterruptedException {
@@ -284,23 +287,13 @@ public class CreateRealEstate {
         nextButton.click();
     }
 
-    public static void scrollToElement4(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
-    }
-
     public static void clickNextButton3() throws InterruptedException {
         WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
         nextButton.click();
     }
 
-    public static void scrollToElement5(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
-    }
-
     public static void clickBuyDopingButton() throws InterruptedException {
-        WebElement buyButton =  driver.findElement(By.xpath("//button[contains(text(),'Buy')]"));
+        WebElement buyButton = driver.findElement(By.xpath("//button[contains(text(),'Buy')]"));
         buyButton.click();
     }
 
@@ -308,5 +301,10 @@ public class CreateRealEstate {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
         Thread.sleep(1000);
+    }
+
+    public static void scrollScreen(int pixels) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
     }
 }
