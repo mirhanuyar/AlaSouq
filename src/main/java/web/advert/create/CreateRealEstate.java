@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.time.Duration;
 
 
@@ -74,6 +73,8 @@ public class CreateRealEstate {
             clickNextButton();
             Thread.sleep(2000);
             uploadPhoto();
+            Thread.sleep(2000);
+            scrollScreen(400);
             Thread.sleep(2000);
             clickNextButton2();
             Thread.sleep(2000);
