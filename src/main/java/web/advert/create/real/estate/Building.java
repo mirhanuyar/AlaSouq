@@ -1,4 +1,4 @@
-package web.advert.create;
+package web.advert.create.real.estate;
 
 import org.openqa.selenium.*;
 
@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 import java.time.Duration;
 
 
-public class CreateRealEstate {
+public class Building {
     public static WebDriver driver;
     public static WebDriverWait wait;
 

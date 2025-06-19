@@ -1,13 +1,11 @@
 package web.advert;
 
-import web.advert.create.CreateRealEstate;
-
-import java.util.List;
+import web.advert.create.real.estate.Building;
 
 public class AdvertAll {
     public static void main(String[] args) {
         Edit.main(args);
         Complaint.main(args);
-        CreateRealEstate.main(args);
+        Building.main(args);
     }
 }
