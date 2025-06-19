@@ -1,17 +1,17 @@
 package web.advert.create;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.time.Duration;
-import java.util.Scanner;
 
 
 public class CreateRealEstate {
@@ -57,7 +57,7 @@ public class CreateRealEstate {
             Thread.sleep(2000);
             //selectAvailableForViewingOption();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(500);
             Thread.sleep(2000);
             clickProvince();
             Thread.sleep(2000);
@@ -88,6 +88,8 @@ public class CreateRealEstate {
 
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -242,7 +244,6 @@ public class CreateRealEstate {
         WebElement mapDiv = driver.findElement(By.cssSelector("div[style*='z-index: 3'][style*='position: absolute']"));
         Actions actions = new Actions(driver);
         actions.moveToElement(mapDiv).click().perform();
-
     }
 
     public static void clickAdCreateConfirmationCheckbox() throws InterruptedException {
@@ -255,23 +256,30 @@ public class CreateRealEstate {
         next.click();
     }
 
-    public static void uploadPhoto() throws InterruptedException {
+    public static void uploadPhoto() throws InterruptedException, AWTException {
         String[] photoNames = {"download.jpeg", "download (1).jpeg", "download (2).jpeg"};
-        String basePath = "src/main/resources/images/";
+        String basePath = "/Users/mirhanuyar/IdeaProjects/AlaSouq/src/main/java/web/_images/";
 
-        StringBuilder allPaths = new StringBuilder();
-        for (String name : photoNames) {
-            File file = new File(basePath + name);
-            allPaths.append(file.getAbsolutePath()).append("\n");
-        }
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        WebElement fileInput = driver.findElement(By.cssSelector("input[type='file']"));
+        WebElement addImageButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".add-new-image")));
+        addImageButton.click();
+
+        WebElement fileInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type='file']")));
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].style.display='block';", fileInput);
+        js.executeScript("arguments[0].style.display = 'block';", fileInput);
 
-        fileInput.sendKeys(allPaths.toString().trim());
+        for (String name : photoNames) {
+            String filePath = basePath + name;
+            fileInput.sendKeys(filePath);
+            Thread.sleep(1000);
+        }
 
+        Robot robot = new Robot();
+        robot.delay(2000);
+        robot.keyPress(KeyEvent.VK_ESCAPE);
+        robot.keyRelease(KeyEvent.VK_ESCAPE);
     }
 
     public static void clickNextButton2() throws InterruptedException {
@@ -285,7 +293,7 @@ public class CreateRealEstate {
     }
 
     public static void clickBuyDopingButton() throws InterruptedException {
-        WebElement buyButton =  driver.findElement(By.xpath("//button[contains(text(),'Buy')]"));
+        WebElement buyButton = driver.findElement(By.xpath("//button[contains(text(),'Buy')]"));
         buyButton.click();
     }
 
