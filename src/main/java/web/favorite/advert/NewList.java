@@ -95,12 +95,13 @@ public class NewList {
         driver.findElement(By.id("btn-create-new-list")).click();
     }
 
-    public static void clickNewListName() throws InterruptedException{
-        WebElement listName;
-        listName = driver.findElement(By.id("listName"));
+    public static void clickNewListName() throws InterruptedException {
+        WebElement listName = driver.findElement(By.id("listName"));
         listName.click();
         Thread.sleep(1000);
-        listName.sendKeys("TEST");
+
+        String randomText = "TEST_" + (int)(Math.random() * 10000);
+        listName.sendKeys(randomText);
     }
 
     public static void saveCreateList() throws InterruptedException{

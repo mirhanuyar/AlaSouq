@@ -104,8 +104,8 @@ public class Rename {
     }
 
     public static void saveCreateList() throws InterruptedException {
-        WebElement saveButton = driver.findElement(By.id("btn-save-list"));
-        saveButton.click();
+        WebElement button = driver.findElement(By.xpath("//button[text()='Düzenle']"));
+        button.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

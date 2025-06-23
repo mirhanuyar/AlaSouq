@@ -113,7 +113,6 @@ public class Delete {
         driver.findElement(By.id("confirm_yes_btn")).click();
     }
 
-
     public static void backPage() throws InterruptedException {
         driver.navigate().back();
     }
@@ -129,5 +128,4 @@ public class Delete {
         element.click();
         Thread.sleep(1000);
     }
-
 }
