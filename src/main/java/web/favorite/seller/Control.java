@@ -18,6 +18,8 @@ public class Control {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
@@ -28,7 +30,9 @@ public class Control {
             Thread.sleep(2000);
             clickMyFavorite();
             Thread.sleep(2000);
-            clickFavoriteSeller();
+            clickFavoriteTenant();
+            Thread.sleep(2000);
+            clickSaveFavoriteTenant();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -42,10 +46,11 @@ public class Control {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -84,9 +89,16 @@ public class Control {
         driver.findElement(By.id("link-my-favorites")).click();
     }
 
-    public static void clickFavoriteSeller() throws InterruptedException {
-        WebElement favoriteSellersLink = driver.findElement(By.id("tab-favorite-sellers"));
-        favoriteSellersLink.click();
+    public static void clickFavoriteTenant() throws InterruptedException {
+        WebElement favoriteTenantsLink = driver.findElement(
+                By.xpath("//a[text()='Favorite Tenants']")
+        );
+        favoriteTenantsLink.click();
+    }
+
+    public static void clickSaveFavoriteTenant() throws InterruptedException {
+        WebElement tenantCard = driver.findElement(By.xpath("//div[@class='favorite-tenant-content' and .//h6[text()='Standard Company Ltd.']]"));
+        tenantCard.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

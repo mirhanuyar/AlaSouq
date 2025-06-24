@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Delete {
+public class DeleteSeller {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -17,6 +17,8 @@ public class Delete {
         setUpDriver();
         try {
             openRegistrationPage();
+            Thread.sleep(2000);
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -46,10 +48,11 @@ public class Delete {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -88,16 +91,18 @@ public class Delete {
     }
 
     public static void clickFavoriteSeller() throws InterruptedException {
-        WebElement favoriteSellersLink = driver.findElement(By.id("tab-favorite-sellers"));
-        favoriteSellersLink.click();
+        WebElement favoriteTenantsLink = driver.findElement(
+                By.xpath("//a[text()='Favorite Tenants']")
+        );
+        favoriteTenantsLink.click();
     }
 
-    public static void deleteFavoriteSeller() throws InterruptedException{
-        WebElement deleteButton = driver.findElement(By.id("btn-seller-delete-5"));
+    public static void deleteFavoriteSeller() throws InterruptedException {
+        WebElement deleteButton = driver.findElement(By.id("btn-seller-delete-2"));
         deleteButton.click();
     }
 
-    public static void deleteYesButton() throws InterruptedException{
+    public static void deleteYesButton() throws InterruptedException {
         WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
         yesButton.click();
     }

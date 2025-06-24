@@ -1,16 +1,18 @@
 package web.favorite.advert;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 
-public class Delete {
+public class DeleteAdvert {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -33,18 +35,11 @@ public class Delete {
             Thread.sleep(2000);
             clickFavoriteAdvert();
             Thread.sleep(2000);
-            dropDown();
-            Thread.sleep(2000);
-            deleteFavoriteAdvert();
-            Thread.sleep(2000);
-            backPage();
-            Thread.sleep(2000);
-            deleteListAction();
+            deleteListAction(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -53,10 +48,11 @@ public class Delete {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -99,28 +95,20 @@ public class Delete {
         clickAdvert.click();
     }
 
-    public static void dropDown() throws InterruptedException {
-        WebElement dropdownToggle = driver.findElement(By.id("favorite-product-actions-button-0"));
-        dropdownToggle.click();
+
+    public static void deleteListAction(int index) throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        Actions actions = new Actions(driver);
+
+        String containerId = "favorite-list-" + index;
+        WebElement container = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(containerId)));
+
+        actions.moveToElement(container).perform();
         Thread.sleep(500);
-    }
+        String deleteId = "favorite-list-delete-" + index;
+        WebElement deleteButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(deleteId)));
 
-    public static void deleteFavoriteAdvert() throws InterruptedException {
-        driver.findElement(By.id("favorite-product-remove-12")).click();
-
-        Thread.sleep(2000);
-
-        driver.findElement(By.id("confirm_yes_btn")).click();
-    }
-
-    public static void backPage() throws InterruptedException {
-        driver.navigate().back();
-    }
-
-    public static void deleteListAction() throws InterruptedException {
-        driver.findElement(By.id("favorite-list-delete-0")).click();
-        Thread.sleep(1000);
-        driver.findElement(By.id("confirm_yes_btn")).click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", deleteButton);
     }
 
     public static void clickElement(By locator) throws InterruptedException {

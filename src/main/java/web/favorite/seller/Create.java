@@ -1,6 +1,7 @@
 package web.favorite.seller;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Create {
     public static WebDriver driver;
@@ -26,10 +28,15 @@ public class Create {
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
+            backPage();
+            Thread.sleep(2000);
             clickAdvert();
             Thread.sleep(2000);
             clickAddSellerFavorite();
-
+            Thread.sleep(2000);
+            clickNewListInput();
+            Thread.sleep(2000);
+            saveButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -43,10 +50,11 @@ public class Create {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -74,10 +82,20 @@ public class Create {
         Thread.sleep(1000);
     }
 
+    public static void backPage() throws InterruptedException {
+        driver.navigate().back();
+    }
+
     public static void clickAdvert() throws InterruptedException {
-        WebElement productLink = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("featured-product-100011")));
-        productLink.click();
+        List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
+
+        if (!advert.isEmpty()) {
+            WebElement firstAd = advert.get(3);
+
+            Thread.sleep(1000);
+
+            firstAd.click();
+        }
         Thread.sleep(2000);
     }
 
@@ -86,10 +104,18 @@ public class Create {
         addToFavoriteButton.click();
     }
 
+    public static void clickNewListInput()  throws InterruptedException {
+        WebElement input = driver.findElement(By.id("listName"));
+        input.sendKeys("Testt");
+    }
+
+    public static void saveButton() throws InterruptedException {
+        WebElement saveButton = driver.findElement(By.id("add-favorite_save_btn"));
+        saveButton.click();
+    }
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
         Thread.sleep(1000);
     }
-
 }

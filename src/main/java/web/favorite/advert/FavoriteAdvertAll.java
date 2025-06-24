@@ -6,6 +6,6 @@ public class FavoriteAdvertAll {
         NewList.main(args);
         Rename.main(args);
         Transport.main(args);
-        Delete.main(args);
+        DeleteAdvert.main(args);
     }
 }
