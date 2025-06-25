@@ -32,9 +32,7 @@ public class ChatWithAdvertOwner {
             Thread.sleep(2000);
             clickAdvertDetails();
             Thread.sleep(2000);
-            clickAdvert();
-            Thread.sleep(2000);
-            clickSendMessageButton();
+            clickMessageButton();
             Thread.sleep(2000);
             clickMessageInput();
             Thread.sleep(2000);
@@ -54,10 +52,11 @@ public class ChatWithAdvertOwner {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
-    public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+    public static void clickSaveAppSettings() throws InterruptedException{
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -94,15 +93,11 @@ public class ChatWithAdvertOwner {
         details.click();
     }
 
-    public static void clickAdvert() throws InterruptedException {
-        WebElement advert = driver.findElement(By.id("product-link-33"));
+    public static void clickMessageButton() throws InterruptedException {
+        WebElement advert = driver.findElement(By.id("message12"));
         advert.click();
     }
 
-    public static void clickSendMessageButton() throws InterruptedException {
-        WebElement sendMessage = driver.findElement(By.id("send-message-33"));
-        sendMessage.click();
-    }
 
     public static void clickMessageInput() throws InterruptedException {
         WebElement messageInput = driver.findElement(By.id("enter-message-textarea"));

@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,17 +22,20 @@ public class Edit {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
             fillForm();
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
-            clickUserIcon2();
-            Thread.sleep(2000);
             clickMyAdverts();
             Thread.sleep(2000);
-            clickActions();
+            refreshPage();
+            refreshPage();
+            Thread.sleep(2000);
+            clickDropdownActions();
             Thread.sleep(2000);
             clickEdit();
             Thread.sleep(2000);
@@ -106,7 +110,13 @@ public class Edit {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/");
+        driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException{
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -132,26 +142,25 @@ public class Edit {
         Thread.sleep(1000);
     }
 
-    public static void clickUserIcon2() throws InterruptedException {
-        WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("li.mobile-cart i.ri-user-line")));
-        userIcon.click();
-        Thread.sleep(1000);
-    }
 
     public static void clickMyAdverts() throws InterruptedException {
-        WebElement myAdverts = driver.findElement(By.xpath("//a[contains(@href, '/account/my-adverts')]"));
+        WebElement myAdverts = driver.findElement(By.id("link-adverts"));
         myAdverts.click();
     }
 
-    public static void clickActions() throws InterruptedException {
-        WebElement action = driver.findElement(By.xpath("//button[contains(@class, 'dropdown-toggle') and contains(@class, 'my-advert-action-button')]"));
+    public static void refreshPage() throws InterruptedException {
+        driver.navigate().refresh();
+        driver.manage().window().fullscreen();
+    }
+
+    public static void clickDropdownActions() throws InterruptedException {
+        WebElement action = driver.findElement(By.id("dropdown-actions-toggle-100004"));
         action.click();
     }
 
     public static void clickEdit() throws InterruptedException {
         WebElement editButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(@class, 'dropdown-item') and .//span[text()='Edit']]")));
+                By.id("btn-edit-100004")));
         editButton.click();
     }
 
@@ -169,7 +178,7 @@ public class Edit {
     }
 
     public static void clickDescription() throws InterruptedException {
-        WebElement description = driver.findElement(By.cssSelector("div.ql-editor"));
+        WebElement description = driver.findElement(By.id("btn-enter-description"));
         description.click();
         Thread.sleep(400);
         description.clear();

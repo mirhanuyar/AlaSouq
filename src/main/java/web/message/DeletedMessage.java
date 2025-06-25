@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.List;
 
 
-public class Deleted {
+public class DeletedMessage {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -51,10 +51,11 @@ public class Deleted {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 

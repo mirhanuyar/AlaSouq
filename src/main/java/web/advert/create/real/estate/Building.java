@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -22,7 +23,7 @@ public class Building {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
-            clickSaveButton();
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -42,6 +43,14 @@ public class Building {
             Thread.sleep(2000);
             clickContinueButton();
             Thread.sleep(2000);
+            refreshPage();
+            Thread.sleep(1000);
+            refreshPage();
+            Thread.sleep(2000);
+            clickForRentCategory();
+            Thread.sleep(2000);
+            clickContinueButton();
+            Thread.sleep(2000);
             titleInput();
             Thread.sleep(2000);
             enterDescription();
@@ -49,6 +58,8 @@ public class Building {
             enterPrice();
             Thread.sleep(2000);
             scrollScreen(300);
+            Thread.sleep(2000);
+            clickM2Input();
             Thread.sleep(2000);
             chooseCurrency();
             Thread.sleep(2000);
@@ -101,12 +112,12 @@ public class Building {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/");
+        driver.get("https://alasouq.com/tr/");
     }
 
-    public static void clickSaveButton() throws InterruptedException {
-        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Save']"));
-        saveButton.click();
+    public static void clickSaveAppSettings() throws InterruptedException{
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -119,7 +130,7 @@ public class Building {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -148,18 +159,23 @@ public class Building {
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.id("sub-category-buildings"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-arsa"));
         buildingCategory.click();
     }
 
     public static void clickForRentCategory() {
-        WebElement forRentCategory = driver.findElement(By.id("sub-category-for-rent-buildings"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-kiralik-arsa-emlak"));
         forRentCategory.click();
     }
 
     public static void clickContinueButton() {
         WebElement continueButton = driver.findElement(By.id("btn-continue-selection"));
         continueButton.click();
+    }
+
+    public static void refreshPage() throws InterruptedException {
+        driver.navigate().refresh();
+        driver.manage().window().fullscreen();
     }
 
     public static void titleInput() throws InterruptedException {
@@ -180,6 +196,13 @@ public class Building {
     public static void enterPrice() throws InterruptedException {
         WebElement price = driver.findElement(By.id("value-num"));
         price.sendKeys("10000");
+    }
+
+    public static void clickM2Input() throws InterruptedException {
+        WebElement m2 = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//label[text()='m² giriniz']/following-sibling::input")
+        ));
+        m2.sendKeys("1200");
     }
 
     public static void chooseCurrency() throws InterruptedException {
