@@ -30,24 +30,27 @@ public class Control {
             Thread.sleep(2000);
             clickMyFavorite();
             Thread.sleep(2000);
-            clickFavoriteSeller();
+            clickFavoriteTenant();
+            Thread.sleep(2000);
+            clickSaveFavoriteTenant();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+
     public static void setUpDriver() {
         driver = new ChromeDriver();
-        driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -84,14 +87,18 @@ public class Control {
 
     public static void clickMyFavorite() throws InterruptedException {
         driver.findElement(By.id("link-my-favorites")).click();
-        Thread.sleep(1000);
     }
 
-    public static void clickFavoriteSeller() throws InterruptedException {
-      WebElement clickFavoriteSeller = driver.findElement(By.cssSelector("a[href='/tr/my-account/favorites/tenants']"));
-      clickFavoriteSeller.click();
+    public static void clickFavoriteTenant() throws InterruptedException {
+        WebElement favoriteTenantsLink = driver.findElement(
+                By.xpath("//a[text()='Favorite Tenants']")
+        );
+        favoriteTenantsLink.click();
+    }
 
-
+    public static void clickSaveFavoriteTenant() throws InterruptedException {
+        WebElement tenantCard = driver.findElement(By.xpath("//div[@class='favorite-tenant-content' and .//h6[text()='Standard Company Ltd.']]"));
+        tenantCard.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

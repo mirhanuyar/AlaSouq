@@ -1,6 +1,7 @@
 package web.favorite.seller;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Create {
     public static WebDriver driver;
@@ -32,7 +34,9 @@ public class Create {
             Thread.sleep(2000);
             clickAddSellerFavorite();
             Thread.sleep(2000);
-
+            clickNewListInput();
+            Thread.sleep(2000);
+            saveButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -41,16 +45,16 @@ public class Create {
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
-        driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -61,9 +65,10 @@ public class Create {
         Thread.sleep(1000);
     }
 
+
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("onder.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -82,20 +87,32 @@ public class Create {
     }
 
     public static void clickAdvert() throws InterruptedException {
-        WebElement productLink = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("quick-view-link")));
-        productLink.click();
+        List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
+
+        if (!advert.isEmpty()) {
+            WebElement firstAd = advert.get(3);
+
+            Thread.sleep(1000);
+
+            firstAd.click();
+        }
         Thread.sleep(2000);
     }
 
     public static void clickAddSellerFavorite() throws InterruptedException {
-        WebElement addToFavoriteButton = driver.findElement(By.cssSelector(".p-1"));
+        WebElement addToFavoriteButton = driver.findElement(By.id("btn-toggle-favorite-11"));
         addToFavoriteButton.click();
-        Thread.sleep(500);
-        driver.findElement(By.id("product_detail_close_modal_btn")).click();
     }
 
+    public static void clickNewListInput()  throws InterruptedException {
+        WebElement input = driver.findElement(By.id("listName"));
+        input.sendKeys("Testt");
+    }
 
+    public static void saveButton() throws InterruptedException {
+        WebElement saveButton = driver.findElement(By.id("add-favorite_save_btn"));
+        saveButton.click();
+    }
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();

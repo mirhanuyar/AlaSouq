@@ -49,10 +49,11 @@ public class Rename {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -104,8 +105,8 @@ public class Rename {
     }
 
     public static void saveCreateList() throws InterruptedException {
-        WebElement saveButton = driver.findElement(By.id("btn-save-list"));
-        saveButton.click();
+        WebElement button = driver.findElement(By.xpath("//button[text()='Düzenle']"));
+        button.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

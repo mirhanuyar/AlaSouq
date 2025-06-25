@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Delete {
+public class DeleteSeller {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -34,23 +34,25 @@ public class Delete {
             Thread.sleep(2000);
             deleteFavoriteSeller();
             Thread.sleep(2000);
+            deleteYesButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+
     public static void setUpDriver() {
         driver = new ChromeDriver();
-        driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -61,10 +63,9 @@ public class Delete {
         Thread.sleep(1000);
     }
 
-
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("onder.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -87,20 +88,23 @@ public class Delete {
 
     public static void clickMyFavorite() throws InterruptedException {
         driver.findElement(By.id("link-my-favorites")).click();
-        Thread.sleep(1000);
     }
 
     public static void clickFavoriteSeller() throws InterruptedException {
-        WebElement clickFavoriteSeller = driver.findElement(By.cssSelector("a[href='/tr/my-account/favorites/tenants']"));
-        clickFavoriteSeller.click();
-
+        WebElement favoriteTenantsLink = driver.findElement(
+                By.xpath("//a[text()='Favorite Tenants']")
+        );
+        favoriteTenantsLink.click();
     }
 
-      public static void deleteFavoriteSeller() throws InterruptedException{
-          WebElement deleteButton = driver.findElement(By.cssSelector("[id^='btn-seller-delete-']"));
-          deleteButton.click();
-        Thread.sleep(2000);
-        driver.findElement(By.id("confirm_yes_btn")).click();
+    public static void deleteFavoriteSeller() throws InterruptedException {
+        WebElement deleteButton = driver.findElement(By.id("btn-seller-delete-2"));
+        deleteButton.click();
+    }
+
+    public static void deleteYesButton() throws InterruptedException {
+        WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
+        yesButton.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

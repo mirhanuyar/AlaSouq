@@ -1,6 +1,7 @@
 package web.favorite.advert;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -52,10 +53,11 @@ public class AddList {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -68,7 +70,7 @@ public class AddList {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("onder.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -90,37 +92,35 @@ public class AddList {
         List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
 
         if (!advert.isEmpty()) {
-            WebElement firstAd = advert.get(0);
+            WebElement firstAd = advert.get(3);
 
             Thread.sleep(1000);
 
             firstAd.click();
-        } else {
-            System.out.println("İlan bulunamadı.");
         }
-
         Thread.sleep(2000);
     }
 
 
     public static void addFavoriteList() throws InterruptedException {
-        WebElement addFavoriebutoon = driver.findElement(By.id("btn-toggle-favorite-10"));
+        WebElement addFavoriteButton = driver.findElement(By.id("btn-toggle-favorite-11"));
 
-        addFavoriebutoon.click();
+        addFavoriteButton.click();
         Thread.sleep(2000);
     }
 
-    public static void createNewFavoriteList() throws InterruptedException {
-        WebElement addNewList = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("listName")));
-        addNewList .click();
-        addNewList .sendKeys("TEST");
+    public static void createNewFavoriteList() {
+        WebElement addNewList = wait.until(ExpectedConditions.elementToBeClickable(By.id("listName")));
+        addNewList.click();
+
+        String randomText = "TEST_" + (int)(Math.random() * 10000);
+        addNewList.sendKeys(randomText);
     }
+
 
     public static void saveFavoriteList() throws InterruptedException {
-        WebElement savebutton = driver.findElement(By.id("add-favorite_save_btn"));
-        savebutton.click();
-        Thread.sleep(2000);
+        WebElement button = driver.findElement(By.id("add-favorite_save_btn"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
     }
 
 

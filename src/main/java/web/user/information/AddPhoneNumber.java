@@ -40,7 +40,6 @@ public class AddPhoneNumber {
             Thread.sleep(2000);
             submitButton();
             Thread.sleep(2000);
-            clickSubmitButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -54,10 +53,12 @@ public class AddPhoneNumber {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
+
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -102,24 +103,25 @@ public class AddPhoneNumber {
         number.click();
     }
 
-    public static void clickSubmitButton() throws InterruptedException {
-        WebElement submit = driver.findElement(By.id("submit_profile_btn"));
-        submit.click();
-    }
-
     public static void clickCountryCodeComboBox() throws InterruptedException {
-        WebElement comboBox = driver.findElement(By.id("pn"));
+        WebElement comboBox = driver.findElement(By.id("country-phone-code"));
         comboBox.click();
+
         Thread.sleep(1000);
-        WebElement countryCode = driver.findElement(By.id("pn-option-227"));
-        countryCode.click();
+
+        WebElement countryOption = driver.findElement(
+                By.xpath("//div[@class='ng-option ng-star-inserted' and contains(text(), '+90')]")
+        );
+        countryOption.click();
     }
 
     public static void clickInputPhoneNumber() throws InterruptedException {
-        WebElement input = driver.findElement(By.id("input-phone-number"));
-        input.click();
-        Thread.sleep(400);
-        input.sendKeys("5444033986");
+        WebElement phoneInput = driver.findElement(
+                By.xpath("//input[@placeholder='(___) ___ __ __']")
+        );
+        phoneInput.click();
+
+        phoneInput.sendKeys("123456789012");
     }
 
     public static void submitButton() throws InterruptedException {

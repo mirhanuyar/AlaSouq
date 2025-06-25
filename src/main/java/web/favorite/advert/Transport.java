@@ -55,10 +55,11 @@ public class Transport {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -109,18 +110,20 @@ public class Transport {
     }
 
     public static void transportClick() throws InterruptedException {
-        driver.findElement(By.id("favorite-product-move-1")).click();
+        WebElement moveButton = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//button[span[text()='Favori İlanı Başka Bir Listeye Taşı']]")
+        ));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", moveButton);
     }
 
     public static void selectListToMove() throws InterruptedException {
-        WebElement radio = driver.findElement(By.id("list-2"));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", radio);
+      WebElement select = driver.findElement(By.id("list-17"));
+        select.click();
     }
 
     public static void saveButton() throws InterruptedException {
-        WebElement moveButton = driver.findElement(By.id("btn-move-product"));
-        moveButton.click();
+        WebElement button = driver.findElement(By.xpath("//button[text()='Taşı']"));
+        button.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {
