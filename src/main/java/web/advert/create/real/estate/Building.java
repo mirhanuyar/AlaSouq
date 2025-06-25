@@ -44,12 +44,8 @@ public class Building {
             clickContinueButton();
             Thread.sleep(2000);
             refreshPage();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             refreshPage();
-            Thread.sleep(2000);
-            clickForRentCategory();
-            Thread.sleep(2000);
-            clickContinueButton();
             Thread.sleep(2000);
             titleInput();
             Thread.sleep(2000);
@@ -59,9 +55,9 @@ public class Building {
             Thread.sleep(2000);
             scrollScreen(300);
             Thread.sleep(2000);
-            clickM2Input();
-            Thread.sleep(2000);
             chooseCurrency();
+            Thread.sleep(2000);
+            clickM2Input();
             Thread.sleep(2000);
             //clickAvailableForViewingOption();
             Thread.sleep(2000);
@@ -113,6 +109,7 @@ public class Building {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException{
@@ -198,19 +195,20 @@ public class Building {
         price.sendKeys("10000");
     }
 
-    public static void clickM2Input() throws InterruptedException {
-        WebElement m2 = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//label[text()='m² giriniz']/following-sibling::input")
-        ));
-        m2.sendKeys("1200");
-    }
-
     public static void chooseCurrency() throws InterruptedException {
         WebElement selectDropdown = driver.findElement(By.id("currency"));
         selectDropdown.click();
         Thread.sleep(1000);
         WebElement option = driver.findElement(By.xpath("//span[text()='TRY']"));
         option.click();
+    }
+
+    public static void clickM2Input() throws InterruptedException {
+        WebElement m2Input = driver.findElement(
+                By.cssSelector("input.advert-property-input-number[placeholder='m² giriniz']")
+        );
+        m2Input.click();
+        m2Input.sendKeys("100");
     }
 
     public static void clickAvailableForViewingOption() throws InterruptedException {
@@ -305,6 +303,8 @@ public class Building {
         robot.keyPress(KeyEvent.VK_ESCAPE);
         robot.keyRelease(KeyEvent.VK_ESCAPE);
     }
+
+
 
     public static void clickNextButton2() throws InterruptedException {
         WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
