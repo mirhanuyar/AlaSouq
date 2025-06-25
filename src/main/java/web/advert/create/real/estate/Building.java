@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.nio.file.Paths;
 import java.time.Duration;
 
 
@@ -79,7 +80,7 @@ public class Building {
             Thread.sleep(2000);
             clickNextButton();
             Thread.sleep(2000);
-            uploadPhoto();
+            uploadPhotodnl();
             Thread.sleep(2000);
             scrollScreen(400);
             Thread.sleep(2000);
@@ -278,9 +279,9 @@ public class Building {
         next.click();
     }
 
-    public static void uploadPhoto() throws InterruptedException, AWTException {
+    public static void uploadPhotodnl() throws InterruptedException, AWTException {
         String[] photoNames = {"download.jpeg", "download (1).jpeg", "download (2).jpeg"};
-        String basePath = "/Users/mirhanuyar/IdeaProjects/AlaSouq/src/main/java/web/_images/";
+        String basePath = "src/main/java/web/_images/";
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -290,10 +291,11 @@ public class Building {
         WebElement fileInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type='file']")));
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].style.display = 'block';", fileInput);
+        js.executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'; arguments[0].style.opacity = 1;", fileInput);
 
         for (String name : photoNames) {
-            String filePath = basePath + name;
+            String filePath = Paths.get(basePath + name).toAbsolutePath().toString();
+            System.out.println("Yükleniyor: " + filePath);  // debug için
             fileInput.sendKeys(filePath);
             Thread.sleep(1000);
         }
@@ -302,11 +304,11 @@ public class Building {
         robot.delay(2000);
         robot.keyPress(KeyEvent.VK_ESCAPE);
         robot.keyRelease(KeyEvent.VK_ESCAPE);
+
+
     }
 
-
-
-    public static void clickNextButton2() throws InterruptedException {
+        public static void clickNextButton2() throws InterruptedException {
         WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
         nextButton.click();
     }
