@@ -295,7 +295,7 @@ public class Building {
 
         for (String name : photoNames) {
             String filePath = Paths.get(basePath + name).toAbsolutePath().toString();
-            System.out.println("Yükleniyor: " + filePath);  // debug için
+            System.out.println("Yükleniyor: " + filePath);
             fileInput.sendKeys(filePath);
             Thread.sleep(1000);
         }
@@ -304,7 +304,6 @@ public class Building {
         robot.delay(2000);
         robot.keyPress(KeyEvent.VK_ESCAPE);
         robot.keyRelease(KeyEvent.VK_ESCAPE);
-
 
     }
 

@@ -1,4 +1,4 @@
-package web.advert.active.statics.view;
+package web.user.information.statics.message;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -7,14 +7,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class StaticsView {
+public class StaticsMessage {
     public static void main(String[] args) {
         try {
-            ViewAdvert viewAdvert = new ViewAdvert();
-            viewAdvert.performViewAdvertFlow();
+           SendMessage sendMessage = new SendMessage();
+            sendMessage.performViewAdvertFlow();
 
-            WebDriver driver = viewAdvert.getDriver();
-            WebDriverWait wait = viewAdvert.getWait();
+            WebDriver driver = sendMessage.getDriver();
+            WebDriverWait wait = sendMessage.getWait();
             Thread.sleep(3000);
 
             clickUserIcon(wait);
@@ -31,8 +31,8 @@ public class StaticsView {
             Thread.sleep(2000);
             scrollScreen(driver);
         } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
+            e.printStackTrace();
+        }
 
     }
 
@@ -46,7 +46,7 @@ public class StaticsView {
 
     public static void fillForm(WebDriver driver) throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -60,7 +60,7 @@ public class StaticsView {
     }
 
     public static void clickMyAdverts(WebDriver driver) throws InterruptedException {
-        WebElement myAdverts = driver.findElement(By.id("link-my-adverts"));
+        WebElement myAdverts = driver.findElement(By.id("link-adverts"));
         myAdverts.click();
     }
 
@@ -77,9 +77,6 @@ public class StaticsView {
 
     public static void scrollScreen(WebDriver driver) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0, arguments[0]);", 500);
+        js.executeScript("window.scrollBy(0, arguments[0]);", 1000);
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-package web.advert.active.statics.view;
+package web.user.information.statics.favorite;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,7 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ViewAdvert {
+public class AddFavorite {
+
+
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -19,7 +21,7 @@ public class ViewAdvert {
     }
 
     public static void setDriver(WebDriver driver) {
-        ViewAdvert.driver = driver;
+        web.user.information.statics.message.SendMessage.driver = driver;
     }
 
     public static WebDriverWait getWait() {
@@ -27,10 +29,10 @@ public class ViewAdvert {
     }
 
     public static void setWait(WebDriverWait wait) {
-        ViewAdvert.wait = wait;
+        web.user.information.statics.message.SendMessage.wait = wait;
     }
 
-    public ViewAdvert() {
+    public AddFavorite() {
         this.driver = new ChromeDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
@@ -48,10 +50,19 @@ public class ViewAdvert {
         Thread.sleep(2000);
         goHome();
         Thread.sleep(2000);
+        scrollScreen(200);
+        Thread.sleep(2000);
         clickAdvert();
+        Thread.sleep(2000);
+        scrollScreen(1300);
+        Thread.sleep(2000);
+        clickAddFavorite();
+        Thread.sleep(2000);
+        scrollScreen(-500);
+        Thread.sleep(2000);
         clickUserIcon();
         Thread.sleep(2000);
-        scrollScreen();
+        scrollScreen(300);
         Thread.sleep(2000);
         logOut();
     }
@@ -103,14 +114,21 @@ public class ViewAdvert {
 
     public void clickAdvert() throws InterruptedException {
         Thread.sleep(4000);
-        WebElement advert = driver.findElement(By.cssSelector("a[id*='product-title-link-kiralik-daire-kiralik-kacmaz-daire']"));
+        WebElement advert = driver.findElement(By.cssSelector("a[id*='product-title-link-arsa-bence-bunu-kacirma-100011']"));
         advert.click();
         Thread.sleep(2000);
     }
 
-    public static void scrollScreen() {
+    public static void scrollScreen(int pixels) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0, arguments[0]);", 500);
+        js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
+    }
+
+    public static void clickAddFavorite() throws InterruptedException {
+        WebElement addFavorite = driver.findElement(By.cssSelector("a[id*='btn-toggle-favorite-seller-11']"));
+        addFavorite.click();
+        Thread.sleep(3500);
+        driver.navigate().back();
     }
 
     public void logOut() throws InterruptedException {
@@ -121,10 +139,5 @@ public class ViewAdvert {
         yesButton.click();
 
     }
-
-
-
-
-
 
 }

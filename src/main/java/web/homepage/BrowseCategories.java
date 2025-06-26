@@ -19,85 +19,89 @@ public class BrowseCategories {
         setUpDriver();
         try {
             openRegistrationPage();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
+            clickSaveAppSettings();
+            Thread.sleep(2000);
             clickUserIcon();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             fillForm();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             signIn();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
+            backPage();
+            Thread.sleep(2000);
             clickRealEstate();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickCommercial();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickLand();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickHousingDevelopments();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickBuilding();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTourismFacilities();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             scrollToElement(By.id("li-child-touristic-rentals"));
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTouristicRentals();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickVehiclesCars();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickVehicleParts();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickLinkMotherBaby();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             scrollToElement4(By.id("link-mother-baby"));
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickLinkEngineeringVehicle();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickRepairAndDecoration();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             scrollToElement2(By.id("link-tutors-music-instruments"));
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickSchoolCollege();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickPrimaryEducation();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickForeignLanguages();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsComputer();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsDriving();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsSports();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsArt();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsDance();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsMusicInstruments();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsTheaterActing();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             scrollToElement3(By.id("link-advocacy-legal-concultancy-jobs"));
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsPersonalGrowth();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsProfessionalCourses();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsSpecialEducation();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsChildDevelopment();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsDiction();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickTutorsPhotography();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickLegalConsultancy();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickBabysittersNurses();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickPatientAndElderlyCare();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickCleanersHousekeepers();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickPets();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -110,7 +114,13 @@ public class BrowseCategories {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/");
+        driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
+    }
+
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -137,6 +147,10 @@ public class BrowseCategories {
         Thread.sleep(1000);
     }
 
+    public static void backPage() throws InterruptedException {
+        driver.navigate().back();
+    }
+
     public static void clickRealEstate() throws InterruptedException {
         driver.findElement(By.id("link-real-estate-residental")).click();
         Thread.sleep(700);
@@ -144,31 +158,31 @@ public class BrowseCategories {
     }
 
     public static void clickCommercial() throws InterruptedException {
-        driver.findElement(By.id("li-child-commercial")).click();
+        driver.findElement(By.id("link-commercial")).click();
         Thread.sleep(700);
         driver.navigate().back();
     }
 
     public static void clickLand() throws InterruptedException {
-        driver.findElement(By.id("li-child-land")).click();
+        driver.findElement(By.id("link-land")).click();
         Thread.sleep(700);
         driver.navigate().back();
     }
 
     public static void clickHousingDevelopments() throws InterruptedException {
-        driver.findElement(By.id("li-child-real-estate-housing-developments")).click();
+        driver.findElement(By.id("link-real-estate-housing-developments")).click();
         Thread.sleep(700);
         driver.navigate().back();
     }
 
     public static void clickBuilding() throws InterruptedException {
-        driver.findElement(By.id("li-child-buildings")).click();
+        driver.findElement(By.id("link-buildings")).click();
         Thread.sleep(700);
         driver.navigate().back();
     }
 
     public static void clickTourismFacilities() throws InterruptedException {
-        driver.findElement(By.id("li-child-real-estate-tourism-facilities")).click();
+        driver.findElement(By.id("link-real-estate-tourism-facilities")).click();
         Thread.sleep(700);
         driver.navigate().back();
     }
@@ -179,7 +193,7 @@ public class BrowseCategories {
     }
 
     public static void clickTouristicRentals() throws InterruptedException {
-        driver.findElement(By.id("li-child-touristic-rentals")).click();
+        driver.findElement(By.id("link-touristic-rentals")).click();
         Thread.sleep(700);
         driver.navigate().back();
     }
@@ -191,7 +205,7 @@ public class BrowseCategories {
     }
 
     public static void clickVehicleParts() throws InterruptedException {
-        driver.findElement(By.id("link-vehicle-parts")).click();
+        driver.findElement(By.id("link-vehicles-cars")).click();
         Thread.sleep(700);
         driver.navigate().back();
     }
