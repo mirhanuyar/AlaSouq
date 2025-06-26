@@ -46,7 +46,7 @@ public class StaticsMessage {
 
     public static void fillForm(WebDriver driver) throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -60,7 +60,7 @@ public class StaticsMessage {
     }
 
     public static void clickMyAdverts(WebDriver driver) throws InterruptedException {
-        WebElement myAdverts = driver.findElement(By.id("link-my-adverts"));
+        WebElement myAdverts = driver.findElement(By.id("link-adverts"));
         myAdverts.click();
     }
 

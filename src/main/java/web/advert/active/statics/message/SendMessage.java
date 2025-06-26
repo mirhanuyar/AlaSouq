@@ -39,7 +39,7 @@ public class SendMessage {
     public void performViewAdvertFlow() throws InterruptedException {
         openRegistrationPage();
         Thread.sleep(2000);
-        enterPage();
+        clickSaveAppSettings(driver);
         Thread.sleep(2000);
         clickUserIcon();
         Thread.sleep(2000);
@@ -71,11 +71,9 @@ public class SendMessage {
         driver.get("https://alasouq.com/");
     }
 
-    public void enterPage() throws InterruptedException {
-        WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("btn-save-app-settings")));
-        userIcon.click();
-        Thread.sleep(1000);
+    public static void clickSaveAppSettings(WebDriver driver) throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public void clickUserIcon() throws InterruptedException {
@@ -109,8 +107,11 @@ public class SendMessage {
 
     public void clickAdvert() throws InterruptedException {
         Thread.sleep(4000);
-        WebElement advert = driver.findElement(By.cssSelector("a[id*='product-title-link-kiralik-daire-kiralik-kacmaz-daire']"));
-        advert.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement ilan = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//h6[text()='208 M2 ARSA ÜZERİNDE SIFIRLANMIŞ 2+1 BAHÇELİ MÜSTAKİL']/ancestor::a")
+        ));
+        ilan.click();
         Thread.sleep(2000);
     }
 
