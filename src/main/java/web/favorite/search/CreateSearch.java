@@ -10,9 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-
-public class Control {
-
+public class CreateSearch {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -27,18 +25,21 @@ public class Control {
             Thread.sleep(2000);
             fillForm();
             Thread.sleep(2000);
-            clickFavorite();
+            signIn();
             Thread.sleep(2000);
-            favoritesearch();
+            clickSearchButton();
             Thread.sleep(2000);
-
-
+            searchButton();
+            Thread.sleep(2000);
+            saveSearch();
+            Thread.sleep(2000);
 
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
     public static void setUpDriver() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -47,10 +48,11 @@ public class Control {
     }
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-save-app-settings"));
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -68,22 +70,40 @@ public class Control {
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
         Thread.sleep(3000);
-        driver.findElement(By.id("btn-sign-in")).click();
     }
 
-    public static void clickFavorite() throws InterruptedException {
-        WebElement favorite = driver.findElement(By.id("link-my-favorites"));
-        favorite.click();
+    public static void signIn() throws InterruptedException {
+        WebElement clickSignIn;
+        clickSignIn = driver.findElement(By.cssSelector("button.custom-login-button"));
+        clickSignIn.click();
+        Thread.sleep(1000);
+    }
+
+    public static void clickSearchButton() throws InterruptedException{
+        WebElement searchInput = driver.findElement(By.id("nav-search-input"));
+        searchInput.sendKeys("Ev");
+        searchInput.sendKeys(Keys.ENTER);
+    }
+    public static void searchButton() throws InterruptedException {
+        WebElement searchInput = driver.findElement(By.id("search-by-term-kiralik-konut-müstakil-ev"));
+        searchInput.click();
+        Thread.sleep(2000);
+        driver.findElement(By.id("save-search")).click();
+        Thread.sleep(2000);
 
     }
-     public static void favoritesearch() throws InterruptedException {
-         WebElement favoritesLink = driver.findElement(By.cssSelector("a[href$='/my-account/favorites/searches']"));
-         favoritesLink.click();
-         Thread.sleep(3000);
-         driver.findElement(By.cssSelector(".favorite-search-name")).click();
+    public static void saveSearch() throws InterruptedException {
+        WebElement save = driver.findElement(By.id("searchName"));
+        save.click();
+        save.sendKeys("TEST");
+        driver.findElement(By.id("save-search-button")).click();
 
-     }
+    }
 
 
-
+    public static void clickElement(By locator) throws InterruptedException {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.click();
+        Thread.sleep(1000);
+    }
 }

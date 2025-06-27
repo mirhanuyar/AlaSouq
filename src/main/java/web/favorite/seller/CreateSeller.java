@@ -1,7 +1,6 @@
-package web.favorite.advert;
+package web.favorite.seller;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,9 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
-
-public class NewList {
+public class CreateSeller {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -28,17 +27,12 @@ public class NewList {
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
-            clickUserIcon2();
+            backPage();
             Thread.sleep(2000);
-            clickMyFavorite();
+            clickAdvert();
             Thread.sleep(2000);
-            scrollToElement(By.id("btn-create-new-list"));
+            clickAddSellerFavorite();
             Thread.sleep(2000);
-            clickCreateNewList();
-            Thread.sleep(2000);
-            clickNewListName();
-            Thread.sleep(2000);
-            saveCreateList();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -84,38 +78,26 @@ public class NewList {
         Thread.sleep(1000);
     }
 
-    public static void clickUserIcon2() throws InterruptedException {
-        WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("user-icon-button")));
-        userIcon.click();
-        Thread.sleep(1000);
+    public static void backPage() throws InterruptedException {
+        driver.navigate().back();
     }
 
-    public static void clickMyFavorite() throws InterruptedException {
-        driver.findElement(By.id("link-my-favorites")).click();
+    public static void clickAdvert() throws InterruptedException {
+        List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
+
+        if (!advert.isEmpty()) {
+            WebElement firstAd = advert.get(7);
+
+            Thread.sleep(1000);
+
+            firstAd.click();
+        }
+        Thread.sleep(2000);
     }
 
-    public static void scrollToElement(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
-    }
-
-    public static void clickCreateNewList() throws InterruptedException{
-        driver.findElement(By.id("btn-create-new-list")).click();
-    }
-
-    public static void clickNewListName() throws InterruptedException {
-        WebElement listName = driver.findElement(By.id("listName"));
-        listName.click();
-        Thread.sleep(1000);
-
-        String randomText = "TEST_" + (int)(Math.random() * 10000);
-        listName.sendKeys(randomText);
-    }
-
-    public static void saveCreateList() throws InterruptedException{
-        WebElement saveButton = driver.findElement(By.cssSelector(".btn.w-25.btn-outline-primary"));
-        saveButton.click();
+    public static void clickAddSellerFavorite() throws InterruptedException {
+        WebElement addToFavoriteButton = driver.findElement(By.id("btn-toggle-favorite-seller-12"));
+        addToFavoriteButton.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {
@@ -123,4 +105,5 @@ public class NewList {
         element.click();
         Thread.sleep(1000);
     }
+
 }

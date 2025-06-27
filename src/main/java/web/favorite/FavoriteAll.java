@@ -1,8 +1,8 @@
 package web.favorite;
 
 import web.favorite.advert.*;
-import web.favorite.seller.Control;
-import web.favorite.seller.Create;
+import web.favorite.seller.ControlSeller;
+import web.favorite.seller.CreateSeller;
 import web.favorite.seller.DeleteSeller;
 
 public class FavoriteAll {
@@ -12,8 +12,8 @@ public class FavoriteAll {
         Rename.main(args);
         Transport.main(args);
         DeleteAdvert.main(args);
-        Create.main(args);
-        Control.main(args);
+        CreateSeller.main(args);
+        ControlSeller.main(args);
         DeleteSeller.main(args);
     }
 }

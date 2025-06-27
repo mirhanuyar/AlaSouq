@@ -92,7 +92,7 @@ public class AddList {
         List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
 
         if (!advert.isEmpty()) {
-            WebElement firstAd = advert.get(3);
+            WebElement firstAd = advert.get(4);
 
             Thread.sleep(1000);
 

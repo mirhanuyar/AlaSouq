@@ -98,7 +98,7 @@ public class DeleteSeller {
     }
 
     public static void deleteFavoriteSeller() throws InterruptedException {
-        WebElement deleteButton = driver.findElement(By.id("btn-seller-delete-2"));
+        WebElement deleteButton = driver.findElement(By.id("btn-seller-delete-9"));
         deleteButton.click();
     }
 
