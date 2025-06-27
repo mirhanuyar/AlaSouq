@@ -103,7 +103,7 @@ public class AddList {
 
 
     public static void addFavoriteList() throws InterruptedException {
-        WebElement addFavoriteButton = driver.findElement(By.id("btn-toggle-favorite-11"));
+        WebElement addFavoriteButton = driver.findElement(By.id("btn-toggle-favorite-195"));
 
         addFavoriteButton.click();
         Thread.sleep(2000);

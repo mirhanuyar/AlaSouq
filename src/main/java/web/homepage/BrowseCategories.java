@@ -28,7 +28,7 @@ public class BrowseCategories {
             Thread.sleep(2000);
             signIn();
             Thread.sleep(2000);
-            backPage();
+            homePage();
             Thread.sleep(2000);
             clickRealEstate();
             Thread.sleep(2000);
@@ -115,7 +115,7 @@ public class BrowseCategories {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
@@ -129,7 +129,6 @@ public class BrowseCategories {
         userIcon.click();
         Thread.sleep(1000);
     }
-
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
@@ -147,8 +146,9 @@ public class BrowseCategories {
         Thread.sleep(1000);
     }
 
-    public static void backPage() throws InterruptedException {
-        driver.navigate().back();
+    public static void homePage() throws InterruptedException {
+        WebElement home = driver.findElement(By.id("home-link"));
+        home.click();
     }
 
     public static void clickRealEstate() throws InterruptedException {

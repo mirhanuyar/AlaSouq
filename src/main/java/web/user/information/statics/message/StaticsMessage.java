@@ -16,7 +16,6 @@ public class StaticsMessage {
             WebDriver driver = sendMessage.getDriver();
             WebDriverWait wait = sendMessage.getWait();
             Thread.sleep(3000);
-
             clickUserIcon(wait);
             Thread.sleep(2000);
             fillForm(driver);

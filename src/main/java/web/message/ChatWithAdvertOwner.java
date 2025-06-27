@@ -94,7 +94,7 @@ public class ChatWithAdvertOwner {
     }
 
     public static void clickMessageButton() throws InterruptedException {
-        WebElement advert = driver.findElement(By.id("message12"));
+        WebElement advert = driver.findElement(By.id("message10"));
         advert.click();
     }
 

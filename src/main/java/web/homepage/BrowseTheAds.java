@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 public class BrowseTheAds {
@@ -21,17 +22,17 @@ public class BrowseTheAds {
         setUpDriver();
         try {
             openRegistrationPage();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickSaveAppSettings();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             clickUserIcon();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             fillForm();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             signIn();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             backPage();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             browseAds();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -46,10 +47,10 @@ public class BrowseTheAds {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
-    public static void clickSaveAppSettings() throws InterruptedException{
+    public static void clickSaveAppSettings() throws InterruptedException {
         WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
@@ -83,18 +84,28 @@ public class BrowseTheAds {
     }
 
     public static void browseAds() throws InterruptedException {
-        List<WebElement> links = driver.findElements(By.id("home-search-result"));
+        List<WebElement> links = driver.findElements(By.cssSelector(".product-detail a.product-title"));
 
         List<String> hrefs = new ArrayList<>();
         for (WebElement link : links) {
-            hrefs.add(link.getAttribute("href"));
+            String href = link.getAttribute("href");
+
+            if (href != null && !href.isEmpty()) {
+                if (!href.startsWith("http")) {
+                    href = "https://alasouq.com" + href;
+                }
+                hrefs.add(href);
+            }
         }
+
         for (String url : hrefs) {
             driver.get(url);
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             driver.navigate().back();
+            Thread.sleep(1500);
         }
     }
+
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
