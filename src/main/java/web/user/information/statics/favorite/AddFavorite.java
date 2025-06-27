@@ -1,4 +1,4 @@
-package web.advert.active.statics.favorite;
+package web.user.information.statics.favorite;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -21,7 +21,7 @@ public class AddFavorite {
     }
 
     public static void setDriver(WebDriver driver) {
-        web.advert.active.statics.message.SendMessage.driver = driver;
+        web.user.information.statics.message.SendMessage.driver = driver;
     }
 
     public static WebDriverWait getWait() {
@@ -29,7 +29,7 @@ public class AddFavorite {
     }
 
     public static void setWait(WebDriverWait wait) {
-        web.advert.active.statics.message.SendMessage.wait = wait;
+        web.user.information.statics.message.SendMessage.wait = wait;
     }
 
     public AddFavorite() {

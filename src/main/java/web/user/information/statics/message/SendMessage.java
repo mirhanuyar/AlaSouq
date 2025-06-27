@@ -1,4 +1,4 @@
-package web.advert.active.statics.view;
+package web.user.information.statics.message;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,7 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ViewAdvert {
+public class SendMessage {
+
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -19,7 +20,7 @@ public class ViewAdvert {
     }
 
     public static void setDriver(WebDriver driver) {
-        ViewAdvert.driver = driver;
+        SendMessage.driver = driver;
     }
 
     public static WebDriverWait getWait() {
@@ -27,10 +28,10 @@ public class ViewAdvert {
     }
 
     public static void setWait(WebDriverWait wait) {
-        ViewAdvert.wait = wait;
+        SendMessage.wait = wait;
     }
 
-    public ViewAdvert() {
+    public SendMessage() {
         this.driver = new ChromeDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
@@ -38,7 +39,7 @@ public class ViewAdvert {
     public void performViewAdvertFlow() throws InterruptedException {
         openRegistrationPage();
         Thread.sleep(2000);
-        enterPage();
+        clickSaveAppSettings(driver);
         Thread.sleep(2000);
         clickUserIcon();
         Thread.sleep(2000);
@@ -49,9 +50,12 @@ public class ViewAdvert {
         goHome();
         Thread.sleep(2000);
         clickAdvert();
-        clickUserIcon();
         Thread.sleep(2000);
-        scrollScreen();
+        Thread.sleep(2000);
+        clickSendMessageButton();
+        Thread.sleep(2000);
+        Thread.sleep(2000);
+        sendMessage();
         Thread.sleep(2000);
         logOut();
     }
@@ -63,13 +67,12 @@ public class ViewAdvert {
 
     public void openRegistrationPage() {
         driver.get("https://alasouq.com/");
+        driver.manage().window().maximize();
     }
 
-    public void enterPage() throws InterruptedException {
-        WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("btn-save-app-settings")));
-        userIcon.click();
-        Thread.sleep(1000);
+    public static void clickSaveAppSettings(WebDriver driver) throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public void clickUserIcon() throws InterruptedException {
@@ -103,14 +106,32 @@ public class ViewAdvert {
 
     public void clickAdvert() throws InterruptedException {
         Thread.sleep(4000);
-        WebElement advert = driver.findElement(By.cssSelector("a[id*='product-title-link-kiralik-daire-kiralik-kacmaz-daire']"));
-        advert.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement ilan = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//h6[text()='208 M2 ARSA ÜZERİNDE SIFIRLANMIŞ 2+1 BAHÇELİ MÜSTAKİL']/ancestor::a")
+        ));
+        ilan.click();
         Thread.sleep(2000);
     }
 
-    public static void scrollScreen() {
+    public static void scrollScreen(int pixels) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0, arguments[0]);", 500);
+        js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
+    }
+
+    public static void clickSendMessageButton() throws InterruptedException {
+        WebElement sendMessageButton = driver.findElement(By.cssSelector("button[id*='send-message']"));
+        sendMessageButton.click();
+        Thread.sleep(3500);
+    }
+
+    public static void sendMessage() throws InterruptedException {
+        WebElement enterMessage = driver.findElement(By.id("enter-message-textarea"));
+        enterMessage.sendKeys("Merhaba");
+        Thread.sleep(3500);
+
+        WebElement sendMessage = driver.findElement(By.id("btn-send-message"));
+        sendMessage.click();
     }
 
     public void logOut() throws InterruptedException {
@@ -122,9 +143,5 @@ public class ViewAdvert {
 
     }
 
-
-
-
-
-
 }
+
