@@ -40,8 +40,6 @@ public class AddFavorite {
     public void performViewAdvertFlow() throws InterruptedException {
         openRegistrationPage();
         Thread.sleep(2000);
-        enterPage();
-        Thread.sleep(2000);
         clickUserIcon();
         Thread.sleep(2000);
         fillForm();
@@ -58,7 +56,11 @@ public class AddFavorite {
         Thread.sleep(2000);
         clickAddFavorite();
         Thread.sleep(2000);
-        scrollScreen(-500);
+        createNewFavoriteList();
+        Thread.sleep(2000);
+        saveFavoriteList();
+        Thread.sleep(2000);
+        scrollScreen(-800);
         Thread.sleep(2000);
         clickUserIcon();
         Thread.sleep(2000);
@@ -74,13 +76,6 @@ public class AddFavorite {
 
     public void openRegistrationPage() {
         driver.get("https://alasouq.com/");
-    }
-
-    public void enterPage() throws InterruptedException {
-        WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("btn-save-app-settings")));
-        userIcon.click();
-        Thread.sleep(1000);
     }
 
     public void clickUserIcon() throws InterruptedException {
@@ -114,8 +109,11 @@ public class AddFavorite {
 
     public void clickAdvert() throws InterruptedException {
         Thread.sleep(4000);
-        WebElement advert = driver.findElement(By.cssSelector("a[id*='product-title-link-arsa-bence-bunu-kacirma-100011']"));
-        advert.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement ilan = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//h6[text()='SAHİBİNDEN BUTİK SİTE İÇİ 3+1 ULTRA LÜKS SIFIR DAİRE']/ancestor::a")
+        ));
+        ilan.click();
         Thread.sleep(2000);
     }
 
@@ -125,8 +123,23 @@ public class AddFavorite {
     }
 
     public static void clickAddFavorite() throws InterruptedException {
-        WebElement addFavorite = driver.findElement(By.cssSelector("a[id*='btn-toggle-favorite-seller-11']"));
+        WebElement addFavorite = driver.findElement(By.cssSelector("a[id*='btn-toggle-favorite']"));
         addFavorite.click();
+        Thread.sleep(3500);
+    }
+
+    public static void createNewFavoriteList() throws InterruptedException {
+        WebElement addNewList = wait.until(ExpectedConditions.elementToBeClickable(By.id("listName")));
+        addNewList.click();
+
+        String randomText = "TEST" + (int)(Math.random() * 10000);
+        addNewList.sendKeys(randomText);
+        Thread.sleep(3500);
+    }
+
+    public static void saveFavoriteList() throws InterruptedException {
+        WebElement button = driver.findElement(By.id("add-favorite_save_btn"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
         Thread.sleep(3500);
         driver.navigate().back();
     }
@@ -137,7 +150,7 @@ public class AddFavorite {
         Thread.sleep(2000);
         WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
         yesButton.click();
-
+        Thread.sleep(3000);
     }
 
 }

@@ -20,7 +20,7 @@ public class StaticsFavorite {
             WebDriver driver = addFavorite.getDriver();
             WebDriverWait wait = addFavorite.getWait();
             Thread.sleep(3000);
-            enterPage(wait);
+            clickSaveAppSettings(driver);
             clickUserIcon(wait);
             Thread.sleep(2000);
             fillForm(driver);
@@ -29,17 +29,19 @@ public class StaticsFavorite {
             Thread.sleep(2000);
             clickMyAdverts(driver);
             Thread.sleep(2000);
+            refreshPage(driver);
+            Thread.sleep(2000);
             clickAction(driver);
             Thread.sleep(2000);
             clickStatics(driver);
             Thread.sleep(2000);
-            scrollScreen(driver, 1000);
+            scrollScreen(driver, 800);
             Thread.sleep(2000);
             int firstFavCount = getFavoritesCount(driver);
             Thread.sleep(2000);
             clickUserIcon(wait);
             Thread.sleep(2000);
-            scrollScreen(driver, 300);
+            scrollScreen(driver, 450);
             Thread.sleep(2000);
             logOut(driver);
             addFavorite.performViewAdvertFlow();
@@ -50,6 +52,8 @@ public class StaticsFavorite {
             signIn(driver);
             Thread.sleep(2000);
             clickMyAdverts(driver);
+            Thread.sleep(2000);
+            refreshPage(driver);
             Thread.sleep(2000);
             clickAction(driver);
             Thread.sleep(2000);
@@ -65,13 +69,10 @@ public class StaticsFavorite {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
-    public static void enterPage(WebDriverWait wait) throws InterruptedException {
-        WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("btn-save-app-settings")));
-        saveButton.click();
-        Thread.sleep(1000);
+    public static void clickSaveAppSettings(WebDriver driver) throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon(WebDriverWait wait) throws InterruptedException {
@@ -84,27 +85,29 @@ public class StaticsFavorite {
 
     public static void fillForm(WebDriver driver) throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.user@solidsoft.com.tr");
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
-        Thread.sleep(3000);
+        Thread.sleep(2000);
     }
 
     public static void signIn(WebDriver driver) throws InterruptedException {
         WebElement clickSignIn = driver.findElement(By.id("btn-sign-in"));
         clickSignIn.click();
-        Thread.sleep(1000);
+        Thread.sleep(5000);
     }
 
     public static void clickMyAdverts(WebDriver driver) throws InterruptedException {
-        WebElement myAdverts = driver.findElement(By.id("link-my-adverts"));
+        WebElement myAdverts = driver.findElement(By.id("link-adverts"));
         myAdverts.click();
+        Thread.sleep(1000);
     }
 
     public static void clickAction(WebDriver driver) throws InterruptedException {
-        WebElement action = driver.findElement(By.cssSelector("button.dropdown-toggle.primary.my-advert-action-button"));
-        action.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement btn = driver.findElement(By.cssSelector("button[id^='dropdown-actions-toggle-']"));
+        js.executeScript("arguments[0].click();", btn);
     }
 
     public static void clickStatics(WebDriver driver) throws InterruptedException {
@@ -139,10 +142,15 @@ public class StaticsFavorite {
     public static void logOut(WebDriver driver) throws InterruptedException {
         WebElement logOutButton = driver.findElement(By.id("link-logout"));
         logOutButton.click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
         yesButton.click();
+        Thread.sleep(2000);
+    }
 
+    public static void refreshPage(WebDriver driver) throws InterruptedException {
+        driver.navigate().refresh();
+        driver.manage().window();
     }
 }
 
