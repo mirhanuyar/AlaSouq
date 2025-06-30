@@ -7,15 +7,42 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StaticsMessage {
     public static void main(String[] args) {
         try {
-           SendMessage sendMessage = new SendMessage();
-            sendMessage.performViewAdvertFlow();
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.openRegistrationPage();
 
             WebDriver driver = sendMessage.getDriver();
             WebDriverWait wait = sendMessage.getWait();
             Thread.sleep(3000);
+
+            clickSaveAppSettings(driver);
+            Thread.sleep(3000);
+            clickUserIcon(wait);
+            Thread.sleep(2000);
+            fillForm(driver);
+            Thread.sleep(2000);
+            signIn(driver);
+            Thread.sleep(2000);
+            clickMyAdverts(driver);
+            Thread.sleep(2000);
+            refreshPage(driver);
+            Thread.sleep(2000);
+            clickAction(driver);
+            Thread.sleep(2000);
+            clickStatics(driver);
+            Thread.sleep(2000);
+            scrollScreen(driver, 1500);
+            Thread.sleep(2000);
+            int firstMessageCount = getMessagesCount(driver);
+            Thread.sleep(2000);
+            logOut(driver);
+            Thread.sleep(2000);
+            sendMessage.performViewAdvertFlow();
             clickUserIcon(wait);
             Thread.sleep(2000);
             fillForm(driver);
@@ -28,7 +55,15 @@ public class StaticsMessage {
             Thread.sleep(2000);
             clickStatics(driver);
             Thread.sleep(2000);
-            scrollScreen(driver);
+            scrollScreen(driver, 800);
+            Thread.sleep(2000);
+            int secondMessageCount = getMessagesCount(driver);
+            if(firstMessageCount == secondMessageCount - 1) {
+                System.out.println("Test Başarılı");
+            } else {
+                System.out.println("Test başarısız.");
+            }
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -45,7 +80,7 @@ public class StaticsMessage {
 
     public static void fillForm(WebDriver driver) throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.user@solidsoft.com.tr");
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -74,8 +109,44 @@ public class StaticsMessage {
         Thread.sleep(2000);
     }
 
-    public static void scrollScreen(WebDriver driver) {
+    public static void scrollScreen(WebDriver driver, int pixels) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0, arguments[0]);", 1000);
+        js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
+    }
+
+    public static void clickSaveAppSettings(WebDriver driver) throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
+    }
+
+    public static void refreshPage(WebDriver driver) throws InterruptedException {
+        driver.navigate().refresh();
+        driver.manage().window();
+    }
+
+    public static int getMessagesCount(WebDriver driver) throws InterruptedException {
+        Thread.sleep(2000);
+        WebElement h6Element = driver.findElement(By.xpath("//h6[contains(., 'Total Messages')]"));
+        String fullText = h6Element.getText();
+
+        Pattern pattern = Pattern.compile("(\\d+)");
+        Matcher matcher = pattern.matcher(fullText);
+
+        int viewCount = 0;
+        if (matcher.find()) {
+            viewCount = Integer.parseInt(matcher.group(1));
+        }
+        System.out.println(viewCount);
+        Thread.sleep(2000);
+        return viewCount;
+    }
+
+    public static void logOut(WebDriver driver) throws InterruptedException {
+        WebElement logOutButton = driver.findElement(By.id("link-logout"));
+        logOutButton.click();
+        Thread.sleep(3000);
+        WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
+        yesButton.click();
+        Thread.sleep(2000);
     }
 }
