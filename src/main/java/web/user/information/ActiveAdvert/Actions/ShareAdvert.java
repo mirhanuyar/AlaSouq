@@ -1,4 +1,4 @@
-package web.user.information.active;
+package web.user.information.ActiveAdvert.Actions;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class UnpublishAdvert {
+public class ShareAdvert {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -30,17 +30,14 @@ public class UnpublishAdvert {
             Thread.sleep(2000);
             clickAction();
             Thread.sleep(2000);
-            clickUnpublishAdvert();
+            clickShareAdvert();
             Thread.sleep(2000);
-            //clickSoldCheckBox();
-            //Thread.sleep(2000);
-           // clickRentCheckBox();
-           // Thread.sleep(2000);
-            clickGaveUpCheckBox();
-            Thread.sleep(2000);
-            //clickDeleteAdvertCheckBox();
-            clickUnpublishButton();
-
+            //clickShareFacebook();
+            //clickShareTwitter();
+            //clickShareWhatsapp();
+            //clickShareMail();
+            //clickCopyButton();
+            clickCloseButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -72,7 +69,7 @@ public class UnpublishAdvert {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -96,46 +93,42 @@ public class UnpublishAdvert {
         action.click();
     }
 
-    public static void clickUnpublishAdvert() throws InterruptedException {
-        WebElement unpublishAdvert = driver.findElement(By.cssSelector("button[id*='btn-unpublish']"));
-        unpublishAdvert.click();
+    public static void clickShareAdvert() throws InterruptedException {
+        WebElement shareAdvert = driver.findElement(By.cssSelector("button[id*='btn-share']"));
+        shareAdvert.click();
         Thread.sleep(3500);
     }
 
-    public static void clickSoldCheckBox() throws InterruptedException {
-        WebElement soldCheckBox = driver.findElement(By.id("SOLD"));
-        soldCheckBox.click();
-        Thread.sleep(2000);
-
+    public static void clickShareTwitter() throws InterruptedException {
+        WebElement facebookIcon = driver.findElement(By.id("social-btn-twitter"));
+        facebookIcon.click();
+        Thread.sleep(3500);
     }
 
-    public static void clickRentCheckBox() throws InterruptedException {
-        WebElement rentCheckBox = driver.findElement(By.id("RENT"));
-        rentCheckBox.click();
-        Thread.sleep(2000);
-        closeButton();
+    public static void clickShareWhatsapp() throws InterruptedException {
+        WebElement facebookIcon = driver.findElement(By.id("social-btn-whatsapp"));
+        facebookIcon.click();
+        Thread.sleep(3500);
     }
 
-    public static void clickGaveUpCheckBox() throws InterruptedException {
-        WebElement gaveUpCheckBox = driver.findElement(By.id("GAVE_UP"));
-        gaveUpCheckBox.click();
-        Thread.sleep(2000);
+    public static void clickShareMail() throws InterruptedException {
+        WebElement facebookIcon = driver.findElement(By.id("social-btn-mail"));
+        facebookIcon.click();
+        Thread.sleep(3500);
     }
 
-    public static void clickDeleteAdvertCheckBox() throws InterruptedException {
-        WebElement deleteAdvertCheckBox = driver.findElement(By.cssSelector("input[id*='delete-advert']"));
-        deleteAdvertCheckBox.click();
-        Thread.sleep(2000);
+    public static void clickCopyButton() throws InterruptedException {
+        WebElement copyButton = driver.findElement(By.id("button-addon1"));
+        copyButton.click();
+        Thread.sleep(3500);
     }
 
-    public static void closeButton() throws InterruptedException {
-        WebElement closeButton = driver.findElement(By.id("unpublish_modal_close_btn"));
+    public static void clickCloseButton() throws InterruptedException {
+        WebElement closeButton = driver.findElement(By.id("share_modal_close_btn"));
         closeButton.click();
+        Thread.sleep(3500);
     }
 
-    public static void clickUnpublishButton() throws InterruptedException {
-        WebElement unpublishButton = driver.findElement(By.id("btn-un-publish"));
-        unpublishButton.click();
-    }
+
 
 }

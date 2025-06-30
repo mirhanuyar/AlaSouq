@@ -1,8 +1,8 @@
 package web.user.information;
 
-import web.user.information.statistic.favorite.StatisticFavorite;
-import web.user.information.statistic.message.StatisticMessage;
-import web.user.information.statistic.view.StatisticView;
+import web.user.information.ActiveAdvert.Actions.statistic.favorite.StatisticFavorite;
+import web.user.information.ActiveAdvert.Actions.statistic.message.StatisticMessage;
+import web.user.information.ActiveAdvert.Actions.statistic.view.StatisticView;
 
 public class UserInformationAll {
     public static void main(String[] args) {

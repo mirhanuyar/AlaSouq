@@ -1,4 +1,4 @@
-package web.user.information.active;
+package web.user.information.ActiveAdvert;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
