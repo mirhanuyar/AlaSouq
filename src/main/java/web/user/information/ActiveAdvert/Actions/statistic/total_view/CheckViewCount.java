@@ -100,7 +100,7 @@ public class CheckViewCount {
     }
 
     public static void clickMyAdverts(WebDriver driver) throws InterruptedException {
-        WebElement myAdverts = driver.findElement(By.id("link-my-adverts"));
+        WebElement myAdverts = driver.findElement(By.id("link-adverts"));
         myAdverts.click();
     }
 
