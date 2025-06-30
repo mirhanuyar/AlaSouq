@@ -49,6 +49,8 @@ public class ViewAdvert {
         driver.get("https://alasouq.com/");
     }
 
+
+
     public void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
                 By.id("user-icon-button")));

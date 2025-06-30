@@ -78,6 +78,11 @@ public class StatisticView {
         Thread.sleep(1000);
     }
 
+    public static void clickSaveAppSettings(WebDriver driver) throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
+    }
+
 
     public static void fillForm(WebDriver driver) throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
