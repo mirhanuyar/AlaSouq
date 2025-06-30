@@ -96,8 +96,11 @@ public class CreateSeller {
     }
 
     public static void clickAddSellerFavorite() throws InterruptedException {
-        WebElement addToFavoriteButton = driver.findElement(By.id("btn-toggle-favorite-seller-12"));
+        WebElement addToFavoriteButton = driver.findElement(
+                By.xpath("//a[contains(@class, 'add-to-favorite-seller') and @role='button']")
+        );
         addToFavoriteButton.click();
+
     }
 
     public static void clickElement(By locator) throws InterruptedException {

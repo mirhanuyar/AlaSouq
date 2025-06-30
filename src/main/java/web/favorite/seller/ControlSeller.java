@@ -91,7 +91,7 @@ public class ControlSeller {
 
     public static void clickFavoriteTenant() throws InterruptedException {
         WebElement favoriteTenantsLink = driver.findElement(
-                By.xpath("//a[text()='Favorite Tenants']")
+                By.xpath("//a[text()='Favori Mağazalar']")
         );
         favoriteTenantsLink.click();
     }

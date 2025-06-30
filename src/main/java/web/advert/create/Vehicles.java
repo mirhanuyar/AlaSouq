@@ -41,6 +41,8 @@ public class Vehicles {
             Thread.sleep(2000);
             clickContinueButton();
             Thread.sleep(2000);
+            refreshPage();
+            Thread.sleep(2000);
             titleInput();
             Thread.sleep(2000);
             scrollScreen(80);
@@ -118,11 +120,13 @@ public class Vehicles {
             Thread.sleep(2000);
             clickNextButton();
             Thread.sleep(2000);
-            uploadPhoto();
+            //uploadPhoto();
             Thread.sleep(2000);
             scrollScreen(400);
             Thread.sleep(2000);
             clickNextButton2();
+            Thread.sleep(2000);
+            continueWithoutUploadingPhotos();
             Thread.sleep(2000);
             scrollScreen(300);
             Thread.sleep(2000);
@@ -133,8 +137,6 @@ public class Vehicles {
             clickBuyDopingButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (AWTException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -200,6 +202,11 @@ public class Vehicles {
     public static void clickContinueButton() {
         WebElement continueButton = driver.findElement(By.id("btn-continue-selection"));
         continueButton.click();
+    }
+
+    public static void refreshPage() throws InterruptedException {
+        driver.navigate().refresh();
+        driver.manage().window().fullscreen();
     }
 
     public static void titleInput() throws InterruptedException {
@@ -430,9 +437,9 @@ public class Vehicles {
         next.click();
     }
 
-    public static void uploadPhoto() throws InterruptedException, AWTException {
+    /*public static void uploadPhotodnl() throws InterruptedException, AWTException {
         String[] photoNames = {"download.jpeg", "download (1).jpeg", "download (2).jpeg"};
-        String basePath = "/Users/mirhanuyar/IdeaProjects/AlaSouq/src/main/java/web/_images/";
+        String basePath = "src/main/java/web/_images/";
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -442,10 +449,11 @@ public class Vehicles {
         WebElement fileInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type='file']")));
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].style.display = 'block';", fileInput);
+        js.executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'; arguments[0].style.opacity = 1;", fileInput);
 
         for (String name : photoNames) {
-            String filePath = basePath + name;
+            String filePath = Paths.get(basePath + name).toAbsolutePath().toString();
+            System.out.println("Yükleniyor: " + filePath);
             fileInput.sendKeys(filePath);
             Thread.sleep(1000);
         }
@@ -454,20 +462,26 @@ public class Vehicles {
         robot.delay(2000);
         robot.keyPress(KeyEvent.VK_ESCAPE);
         robot.keyRelease(KeyEvent.VK_ESCAPE);
-    }
+
+    }*/
 
     public static void clickNextButton2() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
+        WebElement nextButton = driver.findElement(By.xpath("//button[text()='Sonraki']"));
+        nextButton.click();
+    }
+
+    public static void continueWithoutUploadingPhotos() throws InterruptedException {
+        WebElement nextButton = driver.findElement(By.id("confirm_yes_btn"));
         nextButton.click();
     }
 
     public static void clickNextButton3() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
+        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'İleri')]"));
         nextButton.click();
     }
 
     public static void clickBuyDopingButton() throws InterruptedException {
-        WebElement buyButton = driver.findElement(By.xpath("//button[contains(text(),'Buy')]"));
+        WebElement buyButton = driver.findElement(By.xpath("//button[contains(text(),'Satın Al')]"));
         buyButton.click();
     }
 

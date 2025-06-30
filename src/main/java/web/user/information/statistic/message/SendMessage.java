@@ -1,4 +1,4 @@
-package web.user.information.statics.favorite;
+package web.user.information.statistic.message;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,8 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AddFavorite {
-
+public class SendMessage {
 
     public static WebDriver driver;
     public static WebDriverWait wait;
@@ -21,7 +20,7 @@ public class AddFavorite {
     }
 
     public static void setDriver(WebDriver driver) {
-        web.user.information.statics.message.SendMessage.driver = driver;
+        SendMessage.driver = driver;
     }
 
     public static WebDriverWait getWait() {
@@ -29,10 +28,10 @@ public class AddFavorite {
     }
 
     public static void setWait(WebDriverWait wait) {
-        web.user.information.statics.message.SendMessage.wait = wait;
+        SendMessage.wait = wait;
     }
 
-    public AddFavorite() {
+    public SendMessage() {
         this.driver = new ChromeDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
@@ -48,23 +47,13 @@ public class AddFavorite {
         Thread.sleep(2000);
         goHome();
         Thread.sleep(2000);
-        scrollScreen(200);
-        Thread.sleep(2000);
         clickAdvert();
         Thread.sleep(2000);
-        scrollScreen(1300);
         Thread.sleep(2000);
-        clickAddFavorite();
+        clickSendMessageButton();
         Thread.sleep(2000);
-        createNewFavoriteList();
         Thread.sleep(2000);
-        saveFavoriteList();
-        Thread.sleep(2000);
-        scrollScreen(-800);
-        Thread.sleep(2000);
-        clickUserIcon();
-        Thread.sleep(2000);
-        scrollScreen(300);
+        sendMessage();
         Thread.sleep(2000);
         logOut();
     }
@@ -74,8 +63,11 @@ public class AddFavorite {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    public void openRegistrationPage() {
-        driver.get("https://alasouq.com/");
+    public void openRegistrationPage() { driver.get("https://alasouq.com/");}
+
+    public static void clickSaveAppSettings(WebDriver driver) throws InterruptedException {
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public void clickUserIcon() throws InterruptedException {
@@ -122,26 +114,19 @@ public class AddFavorite {
         js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
     }
 
-    public static void clickAddFavorite() throws InterruptedException {
-        WebElement addFavorite = driver.findElement(By.cssSelector("a[id*='btn-toggle-favorite']"));
-        addFavorite.click();
+    public static void clickSendMessageButton() throws InterruptedException {
+        WebElement sendMessageButton = driver.findElement(By.cssSelector("button[id*='send-message']"));
+        sendMessageButton.click();
         Thread.sleep(3500);
     }
 
-    public static void createNewFavoriteList() throws InterruptedException {
-        WebElement addNewList = wait.until(ExpectedConditions.elementToBeClickable(By.id("listName")));
-        addNewList.click();
-
-        String randomText = "TEST" + (int)(Math.random() * 10000);
-        addNewList.sendKeys(randomText);
+    public static void sendMessage() throws InterruptedException {
+        WebElement enterMessage = driver.findElement(By.id("enter-message-textarea"));
+        enterMessage.sendKeys("Merhaba");
         Thread.sleep(3500);
-    }
 
-    public static void saveFavoriteList() throws InterruptedException {
-        WebElement button = driver.findElement(By.id("add-favorite_save_btn"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
-        Thread.sleep(3500);
-        driver.navigate().back();
+        WebElement sendMessage = driver.findElement(By.id("btn-send-message"));
+        sendMessage.click();
     }
 
     public void logOut() throws InterruptedException {
@@ -150,7 +135,8 @@ public class AddFavorite {
         Thread.sleep(2000);
         WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
         yesButton.click();
-        Thread.sleep(3000);
+
     }
 
 }
+

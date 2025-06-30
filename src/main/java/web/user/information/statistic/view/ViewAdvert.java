@@ -1,4 +1,4 @@
-package web.user.information.statics.message;
+package web.user.information.statistic.view;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,28 +10,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class SendMessage {
-
+public class ViewAdvert {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    public static WebDriver getDriver() {
-        return driver;
-    }
-
-    public static void setDriver(WebDriver driver) {
-        SendMessage.driver = driver;
-    }
-
-    public static WebDriverWait getWait() {
-        return wait;
-    }
-
-    public static void setWait(WebDriverWait wait) {
-        SendMessage.wait = wait;
-    }
-
-    public SendMessage() {
+    public ViewAdvert() {
         this.driver = new ChromeDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
@@ -48,12 +31,11 @@ public class SendMessage {
         goHome();
         Thread.sleep(2000);
         clickAdvert();
+        scrollScreen(-500);
         Thread.sleep(2000);
+        clickUserIcon();
         Thread.sleep(2000);
-        clickSendMessageButton();
-        Thread.sleep(2000);
-        Thread.sleep(2000);
-        sendMessage();
+        scrollScreen(700);
         Thread.sleep(2000);
         logOut();
     }
@@ -63,12 +45,11 @@ public class SendMessage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    public void openRegistrationPage() { driver.get("https://alasouq.com/");}
-
-    public static void clickSaveAppSettings(WebDriver driver) throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
-        save.click();
+    public void openRegistrationPage() {
+        driver.get("https://alasouq.com/");
     }
+
+
 
     public void clickUserIcon() throws InterruptedException {
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
@@ -107,26 +88,15 @@ public class SendMessage {
         ));
         ilan.click();
         Thread.sleep(2000);
+        scrollScreen(500);
+        Thread.sleep(3000);
+        driver.navigate().back();
+        Thread.sleep(2000);
     }
 
     public static void scrollScreen(int pixels) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
-    }
-
-    public static void clickSendMessageButton() throws InterruptedException {
-        WebElement sendMessageButton = driver.findElement(By.cssSelector("button[id*='send-message']"));
-        sendMessageButton.click();
-        Thread.sleep(3500);
-    }
-
-    public static void sendMessage() throws InterruptedException {
-        WebElement enterMessage = driver.findElement(By.id("enter-message-textarea"));
-        enterMessage.sendKeys("Merhaba");
-        Thread.sleep(3500);
-
-        WebElement sendMessage = driver.findElement(By.id("btn-send-message"));
-        sendMessage.click();
     }
 
     public void logOut() throws InterruptedException {
@@ -138,5 +108,23 @@ public class SendMessage {
 
     }
 
-}
+    public static WebDriver getDriver() {
+        return driver;
+    }
 
+    public static void setDriver(WebDriver driver) {
+        ViewAdvert.driver = driver;
+    }
+
+    public static WebDriverWait getWait() {
+        return wait;
+    }
+
+    public static void setWait(WebDriverWait wait) {
+        ViewAdvert.wait = wait;
+    }
+
+
+
+
+}
