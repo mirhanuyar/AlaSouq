@@ -16,9 +16,11 @@ public class StatisticFavorite {
         try {
             AddFavorite addFavorite = new AddFavorite();
             addFavorite.openRegistrationPage();
+
             WebDriver driver = addFavorite.getDriver();
             WebDriverWait wait = addFavorite.getWait();
             Thread.sleep(3000);
+
             clickSaveAppSettings(driver);
             clickUserIcon(wait);
             Thread.sleep(2000);
@@ -118,7 +120,7 @@ public class StatisticFavorite {
     public static int getFavoritesCount(WebDriver driver) throws InterruptedException {
         Thread.sleep(2000);
         WebElement h6Element = driver.findElement(By.xpath("//h6[contains(., 'Total Favorites')]"));
-        String fullText = h6Element.getText(); // Örnek çıktı: "Total Favorites: 5"
+        String fullText = h6Element.getText();
 
         Pattern pattern = Pattern.compile("(\\d+)");
         Matcher matcher = pattern.matcher(fullText);
