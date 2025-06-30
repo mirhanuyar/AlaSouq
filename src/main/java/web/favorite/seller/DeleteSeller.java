@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class DeleteSeller {
     public static WebDriver driver;
@@ -39,7 +40,6 @@ public class DeleteSeller {
             e.printStackTrace();
         }
     }
-
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -92,14 +92,14 @@ public class DeleteSeller {
 
     public static void clickFavoriteSeller() throws InterruptedException {
         WebElement favoriteTenantsLink = driver.findElement(
-                By.xpath("//a[text()='Favorite Tenants']")
+                By.xpath("//a[text()='Favori Mağazalar']")
         );
         favoriteTenantsLink.click();
     }
 
     public static void deleteFavoriteSeller() throws InterruptedException {
-        WebElement deleteButton = driver.findElement(By.id("btn-seller-delete-9"));
-        deleteButton.click();
+        List<WebElement> deleteButtons = driver.findElements(By.xpath("//button[starts-with(@id, 'btn-seller-delete-')]"));
+        deleteButtons.get(0).click();
     }
 
     public static void deleteYesButton() throws InterruptedException {

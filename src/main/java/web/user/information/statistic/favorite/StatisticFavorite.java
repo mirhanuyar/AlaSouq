@@ -1,4 +1,4 @@
-package web.user.information.statics.favorite;
+package web.user.information.statistic.favorite;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StaticsFavorite {
+public class StatisticFavorite {
 
     public static void main(String[] args) {
         try {

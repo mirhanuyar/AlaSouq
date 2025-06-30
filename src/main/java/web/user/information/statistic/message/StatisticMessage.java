@@ -1,4 +1,4 @@
-package web.user.information.statics.message;
+package web.user.information.statistic.message;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class StaticsMessage {
+public class StatisticMessage {
     public static void main(String[] args) {
         try {
            SendMessage sendMessage = new SendMessage();

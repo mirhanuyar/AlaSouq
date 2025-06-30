@@ -1,4 +1,4 @@
-package web.advert;
+package web.user.information;
 
 import web.advert.create.Vehicles;
 import web.advert.create.real.estate.Building;

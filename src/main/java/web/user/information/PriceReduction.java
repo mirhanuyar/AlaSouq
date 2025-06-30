@@ -1,4 +1,4 @@
-package web.advert;
+package web.user.information;
 
 public class PriceReduction {
 }

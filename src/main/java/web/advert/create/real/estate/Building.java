@@ -80,25 +80,25 @@ public class Building {
             Thread.sleep(2000);
             clickNextButton();
             Thread.sleep(2000);
-            uploadPhotodnl();
+            //uploadPhotodnl();
             Thread.sleep(2000);
             scrollScreen(400);
             Thread.sleep(2000);
             clickNextButton2();
             Thread.sleep(2000);
-            scrollScreen(300);
+            continueWithoutUploadingPhotos();
+            Thread.sleep(2000);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickBuyDopingButton();
 
 
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (AWTException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -279,7 +279,7 @@ public class Building {
         next.click();
     }
 
-    public static void uploadPhotodnl() throws InterruptedException, AWTException {
+    /*public static void uploadPhotodnl() throws InterruptedException, AWTException {
         String[] photoNames = {"download.jpeg", "download (1).jpeg", "download (2).jpeg"};
         String basePath = "src/main/java/web/_images/";
 
@@ -305,20 +305,25 @@ public class Building {
         robot.keyPress(KeyEvent.VK_ESCAPE);
         robot.keyRelease(KeyEvent.VK_ESCAPE);
 
+    }*/
+
+    public static void clickNextButton2() throws InterruptedException {
+        WebElement nextButton = driver.findElement(By.xpath("//button[text()='Sonraki']"));
+        nextButton.click();
     }
 
-        public static void clickNextButton2() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
+    public static void continueWithoutUploadingPhotos()  throws InterruptedException {
+        WebElement nextButton = driver.findElement(By.id("confirm_yes_btn"));
         nextButton.click();
     }
 
     public static void clickNextButton3() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'Next')]"));
+        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'İleri')]"));
         nextButton.click();
     }
 
     public static void clickBuyDopingButton() throws InterruptedException {
-        WebElement buyButton = driver.findElement(By.xpath("//button[contains(text(),'Buy')]"));
+        WebElement buyButton = driver.findElement(By.xpath("//button[contains(text(),'Satın Al')]"));
         buyButton.click();
     }
 

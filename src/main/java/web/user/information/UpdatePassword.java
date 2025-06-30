@@ -104,21 +104,21 @@ public class UpdatePassword {
     }
 
     public static void clickCurrentPassword() throws InterruptedException {
-        WebElement password = driver.findElement(By.id("cpass"));
+        WebElement password = driver.findElement(By.id("current-password"));
         password.click();
         Thread.sleep(500);
         password.sendKeys("admin6565");
     }
 
     public static void clickNewPassword() throws InterruptedException {
-        WebElement newPassword = driver.findElement(By.id("npass"));
+        WebElement newPassword = driver.findElement(By.id("new-password"));
         newPassword.click();
         Thread.sleep(500);
         newPassword.sendKeys("testadmin");
     }
 
     public static void clickConfirmPassword() throws InterruptedException {
-        WebElement confirmPassword = driver.findElement(By.id("cnpass"));
+        WebElement confirmPassword = driver.findElement(By.id("confirm-password"));
         confirmPassword.click();
         Thread.sleep(500);
         confirmPassword.sendKeys("testadmin");

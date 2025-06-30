@@ -1,4 +1,4 @@
-package web.user.information.statics.view;
+package web.user.information.statistic.view;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class StaticsView {
+public class StatisticView {
     public static void main(String[] args) {
         try {
             ViewAdvert viewAdvert = new ViewAdvert();
