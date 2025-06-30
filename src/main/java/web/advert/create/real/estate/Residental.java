@@ -22,7 +22,7 @@ public class Residental {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
-            clickSaveButton();
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -55,7 +55,7 @@ public class Residental {
             scrollScreen(300);
             Thread.sleep(2000);
             chooseCurrency();
-            scrollScreen(150);
+            scrollScreen(500);
             Thread.sleep(2000);
             clickBalcony();
             Thread.sleep(2000);
@@ -69,13 +69,15 @@ public class Residental {
             clickHeating();
             Thread.sleep(2000);
             chooseHeating();
+            scrollScreen(200);
             Thread.sleep(2000);
             clickNumberOfRooms();
+            scrollScreen(200);
             Thread.sleep(2000);
             chooseNumberOfRooms();
-            scrollScreen(150);
             Thread.sleep(2000);
             clickFurnished();
+            scrollScreen(200);
             Thread.sleep(2000);
             chooseFurnished();
             Thread.sleep(2000);
@@ -112,11 +114,11 @@ public class Residental {
             Thread.sleep(2000);
             continueWithoutUploadingPhotos();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickBuyDopingButton();
 
@@ -132,12 +134,13 @@ public class Residental {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/");
+        driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
-    public static void clickSaveButton() throws InterruptedException {
-        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Save']"));
-        saveButton.click();
+    public static void clickSaveAppSettings() throws InterruptedException{
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -179,17 +182,17 @@ public class Residental {
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.id("sub-category-real-estate-residental"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-emlak-konut"));
         buildingCategory.click();
     }
 
     public static void clickForRentCategory() {
-        WebElement forRentCategory = driver.findElement(By.id("sub-category-for-rent-residental"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-kiralik-konut-emlak"));
         forRentCategory.click();
     }
 
     public static void clickCooperative() throws InterruptedException {
-        WebElement cooperativeCategory = driver.findElement(By.id("sub-category-cooperative-rent-residental"));
+        WebElement cooperativeCategory = driver.findElement(By.id("sub-category-kiralik-konut-daire"));
         cooperativeCategory.click();
     }
 
@@ -232,62 +235,62 @@ public class Residental {
     }
 
     public static void clickBalcony() throws InterruptedException {
-        WebElement balconyButton = driver.findElement(By.id("facet-balcony"));
+        WebElement balconyButton = driver.findElement(By.id("facet-balkon"));
         balconyButton.click();
     }
 
     public static void chooseBalcony() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("a01e68bbe45b-0"));
+        WebElement selectDropdown = driver.findElement(By.id("a04c3425727c-0"));
         selectDropdown.click();
     }
 
     public static void clickNumberOfBathrooms() throws InterruptedException {
-        WebElement numberOfBathrooms = driver.findElement(By.id("facet-bathroom-count"));
+        WebElement numberOfBathrooms = driver.findElement(By.id("facet-banyo-sayisi"));
         numberOfBathrooms.click();
     }
 
     public static void chooseNumberOfBathrooms() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("a41671b71f7f-2"));
+        WebElement selectDropdown = driver.findElement(By.id("a158967c1f6c-1"));
         selectDropdown.click();
     }
 
     public static void clickHeating() throws InterruptedException {
-        WebElement heating = driver.findElement(By.id("facet-heating"));
+        WebElement heating = driver.findElement(By.id("facet-isitma"));
         heating.click();
     }
 
     public static void chooseHeating() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("acbee4331237-1"));
+        WebElement selectDropdown = driver.findElement(By.id("ab0862d819cb-1"));
         selectDropdown.click();
     }
 
     public static void clickNumberOfRooms() throws InterruptedException {
-        WebElement numberOfRooms = driver.findElement(By.id("facet-room-count"));
+        WebElement numberOfRooms = driver.findElement(By.id("facet-oda-sayisi"));
         numberOfRooms.click();
     }
 
     public static void chooseNumberOfRooms() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("a8b1929204f3-1"));
+        WebElement selectDropdown = driver.findElement(By.id("afd66bbca941-2"));
         selectDropdown.click();
     }
 
     public static void clickFurnished() throws InterruptedException {
-        WebElement furnished = driver.findElement(By.id("facet-furhished"));
+        WebElement furnished = driver.findElement(By.id("facet-esyali"));
         furnished.click();
     }
 
     public static void chooseFurnished() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("aaa4c9c83ad2-0"));
+        WebElement selectDropdown = driver.findElement(By.id("a46ea8ba1d29-0"));
         selectDropdown.click();
     }
 
     public static void clickFloorNumber() throws InterruptedException {
-        WebElement floorNumber = driver.findElement(By.id("facet-floor"));
+        WebElement floorNumber = driver.findElement(By.id("facet-kat"));
         floorNumber.click();
     }
 
     public static void chooseFloorNumber() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("aa3d3686f6f0-0"));
+        WebElement selectDropdown = driver.findElement(By.id("a3e08dd3b7aa-0"));
         selectDropdown.click();
     }
 

@@ -7,8 +7,5 @@ public class UserInformationAll {
         AddPhoneNumber.main(args);
         //UpdateProfilePhoto.main(args);
         //UpdatePassword.main(args);
-        //StatisticFavorite.main(args);
-        //StatisticMessage.main(args);
-        //StatisticView.main(args);
     }
 }

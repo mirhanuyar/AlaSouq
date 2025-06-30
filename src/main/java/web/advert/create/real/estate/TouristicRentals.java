@@ -7,9 +7,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.time.Duration;
 
 
@@ -22,7 +19,7 @@ public class TouristicRentals {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
-            clickSaveButton();
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -39,8 +36,6 @@ public class TouristicRentals {
             chooseCategory();
             Thread.sleep(2000);
             clickDatachedHouses();
-            Thread.sleep(2000);
-            clickApartmentHotels();
             Thread.sleep(2000);
             clickContinueButton();
             Thread.sleep(2000);
@@ -80,11 +75,11 @@ public class TouristicRentals {
             Thread.sleep(2000);
             continueWithoutUploadingPhotos();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickBuyDopingButton();
         } catch (InterruptedException e) {
@@ -99,12 +94,13 @@ public class TouristicRentals {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/");
+        driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
-    public static void clickSaveButton() throws InterruptedException {
-        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Save']"));
-        saveButton.click();
+    public static void clickSaveAppSettings() throws InterruptedException{
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -146,19 +142,15 @@ public class TouristicRentals {
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.id("sub-category-touristic-rentals"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-turizm-amacli-kiralik"));
         buildingCategory.click();
     }
 
     public static void clickDatachedHouses() {
-        WebElement forRentCategory = driver.findElement(By.id("sub-category-touristic-rentals-datached-houses"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-turizm-amacli-kiralik-apart-pansiyon"));
         forRentCategory.click();
     }
 
-    public static void clickApartmentHotels() throws InterruptedException {
-        WebElement apartmentHotels = driver.findElement(By.id("sub-category-apartment-hotels-rent-tourism"));
-        apartmentHotels.click();
-    }
 
     public static void clickContinueButton() {
         WebElement continueButton = driver.findElement(By.id("btn-continue-selection"));

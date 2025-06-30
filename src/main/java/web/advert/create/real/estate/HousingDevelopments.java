@@ -22,7 +22,7 @@ public class HousingDevelopments {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
-            clickSaveButton();
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -78,11 +78,11 @@ public class HousingDevelopments {
             Thread.sleep(2000);
             continueWithoutUploadingPhotos();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickBuyDopingButton();
 
@@ -99,12 +99,13 @@ public class HousingDevelopments {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/");
+        driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
-    public static void clickSaveButton() throws InterruptedException {
-        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Save']"));
-        saveButton.click();
+    public static void clickSaveAppSettings() throws InterruptedException{
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -146,15 +147,14 @@ public class HousingDevelopments {
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.id("sub-category-real-estate-housing-developments"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-konut-projeleri"));
         buildingCategory.click();
     }
 
     public static void clickForRentCategory() {
-        WebElement forRentCategory = driver.findElement(By.id("sub-category-for-rent-housing-developments-flat"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-kiralik-konut-projeleri-daire"));
         forRentCategory.click();
     }
-
 
     public static void clickContinueButton() {
         WebElement continueButton = driver.findElement(By.id("btn-continue-selection"));

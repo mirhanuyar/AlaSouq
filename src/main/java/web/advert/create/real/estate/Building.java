@@ -58,12 +58,6 @@ public class Building {
             Thread.sleep(2000);
             chooseCurrency();
             Thread.sleep(2000);
-            clickM2Input();
-            Thread.sleep(2000);
-            //clickAvailableForViewingOption();
-            Thread.sleep(2000);
-            //selectAvailableForViewingOption();
-            Thread.sleep(2000);
             scrollScreen(500);
             Thread.sleep(2000);
             clickProvince();
@@ -157,12 +151,12 @@ public class Building {
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.id("sub-category-arsa"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-bina"));
         buildingCategory.click();
     }
 
     public static void clickForRentCategory() {
-        WebElement forRentCategory = driver.findElement(By.id("sub-category-kiralik-arsa-emlak"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-kiralik-bina-emlak"));
         forRentCategory.click();
     }
 
@@ -204,27 +198,7 @@ public class Building {
         option.click();
     }
 
-    public static void clickM2Input() throws InterruptedException {
-        WebElement m2Input = driver.findElement(
-                By.cssSelector("input.advert-property-input-number[placeholder='m² giriniz']")
-        );
-        m2Input.click();
-        m2Input.sendKeys("100");
-    }
 
-    public static void clickAvailableForViewingOption() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("facet-available-for-viewing-via-vid-call"));
-        selectDropdown.click();
-
-        Thread.sleep(2000);
-    }
-
-    public static void selectAvailableForViewingOption() throws InterruptedException {
-        WebElement yesButton = driver.findElement(By.id("ad6b85888305-1"));
-
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", yesButton);
-    }
 
     public static void clickProvince() throws InterruptedException {
 

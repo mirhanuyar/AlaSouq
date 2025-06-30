@@ -22,7 +22,7 @@ public class Commercial {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
-            clickSaveButton();
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -78,17 +78,17 @@ public class Commercial {
             Thread.sleep(2000);
             //uploadPhoto();
             Thread.sleep(2000);
-            scrollScreen(400);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton2();
             Thread.sleep(2000);
             continueWithoutUploadingPhotos();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(800);
             Thread.sleep(2000);
             clickBuyDopingButton();
 
@@ -105,12 +105,13 @@ public class Commercial {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/");
+        driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
-    public static void clickSaveButton() throws InterruptedException {
-        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Save']"));
-        saveButton.click();
+    public static void clickSaveAppSettings() throws InterruptedException{
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -152,17 +153,17 @@ public class Commercial {
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.id("sub-category-commercial"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-is-yeri"));
         buildingCategory.click();
     }
 
     public static void clickForRentCategory() {
-        WebElement forRentCategory = driver.findElement(By.id("sub-category-for-rent-buildings"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-kiralik-is-yeri-emlak"));
         forRentCategory.click();
     }
 
     public static void clickApartmentUnit() throws InterruptedException {
-        WebElement apartmentUnit = driver.findElement(By.id("sub-category-apartment-unit-rent-commercial"));
+        WebElement apartmentUnit = driver.findElement(By.id("sub-category-kiralik-is-yeri-avm"));
         apartmentUnit.click();
     }
 
