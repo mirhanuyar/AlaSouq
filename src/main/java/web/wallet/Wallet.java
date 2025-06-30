@@ -35,12 +35,17 @@ public class Wallet {
             Thread.sleep(2000);
             clickWallet();
             Thread.sleep(2000);
-             /*   clickshareAdvert();
-                Thread.sleep(2000);*/
-            generateInovatıonLınk();
+            clickshareAdvert();
+            Thread.sleep(2000);
+            clickActions();
+            Thread.sleep(2000);
+            clickShareButton();
+            Thread.sleep(2000);
+
+           /* generateInovatıonLınk();
             Thread.sleep(2000);
             InvitationLink();
-            Thread.sleep(2000);
+            Thread.sleep(2000);*/
 
 
         }
@@ -92,14 +97,28 @@ public class Wallet {
         driver.navigate().refresh();
     }
 
-      /*  public static void clickshareAdvert() throws InterruptedException {
+    public static void clickshareAdvert() throws InterruptedException {
             WebElement clickshareAdvert = driver.findElement(By.id("btn-share-adverts"));
             clickshareAdvert.click();
             Thread.sleep(1000);
+     }
+     public static void clickActions() throws InterruptedException {
+        WebElement clickActions = driver.findElement(By.id("dropdown-actions-toggle-100012"));
+        clickActions.click();
+         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-share-100012")));
+         element.click();
 
-        }*/
+     }
+     public static void clickShareButton() throws InterruptedException {
+        WebElement copyButton = driver.findElement(By.id("social-btn-twitter"));
+        copyButton.click();
 
-    public static void generateInovatıonLınk() throws InterruptedException {
+     }
+
+    //Bu kısım Davet Lİnki kodudur
+
+    /*public static void generateInovatıonLınk() throws InterruptedException {
         WebElement generateInovatıonLınk = driver.findElement(By.id("btn-generate-invitation-link"));
         generateInovatıonLınk.click();
         Thread.sleep(1000);
@@ -135,7 +154,7 @@ public class Wallet {
 
         searchBox.sendKeys(Keys.ENTER);
 
-    }
+    }*/
 }
 
 
