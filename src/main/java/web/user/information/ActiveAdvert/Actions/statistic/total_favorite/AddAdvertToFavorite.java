@@ -22,33 +22,18 @@ public class AddAdvertToFavorite {
 
     public void performViewAdvertFlow() throws InterruptedException {
         openRegistrationPage();
-        Thread.sleep(2000);
         clickUserIcon();
-        Thread.sleep(2000);
         fillForm();
-        Thread.sleep(2000);
         signIn();
-        Thread.sleep(2000);
         goHome();
-        Thread.sleep(2000);
         scrollScreen(200);
-        Thread.sleep(2000);
         clickAdvert();
-        Thread.sleep(2000);
-        scrollScreen(1300);
-        Thread.sleep(2000);
         clickAddFavorite();
-        Thread.sleep(2000);
         createNewFavoriteList();
-        Thread.sleep(2000);
         saveFavoriteList();
-        Thread.sleep(2000);
         scrollScreen(-800);
-        Thread.sleep(2000);
         clickUserIcon();
-        Thread.sleep(2000);
         scrollScreen(300);
-        Thread.sleep(2000);
         logOut();
     }
 
@@ -57,37 +42,39 @@ public class AddAdvertToFavorite {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    public void openRegistrationPage() {
+    public void openRegistrationPage() throws InterruptedException {
         driver.get("https://alasouq.com/");
+        driver.manage().window().maximize();
+        Thread.sleep(3000);
     }
 
     public void clickUserIcon() throws InterruptedException {
+        Thread.sleep(3500);
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
                 By.id("user-icon-button")));
         userIcon.click();
-        Thread.sleep(1000);
     }
 
 
     public void fillForm() throws InterruptedException {
+        Thread.sleep(3500);
         WebElement emailField = driver.findElement(By.id("email"));
         emailField.sendKeys("abdullah.sahin@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
-        Thread.sleep(3000);
     }
 
     public void signIn() throws InterruptedException {
+        Thread.sleep(3500);
         WebElement clickSignIn = driver.findElement(By.id("btn-sign-in"));
         clickSignIn.click();
-        Thread.sleep(1000);
     }
 
     public void goHome() throws InterruptedException {
+        Thread.sleep(3500);
         WebElement goHome = driver.findElement(By.id("home-link"));
         goHome.click();
-        Thread.sleep(1000);
     }
 
     public void clickAdvert() throws InterruptedException {
@@ -97,30 +84,31 @@ public class AddAdvertToFavorite {
                 By.xpath("//h6[text()='SAHİBİNDEN BUTİK SİTE İÇİ 3+1 ULTRA LÜKS SIFIR DAİRE']/ancestor::a")
         ));
         ilan.click();
-        Thread.sleep(2000);
     }
 
-    public static void scrollScreen(int pixels) {
+    public static void scrollScreen(int pixels) throws InterruptedException {
+        Thread.sleep(3500);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
     }
 
     public static void clickAddFavorite() throws InterruptedException {
+        Thread.sleep(3500);
         WebElement addFavorite = driver.findElement(By.cssSelector("a[id*='btn-toggle-favorite']"));
         addFavorite.click();
-        Thread.sleep(3500);
     }
 
     public static void createNewFavoriteList() throws InterruptedException {
+        Thread.sleep(3500);
         WebElement addNewList = wait.until(ExpectedConditions.elementToBeClickable(By.id("listName")));
         addNewList.click();
 
         String randomText = "TEST" + (int)(Math.random() * 10000);
         addNewList.sendKeys(randomText);
-        Thread.sleep(3500);
     }
 
     public static void saveFavoriteList() throws InterruptedException {
+        Thread.sleep(3500);
         WebElement button = driver.findElement(By.id("add-favorite_save_btn"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
         Thread.sleep(3500);
@@ -128,12 +116,12 @@ public class AddAdvertToFavorite {
     }
 
     public void logOut() throws InterruptedException {
+        Thread.sleep(3500);
         WebElement logOutButton = driver.findElement(By.id("link-logout"));
         logOutButton.click();
         Thread.sleep(2000);
         WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
         yesButton.click();
-        Thread.sleep(3000);
     }
 
     public static WebDriver getDriver() {

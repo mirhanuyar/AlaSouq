@@ -23,44 +23,28 @@ public class CheckFavoriteCount {
 
             clickSaveAppSettings(driver);
             clickUserIcon(wait);
-            Thread.sleep(2000);
             fillForm(driver);
-            Thread.sleep(2000);
             signIn(driver);
-            Thread.sleep(2000);
             clickMyAdverts(driver);
-            Thread.sleep(2000);
             refreshPage(driver);
-            Thread.sleep(2000);
+            refreshPage(driver);
             clickAction(driver);
-            Thread.sleep(2000);
             clickStatics(driver);
-            Thread.sleep(2000);
-            scrollScreen(driver, 800);
-            Thread.sleep(2000);
+            scrollScreen(driver, 1000);
             int firstFavCount = getFavoritesCount(driver);
             Thread.sleep(2000);
             clickUserIcon(wait);
-            Thread.sleep(2000);
             scrollScreen(driver, 450);
-            Thread.sleep(2000);
             logOut(driver);
             addFavorite.performViewAdvertFlow();
             clickUserIcon(wait);
-            Thread.sleep(2000);
             fillForm(driver);
-            Thread.sleep(2000);
             signIn(driver);
-            Thread.sleep(2000);
             clickMyAdverts(driver);
-            Thread.sleep(2000);
             refreshPage(driver);
-            Thread.sleep(2000);
             clickAction(driver);
-            Thread.sleep(2000);
             clickStatics(driver);
-            Thread.sleep(2000);
-            scrollScreen(driver, 300);
+            scrollScreen(driver, 1000);
             int secondFavCount = getFavoritesCount(driver);
             if(firstFavCount == secondFavCount - 1) {
                 System.out.println("Test Başarılı");
@@ -72,49 +56,51 @@ public class CheckFavoriteCount {
         }
     }
     public static void clickSaveAppSettings(WebDriver driver) throws InterruptedException {
+        Thread.sleep(3500);
         WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
     public static void clickUserIcon(WebDriverWait wait) throws InterruptedException {
+        Thread.sleep(3500);
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
                 By.id("user-icon-button")));
         userIcon.click();
-        Thread.sleep(1000);
     }
 
 
     public static void fillForm(WebDriver driver) throws InterruptedException {
+        Thread.sleep(3500);
         WebElement emailField = driver.findElement(By.id("email"));
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
-        Thread.sleep(2000);
     }
 
     public static void signIn(WebDriver driver) throws InterruptedException {
+        Thread.sleep(3500);
         WebElement clickSignIn = driver.findElement(By.id("btn-sign-in"));
         clickSignIn.click();
-        Thread.sleep(5000);
     }
 
     public static void clickMyAdverts(WebDriver driver) throws InterruptedException {
+        Thread.sleep(3500);
         WebElement myAdverts = driver.findElement(By.id("link-adverts"));
         myAdverts.click();
-        Thread.sleep(1000);
     }
 
     public static void clickAction(WebDriver driver) throws InterruptedException {
+        Thread.sleep(3500);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebElement btn = driver.findElement(By.cssSelector("button[id^='dropdown-actions-toggle-']"));
         js.executeScript("arguments[0].click();", btn);
     }
 
     public static void clickStatics(WebDriver driver) throws InterruptedException {
+        Thread.sleep(3500);
         WebElement statics = driver.findElement(By.cssSelector("button[id*='btn-statistics']"));
         statics.click();
-        Thread.sleep(2000);
     }
 
     public static int getFavoritesCount(WebDriver driver) throws InterruptedException {
@@ -135,21 +121,23 @@ public class CheckFavoriteCount {
         return favoriteCount;
     }
 
-    public static void scrollScreen(WebDriver driver, int pixels) {
+    public static void scrollScreen(WebDriver driver, int pixels) throws InterruptedException {
+        Thread.sleep(3500);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
     }
 
     public static void logOut(WebDriver driver) throws InterruptedException {
+        Thread.sleep(3500);
         WebElement logOutButton = driver.findElement(By.id("link-logout"));
         logOutButton.click();
         Thread.sleep(3000);
         WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
         yesButton.click();
-        Thread.sleep(2000);
     }
 
     public static void refreshPage(WebDriver driver) throws InterruptedException {
+        Thread.sleep(3500);
         driver.navigate().refresh();
         driver.manage().window();
     }

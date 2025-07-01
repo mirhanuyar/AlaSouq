@@ -4,12 +4,14 @@ import org.openqa.selenium.*;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.nio.file.Paths;
 import java.time.Duration;
 
 
@@ -22,7 +24,7 @@ public class Land {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
-            clickSaveButton();
+            clickSaveAppSettings();
             Thread.sleep(2000);
             clickUserIcon();
             Thread.sleep(2000);
@@ -44,6 +46,8 @@ public class Land {
             Thread.sleep(2000);
             refreshPage();
             Thread.sleep(2000);
+            refreshPage();
+            Thread.sleep(2000);
             titleInput();
             Thread.sleep(2000);
             enterDescription();
@@ -53,6 +57,8 @@ public class Land {
             scrollScreen(300);
             Thread.sleep(2000);
             chooseCurrency();
+            Thread.sleep(2000);
+            clickM2Input();
             Thread.sleep(2000);
             //clickAvailableForViewingOption();
             Thread.sleep(2000);
@@ -74,7 +80,7 @@ public class Land {
             Thread.sleep(2000);
             clickNextButton();
             Thread.sleep(2000);
-            //uploadPhoto();
+            //uploadPhotodnl();
             Thread.sleep(2000);
             scrollScreen(400);
             Thread.sleep(2000);
@@ -82,11 +88,11 @@ public class Land {
             Thread.sleep(2000);
             continueWithoutUploadingPhotos();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickBuyDopingButton();
 
@@ -103,12 +109,13 @@ public class Land {
     }
 
     public static void openRegistrationPage() {
-        driver.get("https://alasouq.com/");
+        driver.get("https://alasouq.com/tr/");
+        driver.manage().window().fullscreen();
     }
 
-    public static void clickSaveButton() throws InterruptedException {
-        WebElement saveButton = driver.findElement(By.xpath("//button[text()='Save']"));
-        saveButton.click();
+    public static void clickSaveAppSettings() throws InterruptedException{
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        save.click();
     }
 
     public static void clickUserIcon() throws InterruptedException {
@@ -121,7 +128,7 @@ public class Land {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("yakup.user@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -150,15 +157,14 @@ public class Land {
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.id("sub-category-land"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-arsa"));
         buildingCategory.click();
     }
 
     public static void clickForRentCategory() {
-        WebElement forRentCategory = driver.findElement(By.id("sub-category-land-for-rent-land"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-kiralik-arsa-emlak"));
         forRentCategory.click();
     }
-
 
     public static void clickContinueButton() {
         WebElement continueButton = driver.findElement(By.id("btn-continue-selection"));
@@ -196,6 +202,14 @@ public class Land {
         Thread.sleep(1000);
         WebElement option = driver.findElement(By.xpath("//span[text()='TRY']"));
         option.click();
+    }
+
+    public static void clickM2Input() throws InterruptedException {
+        WebElement m2Input = driver.findElement(
+                By.cssSelector("input.advert-property-input-number[placeholder='m² giriniz']")
+        );
+        m2Input.click();
+        m2Input.sendKeys("100");
     }
 
     public static void clickAvailableForViewingOption() throws InterruptedException {

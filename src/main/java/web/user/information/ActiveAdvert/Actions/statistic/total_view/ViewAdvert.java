@@ -21,22 +21,14 @@ public class ViewAdvert {
 
     public void performViewAdvertFlow() throws InterruptedException {
         openRegistrationPage();
-        Thread.sleep(2000);
         clickUserIcon();
-        Thread.sleep(2000);
         fillForm();
-        Thread.sleep(2000);
         signIn();
-        Thread.sleep(2000);
         goHome();
-        Thread.sleep(2000);
         clickAdvert();
         scrollScreen(-500);
-        Thread.sleep(2000);
         clickUserIcon();
-        Thread.sleep(2000);
         scrollScreen(700);
-        Thread.sleep(2000);
         logOut();
     }
 
@@ -45,39 +37,41 @@ public class ViewAdvert {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    public void openRegistrationPage() {
+    public void openRegistrationPage() throws InterruptedException {
         driver.get("https://alasouq.com/");
+        driver.manage().window().maximize();
+        Thread.sleep(3000);
     }
 
 
 
     public void clickUserIcon() throws InterruptedException {
+        Thread.sleep(3000);
         WebElement userIcon = wait.until(ExpectedConditions.elementToBeClickable(
                 By.id("user-icon-button")));
         userIcon.click();
-        Thread.sleep(1000);
     }
 
 
     public void fillForm() throws InterruptedException {
+        Thread.sleep(3000);
         WebElement emailField = driver.findElement(By.id("email"));
         emailField.sendKeys("abdullah.sahin@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
-        Thread.sleep(3000);
     }
 
     public void signIn() throws InterruptedException {
+        Thread.sleep(3000);
         WebElement clickSignIn = driver.findElement(By.id("btn-sign-in"));
         clickSignIn.click();
-        Thread.sleep(1000);
     }
 
     public void goHome() throws InterruptedException {
+        Thread.sleep(3000);
         WebElement goHome = driver.findElement(By.id("home-link"));
         goHome.click();
-        Thread.sleep(1000);
     }
 
     public void clickAdvert() throws InterruptedException {
@@ -91,21 +85,22 @@ public class ViewAdvert {
         scrollScreen(500);
         Thread.sleep(3000);
         driver.navigate().back();
-        Thread.sleep(2000);
+        Thread.sleep(4000);
     }
 
-    public static void scrollScreen(int pixels) {
+    public static void scrollScreen(int pixels) throws InterruptedException {
+        Thread.sleep(3000);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
     }
 
     public void logOut() throws InterruptedException {
+        Thread.sleep(3000);
         WebElement logOutButton = driver.findElement(By.id("link-logout"));
         logOutButton.click();
         Thread.sleep(2000);
         WebElement yesButton = driver.findElement(By.id("confirm_yes_btn"));
         yesButton.click();
-
     }
 
     public static WebDriver getDriver() {

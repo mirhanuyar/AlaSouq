@@ -9,7 +9,7 @@ import web.user.information.*;
 public class WebAll {
     public static void main(String[] args) throws InterruptedException {
         //UserInformationAll.main(args);
-        //MessageAll.main(args);
+        MessageAll.main(args);
         FavoriteAll.main(args);
         AdvertCreateAll.main(args);
     }
