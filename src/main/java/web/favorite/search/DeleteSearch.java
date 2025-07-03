@@ -47,7 +47,7 @@ public class DeleteSearch {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
