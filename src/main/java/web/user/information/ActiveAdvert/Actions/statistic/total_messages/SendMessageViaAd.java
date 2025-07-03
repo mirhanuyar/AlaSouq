@@ -19,7 +19,6 @@ public class SendMessageViaAd {public static WebDriver driver;
     }
 
     public void performViewAdvertFlow() throws InterruptedException {
-        openRegistrationPage();
         clickUserIcon();
         fillForm();
         signIn();
