@@ -49,11 +49,12 @@ public class Rename {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement save = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-default-app-settings")));
         save.click();
     }
 

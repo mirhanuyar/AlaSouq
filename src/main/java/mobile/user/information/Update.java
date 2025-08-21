@@ -1,4 +1,4 @@
-package mobile.advert;
+package mobile.user.information;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

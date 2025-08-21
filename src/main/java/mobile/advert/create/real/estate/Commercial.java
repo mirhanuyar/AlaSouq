@@ -1,21 +1,18 @@
-package web.advert.create.real.estate;
+package mobile.advert.create.real.estate;
 
-import org.openqa.selenium.*;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.nio.file.Paths;
 import java.time.Duration;
 
 
-public class Building {
+public class Commercial {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -42,7 +39,11 @@ public class Building {
             Thread.sleep(2000);
             clickForRentCategory();
             Thread.sleep(2000);
+            clickApartmentUnit();
+            Thread.sleep(2000);
             clickContinueButton();
+            Thread.sleep(2000);
+            refreshPage();
             Thread.sleep(2000);
             titleInput();
             Thread.sleep(2000);
@@ -53,6 +54,10 @@ public class Building {
             scrollScreen(300);
             Thread.sleep(2000);
             chooseCurrency();
+            Thread.sleep(2000);
+            //clickAvailableForViewingOption();
+            Thread.sleep(2000);
+            //selectAvailableForViewingOption();
             Thread.sleep(2000);
             scrollScreen(500);
             Thread.sleep(2000);
@@ -70,9 +75,9 @@ public class Building {
             Thread.sleep(2000);
             clickNextButton();
             Thread.sleep(2000);
-            //uploadPhotodnl();
+            //uploadPhoto();
             Thread.sleep(2000);
-            scrollScreen(400);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton2();
             Thread.sleep(2000);
@@ -82,11 +87,9 @@ public class Building {
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollScreen(1000);
+            scrollScreen(800);
             Thread.sleep(2000);
             clickBuyDopingButton();
-            Thread.sleep(2000);
-            clickPlaceOrder();
 
 
         } catch (InterruptedException e) {
@@ -102,12 +105,11 @@ public class Building {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
-        driver.manage().window().maximize();
+        driver.manage().window().fullscreen();
     }
 
-    public static void clickSaveAppSettings() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement save = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-default-app-settings")));
+    public static void clickSaveAppSettings() throws InterruptedException{
+        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
 
@@ -121,7 +123,7 @@ public class Building {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("tajdin.gurdal@solidsoft.com.tr");
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -150,13 +152,18 @@ public class Building {
     }
 
     public static void chooseCategory() throws InterruptedException {
-        WebElement buildingCategory = driver.findElement(By.id("sub-category-bina"));
+        WebElement buildingCategory = driver.findElement(By.id("sub-category-is-yeri"));
         buildingCategory.click();
     }
 
     public static void clickForRentCategory() {
-        WebElement forRentCategory = driver.findElement(By.id("sub-category-kiralik-bina-emlak"));
+        WebElement forRentCategory = driver.findElement(By.id("sub-category-kiralik-is-yeri-emlak"));
         forRentCategory.click();
+    }
+
+    public static void clickApartmentUnit() throws InterruptedException {
+        WebElement apartmentUnit = driver.findElement(By.id("sub-category-kiralik-is-yeri-avm"));
+        apartmentUnit.click();
     }
 
     public static void clickContinueButton() {
@@ -164,6 +171,10 @@ public class Building {
         continueButton.click();
     }
 
+    public static void refreshPage() throws InterruptedException {
+        driver.navigate().refresh();
+        driver.manage().window().fullscreen();
+    }
 
     public static void titleInput() throws InterruptedException {
         WebElement title = driver.findElement(By.id("value-change"));
@@ -193,6 +204,19 @@ public class Building {
         option.click();
     }
 
+    public static void clickAvailableForViewingOption() throws InterruptedException {
+        WebElement selectDropdown = driver.findElement(By.id("facet-available-for-viewing-via-vid-call"));
+        selectDropdown.click();
+
+        Thread.sleep(2000);
+    }
+
+    public static void selectAvailableForViewingOption() throws InterruptedException {
+        WebElement yesButton = driver.findElement(By.id("ad6b85888305-1"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", yesButton);
+    }
 
     public static void clickProvince() throws InterruptedException {
 
@@ -276,30 +300,23 @@ public class Building {
     }*/
 
     public static void clickNextButton2() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.id("btn-image-upload-next"));
+        WebElement nextButton = driver.findElement(By.xpath("//button[text()='Sonraki']"));
         nextButton.click();
     }
 
-    public static void continueWithoutUploadingPhotos() throws InterruptedException {
+    public static void continueWithoutUploadingPhotos()  throws InterruptedException {
         WebElement nextButton = driver.findElement(By.id("confirm_yes_btn"));
         nextButton.click();
     }
 
     public static void clickNextButton3() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.id("btn-preview-next"));
+        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'İleri')]"));
         nextButton.click();
     }
 
     public static void clickBuyDopingButton() throws InterruptedException {
-        WebElement button = driver.findElement(
-                By.xpath("//button[contains(@class,'btn-PREMIUM') and .//span[text()='Satın Al']]")
-        );
-        button.click();
-    }
-
-    public static void clickPlaceOrder() throws InterruptedException {
-        WebElement button = driver.findElement(By.id("place_order"));
-        button.click();
+        WebElement buyButton = driver.findElement(By.xpath("//button[contains(text(),'Satın Al')]"));
+        buyButton.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

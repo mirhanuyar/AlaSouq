@@ -52,11 +52,12 @@ public class ChatWithAdvertOwner {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
-    public static void clickSaveAppSettings() throws InterruptedException{
-        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement save = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-default-app-settings")));
         save.click();
     }
 
@@ -70,7 +71,7 @@ public class ChatWithAdvertOwner {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.user@solidsoft.com.tr");
+        emailField.sendKeys("tajdin.gurdal@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");

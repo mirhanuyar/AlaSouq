@@ -46,11 +46,12 @@ public class ControlSeller {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement save = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-default-app-settings")));
         save.click();
     }
 
@@ -97,8 +98,10 @@ public class ControlSeller {
     }
 
     public static void clickSaveFavoriteTenant() throws InterruptedException {
-        WebElement tenantCard = driver.findElement(By.xpath("//div[@class='favorite-tenant-content' and .//h6[text()='Standard Company Ltd.']]"));
-        tenantCard.click();
+        WebElement element = driver.findElement(
+                By.cssSelector("div.favorite-tenant-content")
+        );
+        element.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

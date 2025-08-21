@@ -135,6 +135,8 @@ public class Vehicles {
             scrollScreen(300);
             Thread.sleep(2000);
             clickBuyDopingButton();
+            Thread.sleep(2000);
+            clickPlaceOrder();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -148,11 +150,12 @@ public class Vehicles {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
-    public static void clickSaveAppSettings() throws InterruptedException{
-        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+    public static void clickSaveAppSettings() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement save = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-default-app-settings")));
         save.click();
     }
 
@@ -166,7 +169,7 @@ public class Vehicles {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("tajdin.gurdal@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -360,7 +363,7 @@ public class Vehicles {
         option.click();
     }
 
-    public static void clickGuarantee()  throws InterruptedException {
+    public static void clickGuarantee() throws InterruptedException {
         WebElement guarantee = driver.findElement(By.id("facet-guarantee"));
         guarantee.click();
     }
@@ -466,7 +469,7 @@ public class Vehicles {
     }*/
 
     public static void clickNextButton2() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.xpath("//button[text()='Sonraki']"));
+        WebElement nextButton = driver.findElement(By.id("btn-image-upload-next"));
         nextButton.click();
     }
 
@@ -476,13 +479,20 @@ public class Vehicles {
     }
 
     public static void clickNextButton3() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'İleri')]"));
+        WebElement nextButton = driver.findElement(By.id("btn-preview-next"));
         nextButton.click();
     }
 
     public static void clickBuyDopingButton() throws InterruptedException {
-        WebElement buyButton = driver.findElement(By.xpath("//button[contains(text(),'Satın Al')]"));
-        buyButton.click();
+        WebElement button = driver.findElement(
+                By.xpath("//button[contains(@class,'btn-PREMIUM') and .//span[text()='Satın Al']]")
+        );
+        button.click();
+    }
+
+    public static void clickPlaceOrder() throws InterruptedException {
+        WebElement button = driver.findElement(By.id("place_order"));
+        button.click();
     }
 
     public static void clickElement(By locator) throws InterruptedException {

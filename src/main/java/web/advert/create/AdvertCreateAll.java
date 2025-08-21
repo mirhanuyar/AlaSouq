@@ -6,7 +6,7 @@ import javax.crypto.Mac;
 
 public class AdvertCreateAll {
     public static void main(String[] args) {
-        //Building.main(args);
+        Building.main(args);
         Commercial.main(args);
         HousingDevelopments.main(args);
         Land.main(args);

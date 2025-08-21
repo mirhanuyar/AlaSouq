@@ -1,4 +1,4 @@
-package mobile.advert.passive;
+package mobile.user.information.passive;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;

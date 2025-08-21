@@ -46,11 +46,12 @@ public class CreateSeller {
 
     public static void openRegistrationPage() {
         driver.get("https://alasouq.com/tr/");
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
-        WebElement save = driver.findElement(By.id("btn-default-app-settings"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement save = wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-default-app-settings")));
         save.click();
     }
 
@@ -86,7 +87,7 @@ public class CreateSeller {
         List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
 
         if (!advert.isEmpty()) {
-            WebElement firstAd = advert.get(7);
+            WebElement firstAd = advert.get(0);
 
             Thread.sleep(1000);
 
