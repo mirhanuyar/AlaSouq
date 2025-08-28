@@ -65,7 +65,7 @@ public class CreateSeller {
 
     public static void fillForm() throws InterruptedException {
         WebElement emailField = driver.findElement(By.id("email"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        emailField.sendKeys("tajdin.gurdal@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("password"));
         currentPasswordField.sendKeys("admin");
@@ -87,7 +87,7 @@ public class CreateSeller {
         List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
 
         if (!advert.isEmpty()) {
-            WebElement firstAd = advert.get(0);
+            WebElement firstAd = advert.get(1);
 
             Thread.sleep(1000);
 
