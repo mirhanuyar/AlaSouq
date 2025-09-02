@@ -93,7 +93,7 @@ public class AddList {
         List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
 
         if (!advert.isEmpty()) {
-            WebElement firstAd = advert.get(0);
+            WebElement firstAd = advert.get(2);
 
             Thread.sleep(1000);
 
@@ -118,12 +118,10 @@ public class AddList {
         addNewList.sendKeys(randomText);
     }
 
-
     public static void saveFavoriteList() throws InterruptedException {
         WebElement button = driver.findElement(By.id("add-favorite_save_btn"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
     }
-
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));

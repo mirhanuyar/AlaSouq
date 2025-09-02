@@ -5,10 +5,13 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UpdatePassword {
     public static WebDriver driver;
@@ -19,86 +22,143 @@ public class UpdatePassword {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+
+            clickSaveAppSettings();
+            Thread.sleep(2000);
+
+            fullScreen();
+            Thread.sleep(2000);
+
+            clickTabButtonMyAccount();
+            Thread.sleep(2000);
+
+            clickLoginButton();
+            Thread.sleep(2000);
+
             fillForm();
             Thread.sleep(2000);
+
             submitForm();
             Thread.sleep(2000);
-            userInformation();
+            scrollToElement(By.id("link-account-info"));
             Thread.sleep(2000);
-            changePassword();
+
+            clickAccountInfo();
             Thread.sleep(2000);
-            currentPassword();
+
+            clickPasswordChangeButton();
             Thread.sleep(2000);
-            newPassword();
+
+            currentPasswordInput();
             Thread.sleep(2000);
-            confirmPassword();
+            newPasswordInput();
             Thread.sleep(2000);
-            updateButton();
+            confirmPasswordInput();
+            Thread.sleep(2000);
+
+            clickUpdateButton();
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-
     public static void setUpDriver() {
-        driver = new ChromeDriver();
+        Map<String, Object> deviceMetrics = new HashMap<>();
+        deviceMetrics.put("width", 500);
+        deviceMetrics.put("height", 800);
+        deviceMetrics.put("pixelRatio", 3.0);
+
+        Map<String, Object> mobileEmulation = new HashMap<>();
+        mobileEmulation.put("deviceMetrics", deviceMetrics);
+        mobileEmulation.put("userAgent", "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) " +
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15A372 Safari/604.1");
+
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("mobileEmulation", mobileEmulation);
+
+        driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4200/home");
+        driver.get("https://m.alasouq.com");
+    }
+
+    public static void clickSaveAppSettings() {
+        clickElement(By.xpath("//ion-button[text()='Default']"));
+    }
+
+    public static void fullScreen() {
+        driver.manage().window().fullscreen();
+    }
+
+    public static void clickTabButtonMyAccount() {
+        clickElement(By.id("btn-my-account"));
+    }
+
+    public static void clickLoginButton() {
+        clickElement(By.id("login-click"));
     }
 
     public static void fillForm() throws InterruptedException {
-        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//span[contains(@class, 'sc-ion-label-ios') and text()='Giriş Yap']")));
-        loginButton.click();
-        Thread.sleep(1000);
-
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
-        Thread.sleep(3000);
+        Thread.sleep(1000);
+
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin6565");
-        Thread.sleep(3000);
+        currentPasswordField.sendKeys("admin");
+        Thread.sleep(1000);
     }
 
-    public static void submitForm() throws InterruptedException {
+    public static void submitForm() {
         clickElement(By.id("btn-lgn-email"));
-        Thread.sleep(2000);
     }
 
-    public static void userInformation() throws InterruptedException {
-        clickElement(By.id("link-account-info"));
+    public static void clickAccountInfo() throws InterruptedException {
+        WebElement accountInfo = driver.findElement(By.id("link-account-info"));
+        accountInfo.click();
     }
 
-    public static void changePassword() throws InterruptedException {
+    public static void clickPasswordChangeButton() throws InterruptedException {
         clickElement(By.id("link-change-password"));
     }
 
-    public static void currentPassword() throws InterruptedException {
-        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='currentPassword']//input"));
-        changePassword.sendKeys("admin6565");
+    public static void currentPasswordInput() throws InterruptedException {
+        WebElement current = driver.findElement(By.id("ion-input-2"));
+        current.click();
+        current.sendKeys("admin");
     }
 
-    public static void newPassword() throws InterruptedException {
-        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='newPassword']//input"));
-        changePassword.sendKeys("adminadmin");
+    public static void newPasswordInput() throws InterruptedException {
+        WebElement newPassword = driver.findElement(By.id("ion-input-3"));
+        newPassword.click();
+        newPassword.sendKeys("admin6565");
     }
 
-    public static void confirmPassword() throws InterruptedException {
-        WebElement changePassword = driver.findElement(By.xpath("//ion-input[@formcontrolname='confirmPassword']//input"));
-        changePassword.sendKeys("adminadmin");
+    public static void confirmPasswordInput() throws InterruptedException {
+        WebElement confirm = driver.findElement(By.id("ion-input-4"));
+        confirm.click();
+        confirm.sendKeys("admin6565");
     }
 
-    public static void updateButton() throws InterruptedException {
-        WebElement button = driver.findElement(By.id("btn-password-update"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+    public static void clickUpdateButton() throws InterruptedException {
+        WebElement update = driver.findElement(By.id("btn-password-update"));
+        update.click();
     }
 
-    public static void clickElement(By locator) throws InterruptedException {
+    public static void clickElement(By locator) {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        element.click();
+        try {
+            element.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
+    }
+
+    public static void scrollToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior:'smooth', block:'center'});", element);
     }
 }

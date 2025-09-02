@@ -5,10 +5,13 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EmailUpdate {
     public static WebDriver driver;
@@ -19,80 +22,135 @@ public class EmailUpdate {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+
+            clickSaveAppSettings();
+            Thread.sleep(2000);
+
+            fullScreen();
+            Thread.sleep(2000);
+
+            clickTabButtonMyAccount();
+            Thread.sleep(2000);
+
+            clickLoginButton();
+            Thread.sleep(2000);
+
             fillForm();
             Thread.sleep(2000);
+
             submitForm();
             Thread.sleep(2000);
-            userInformation();
+            scrollToElement(By.id("link-account-info"));
             Thread.sleep(2000);
-            updateEmail();
+
+            clickAccountInfo();
             Thread.sleep(2000);
-            newEmail();
+
+            clickMail();
             Thread.sleep(2000);
-            enterAccountPassword();
+            clickNewEmail();
             Thread.sleep(2000);
-            clickChangeEmail();
+            accountPassword();
+            Thread.sleep(2000);
+
+            clickChangeButton();
+
+
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-
     public static void setUpDriver() {
-        driver = new ChromeDriver();
+        Map<String, Object> deviceMetrics = new HashMap<>();
+        deviceMetrics.put("width", 500);
+        deviceMetrics.put("height", 800);
+        deviceMetrics.put("pixelRatio", 3.0);
+
+        Map<String, Object> mobileEmulation = new HashMap<>();
+        mobileEmulation.put("deviceMetrics", deviceMetrics);
+        mobileEmulation.put("userAgent", "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) " +
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15A372 Safari/604.1");
+
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("mobileEmulation", mobileEmulation);
+
+        driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4200/home");
+        driver.get("https://m.alasouq.com");
+    }
+
+    public static void clickSaveAppSettings() {
+        clickElement(By.xpath("//ion-button[text()='Default']"));
+    }
+
+    public static void fullScreen() {
+        driver.manage().window().fullscreen();
+    }
+
+    public static void clickTabButtonMyAccount() {
+        clickElement(By.id("btn-my-account"));
+    }
+
+    public static void clickLoginButton() {
+        clickElement(By.id("login-click"));
     }
 
     public static void fillForm() throws InterruptedException {
-        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//span[contains(@class, 'sc-ion-label-ios') and text()='Giriş Yap']")));
-        loginButton.click();
-        Thread.sleep(1000);
-
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
-        Thread.sleep(3000);
+        Thread.sleep(1000);
+
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin6565");
-        Thread.sleep(3000);
+        currentPasswordField.sendKeys("admin");
+        Thread.sleep(1000);
     }
 
-    public static void submitForm() throws InterruptedException {
+    public static void submitForm() {
         clickElement(By.id("btn-lgn-email"));
-        Thread.sleep(2000);
     }
 
-    public static void userInformation() throws InterruptedException {
-        clickElement(By.id("link-account-info"));
+    public static void clickAccountInfo() throws InterruptedException {
+        WebElement accountInfo = driver.findElement(By.id("link-account-info"));
+        accountInfo.click();
     }
 
-    public static void updateEmail() throws InterruptedException {
-        clickElement(By.id("link-reset-email"));
+    public static void clickMail()  throws InterruptedException {
+        WebElement resetEmail = driver.findElement(By.id("link-reset-email"));
+        resetEmail.click();
     }
 
-    public static void newEmail() throws InterruptedException {
-        WebElement newEmail = driver.findElement(By.xpath("//ion-input[@formcontrolname='newEmail']//input"));
-        newEmail.sendKeys("yako.backoffice+testt@solidsoft.com.tr");
+    public static void clickNewEmail() throws InterruptedException {
+        WebElement newEmail = driver.findElement(By.id("ion-input-3"));
+        newEmail.click();
+        newEmail.sendKeys("yakup.backoffice@solidsoft.com.tr");
     }
 
-    public static void enterAccountPassword() throws InterruptedException {
-        WebElement password = driver.findElement(By.xpath("//ion-input[@formcontrolname='password']//input"));
-        password.sendKeys("admin6565");
+    public static void accountPassword() throws InterruptedException {
+        WebElement password = driver.findElement(By.id("ion-input-4"));
+        password.sendKeys("admin");
     }
 
-    public static void clickChangeEmail() throws InterruptedException {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        WebElement changeEmailButton = driver.findElement(By.xpath("//ion-button[@id='change-email-init']"));
-        js.executeScript("arguments[0].click();", changeEmailButton);
+    public static void clickChangeButton() throws InterruptedException {
+        WebElement button = driver.findElement(By.id("change-email-init"));
+        button.click();
     }
 
-
-    public static void clickElement(By locator) throws InterruptedException {
+    public static void clickElement(By locator) {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        element.click();
+        try {
+            element.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
+    }
+
+    public static void scrollToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior:'smooth', block:'center'});", element);
     }
 }

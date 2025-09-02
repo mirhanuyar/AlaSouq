@@ -5,11 +5,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Commercial {
@@ -101,6 +104,23 @@ public class Commercial {
     public static void setUpDriver() {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        Map<String, Object> deviceMetrics = new HashMap<>();
+        deviceMetrics.put("width", 500);
+        deviceMetrics.put("height", 800);
+        deviceMetrics.put("pixelRatio", 3.0);
+
+        Map<String, Object> mobileEmulation = new HashMap<>();
+        mobileEmulation.put("deviceMetrics", deviceMetrics);
+        mobileEmulation.put("userAgent", "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) " +
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15A372 Safari/604.1");
+
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("mobileEmulation", mobileEmulation);
+
+        driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
     }
 
     public static void openRegistrationPage() {
@@ -108,7 +128,7 @@ public class Commercial {
         driver.manage().window().fullscreen();
     }
 
-    public static void clickSaveAppSettings() throws InterruptedException{
+    public static void clickSaveAppSettings() throws InterruptedException {
         WebElement save = driver.findElement(By.id("btn-default-app-settings"));
         save.click();
     }
@@ -304,7 +324,7 @@ public class Commercial {
         nextButton.click();
     }
 
-    public static void continueWithoutUploadingPhotos()  throws InterruptedException {
+    public static void continueWithoutUploadingPhotos() throws InterruptedException {
         WebElement nextButton = driver.findElement(By.id("confirm_yes_btn"));
         nextButton.click();
     }

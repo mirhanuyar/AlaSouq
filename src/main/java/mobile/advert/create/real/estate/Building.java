@@ -36,8 +36,6 @@ public class Building {
             Thread.sleep(2000);
             clickForRentCategory();
             Thread.sleep(2000);
-            clickContinueButton();
-            Thread.sleep(2000);
             titleInput();
             Thread.sleep(2000);
             enterDescription();
@@ -50,18 +48,21 @@ public class Building {
             Thread.sleep(2000);
             scrollScreen(400);
             Thread.sleep(2000);
+            KeyboardAccessoryOkButton();
+            Thread.sleep(2000);
             clickNextButton2();
             Thread.sleep(2000);
-            continueWithoutUploadingPhotos();
+            clickAddressInformation();
             Thread.sleep(2000);
             scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
+            selectMap();
+            Thread.sleep(2000);
             scrollScreen(1000);
             Thread.sleep(2000);
             clickBuyDopingButton();
-
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -90,7 +91,6 @@ public class Building {
 
     public static void openRegistrationPage() throws InterruptedException {
         driver.get("https://m.alasouq.com");
-        driver.manage().window().fullscreen();
     }
 
     public static void clickSaveAppSettings() throws InterruptedException {
@@ -117,6 +117,7 @@ public class Building {
         clickSignIn = driver.findElement(By.id("btn-lgn-email"));
         clickSignIn.click();
         Thread.sleep(1000);
+        driver.manage().window().fullscreen();
     }
 
     public static void clickRealEstate() throws InterruptedException {
@@ -135,12 +136,6 @@ public class Building {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", item);
     }
-
-    public static void clickContinueButton() {
-        WebElement continueButton = driver.findElement(By.id("btn-continue-selection"));
-        continueButton.click();
-    }
-
 
     public static void titleInput() throws InterruptedException {
         WebElement input = driver.findElement(By.id("ion-input-2"));
@@ -190,20 +185,34 @@ public class Building {
 
     }*/
 
+    public static void KeyboardAccessoryOkButton()  throws InterruptedException {
+        WebElement okButton = driver.findElement(
+                By.xpath("//ion-item[.//ion-text[text()='Ok']]")
+        );
+        okButton.click();
+    }
+
     public static void clickNextButton2() throws InterruptedException {
         WebElement nextButton = driver.findElement(By.id("btn-continue-details-advert"));
         nextButton.click();
     }
 
-    public static void continueWithoutUploadingPhotos() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.id("confirm_yes_btn"));
+    public static void clickAddressInformation() throws InterruptedException {
+        WebElement nextButton = driver.findElement(By.id("btn-current-location"));
         nextButton.click();
     }
 
     public static void clickNextButton3() throws InterruptedException {
-        WebElement nextButton = driver.findElement(By.xpath("//button[contains(text(),'İleri')]"));
+        WebElement nextButton = driver.findElement(By.id("btn-continue-communication"));
         nextButton.click();
     }
+
+    public static void selectMap() throws InterruptedException {
+        WebElement mapDiv = driver.findElement(By.cssSelector("div[style*='z-index: 3'][style*='position: absolute']"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(mapDiv).click().perform();
+    }
+
 
     public static void clickBuyDopingButton() throws InterruptedException {
         WebElement buyButton = driver.findElement(By.xpath("//button[contains(text(),'Satın Al')]"));

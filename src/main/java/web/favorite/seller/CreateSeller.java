@@ -87,7 +87,7 @@ public class CreateSeller {
         List<WebElement> advert = driver.findElements(By.cssSelector("a.product-title"));
 
         if (!advert.isEmpty()) {
-            WebElement firstAd = advert.get(1);
+            WebElement firstAd = advert.get(2);
 
             Thread.sleep(1000);
 
