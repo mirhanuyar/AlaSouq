@@ -1,4 +1,4 @@
-package web.user.information.ActiveAdvert.Actions.statistic.total_favorite;
+package web.user.information.active.advert.Actions.statistic.total_favorite;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;

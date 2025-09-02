@@ -1,4 +1,4 @@
-package mobile.user.information.passive;
+package mobile.user.information.active.advert;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Unpublished {
+public class PriceInformation {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -19,28 +19,34 @@ public class Unpublished {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            accountClick();
+            Thread.sleep(2000);
+            changeLanguage();
+            Thread.sleep(2000);
+            clickTurkishButton();
+            Thread.sleep(2000);
             fillForm();
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            passiveAdvert();
+            activeAdvert();
             Thread.sleep(2000);
             searchBar();
             Thread.sleep(2000);
             clickAdvert();
             Thread.sleep(2000);
-            clickEdit();
-            Thread.sleep(2000);
-            backPage();
-            Thread.sleep(2000);
-            clickPublish();
-            Thread.sleep(2000);
             scrollToBottom();
+            Thread.sleep(2000);
+            scrollByAmount(500);
+            Thread.sleep(2000);
+            scrollToElement(By.id("click-goto-doping"));
+            Thread.sleep(2000);
+            clickPriceHistory();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -50,6 +56,24 @@ public class Unpublished {
     public static void openRegistrationPage() {
         driver.get("http://localhost:4200/home");
     }
+
+    public static void accountClick() throws InterruptedException{
+        clickElement(By.id("btn-my-account"));
+    }
+
+
+    public static void changeLanguage() throws InterruptedException{
+        clickElement(By.id("present-action-sheet"));
+    }
+
+    public static void clickTurkishButton() throws InterruptedException {
+        WebElement turkishButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[contains(@class, 'action-sheet-button') and span[text()='Türkçe']]")));
+
+        turkishButton.click();
+        Thread.sleep(2000);
+    }
+
 
     public static void fillForm() throws InterruptedException {
         WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(
@@ -61,7 +85,7 @@ public class Unpublished {
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
         Thread.sleep(3000);
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin");
+        currentPasswordField.sendKeys("adminadmin");
         Thread.sleep(3000);
     }
 
@@ -70,36 +94,37 @@ public class Unpublished {
         Thread.sleep(2000);
     }
 
-    public static void passiveAdvert() throws InterruptedException {
-        clickElement(By.id("link-passive"));
+    public static void activeAdvert() throws InterruptedException {
+        clickElement(By.id("link-active"));
     }
 
     public static void searchBar() throws InterruptedException {
         WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
-        searchBar.sendKeys("DENİZ MANZARALI YOLA SIFIR İMARLI TEK TAPU ARSA-ARAÇ TAKASLI");
+        searchBar.sendKeys("AYDIN GERMENCİKTE BAHÇELİ 2 +1 MÜSTAKİL EV");
         Thread.sleep(1000);
         searchBar.clear();
-        searchBar.sendKeys("100036");
+        searchBar.sendKeys("100003");
     }
 
     public static void clickAdvert() throws InterruptedException {
         clickElement(By.xpath("//div[contains(@class, 'advert-content')]"));
     }
 
-    public static void clickEdit() throws InterruptedException {
-        clickElement(By.id("btn-edit-advert"));
-    }
-
-    public static void backPage() throws InterruptedException {
-        driver.navigate().back();
-    }
-
-    public static void clickPublish() throws InterruptedException {
-        clickElement(By.id("btn-take-down-advert"));
-    }
-
     public static void scrollToBottom() {
         ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    }
+
+    public static void scrollByAmount(int pixels) {
+        ((JavascriptExecutor) driver).executeScript("window.scrollBy(0," + pixels + ");");
+    }
+
+    public static void scrollToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+    }
+
+    public static void clickPriceHistory() throws InterruptedException{
+        clickElement(By.id("click-price-history"));
     }
 
     public static void clickElement(By locator) throws InterruptedException {

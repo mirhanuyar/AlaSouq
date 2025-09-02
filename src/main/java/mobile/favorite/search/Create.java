@@ -60,12 +60,10 @@ public class Create {
             Thread.sleep(2000);
 
 
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 
     public static void setUpDriver() {
         Map<String, Object> deviceMetrics = new HashMap<>();
@@ -147,7 +145,6 @@ public class Create {
         Thread.sleep(5000);
         search.sendKeys("TEST");
     }
-
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));

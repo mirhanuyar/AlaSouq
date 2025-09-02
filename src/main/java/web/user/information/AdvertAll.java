@@ -2,7 +2,7 @@ package web.user.information;
 
 import web.advert.create.Vehicles;
 import web.advert.create.real.estate.Building;
-import web.user.information.ActiveAdvert.Actions.Edit;
+import web.user.information.active.advert.Actions.Edit;
 
 public class AdvertAll {
     public static void main(String[] args) {

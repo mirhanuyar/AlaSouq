@@ -1,18 +1,16 @@
-package mobile.message;
+package mobile.user.information.passive.advert;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
-public class Details {
+public class Unpublished {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -25,14 +23,24 @@ public class Details {
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            viewMessages();
+            passiveAdvert();
             Thread.sleep(2000);
-            clickMessage();
-
+            searchBar();
+            Thread.sleep(2000);
+            clickAdvert();
+            Thread.sleep(2000);
+            clickEdit();
+            Thread.sleep(2000);
+            backPage();
+            Thread.sleep(2000);
+            clickPublish();
+            Thread.sleep(2000);
+            scrollToBottom();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void setUpDriver() {
         driver = new ChromeDriver();
@@ -62,13 +70,36 @@ public class Details {
         Thread.sleep(2000);
     }
 
-
-    public static void viewMessages() throws InterruptedException {
-        clickElement(By.id("link-messages"));
+    public static void passiveAdvert() throws InterruptedException {
+        clickElement(By.id("link-passive"));
     }
 
-    public static void clickMessage() throws InterruptedException {
-        clickElement(By.id("click-message-detail"));
+    public static void searchBar() throws InterruptedException {
+        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
+        searchBar.sendKeys("DENİZ MANZARALI YOLA SIFIR İMARLI TEK TAPU ARSA-ARAÇ TAKASLI");
+        Thread.sleep(1000);
+        searchBar.clear();
+        searchBar.sendKeys("100036");
+    }
+
+    public static void clickAdvert() throws InterruptedException {
+        clickElement(By.xpath("//div[contains(@class, 'advert-content')]"));
+    }
+
+    public static void clickEdit() throws InterruptedException {
+        clickElement(By.id("btn-edit-advert"));
+    }
+
+    public static void backPage() throws InterruptedException {
+        driver.navigate().back();
+    }
+
+    public static void clickPublish() throws InterruptedException {
+        clickElement(By.id("btn-take-down-advert"));
+    }
+
+    public static void scrollToBottom() {
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
     }
 
     public static void clickElement(By locator) throws InterruptedException {

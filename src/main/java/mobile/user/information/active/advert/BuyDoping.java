@@ -1,7 +1,7 @@
-package mobile.user.information.active;
+package mobile.user.information.active.advert;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class PriceInformation {
+public class BuyDoping {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -19,11 +19,23 @@ public class PriceInformation {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+            clickCountry();
+            Thread.sleep(2000);
+            selectCountry();
+            Thread.sleep(2000);
+            clickPreferredLanguage();
+            Thread.sleep(2000);
+            clickSelectLanguage();
+            Thread.sleep(2000);
+            clickPreferredCurrency();
+            Thread.sleep(2000);
+            clickSelectCurrency();
+            Thread.sleep(2000);
+            clickSaveButton();
+            Thread.sleep(2000);
             accountClick();
             Thread.sleep(2000);
             changeLanguage();
-            Thread.sleep(2000);
-            clickTurkishButton();
             Thread.sleep(2000);
             fillForm();
             Thread.sleep(2000);
@@ -31,18 +43,6 @@ public class PriceInformation {
             Thread.sleep(2000);
             activeAdvert();
             Thread.sleep(2000);
-            searchBar();
-            Thread.sleep(2000);
-            clickAdvert();
-            Thread.sleep(2000);
-            scrollToBottom();
-            Thread.sleep(2000);
-            scrollByAmount(500);
-            Thread.sleep(2000);
-            scrollToElement(By.id("click-goto-doping"));
-            Thread.sleep(2000);
-            clickPriceHistory();
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -55,23 +55,53 @@ public class PriceInformation {
 
     public static void openRegistrationPage() {
         driver.get("http://localhost:4200/home");
+        driver.manage().window().maximize();
     }
 
-    public static void accountClick() throws InterruptedException{
+    public static void clickCountry() throws InterruptedException {
+        WebElement country = driver.findElement(By.id("ion-input-2"));
+        country.click();
+    }
+
+    public static void selectCountry() throws InterruptedException {
+        WebElement iraqItem = driver.findElement(By.xpath("//ion-item[contains(text(), 'Iraq')]"));
+        iraqItem.click();
+        iraqItem.sendKeys(Keys.ESCAPE);
+    }
+
+    public static void clickPreferredLanguage() throws InterruptedException {
+        WebElement country = driver.findElement(By.id("ion-input-0"));
+        country.click();
+    }
+
+    public static void clickSelectLanguage() throws InterruptedException {
+        WebElement turkishLanguage = driver.findElement(By.xpath("//ion-item[.//ion-label[text()='Türkçe']]"));
+        turkishLanguage.click();
+        turkishLanguage.sendKeys(Keys.ESCAPE);
+    }
+
+    public static void clickPreferredCurrency() throws InterruptedException {
+        WebElement currency = driver.findElement(By.id("ion-input-1"));
+        currency.click();
+    }
+
+    public static void clickSelectCurrency() throws InterruptedException {
+        WebElement tryCurrency = driver.findElement(By.xpath("//ion-item[.//ion-label[text()='Türk Lirası']]"));
+        tryCurrency.click();
+        tryCurrency.sendKeys(Keys.ESCAPE);
+    }
+
+    public static void clickSaveButton() throws InterruptedException {
+        WebElement saveButton = driver.findElement(By.xpath("//ion-button[normalize-space()='Save']"));
+        saveButton.click();
+    }
+
+    public static void accountClick() throws InterruptedException {
         clickElement(By.id("btn-my-account"));
     }
 
-
-    public static void changeLanguage() throws InterruptedException{
+    public static void changeLanguage() throws InterruptedException {
         clickElement(By.id("present-action-sheet"));
-    }
-
-    public static void clickTurkishButton() throws InterruptedException {
-        WebElement turkishButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(@class, 'action-sheet-button') and span[text()='Türkçe']]")));
-
-        turkishButton.click();
-        Thread.sleep(2000);
     }
 
 
@@ -96,35 +126,6 @@ public class PriceInformation {
 
     public static void activeAdvert() throws InterruptedException {
         clickElement(By.id("link-active"));
-    }
-
-    public static void searchBar() throws InterruptedException {
-        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
-        searchBar.sendKeys("AYDIN GERMENCİKTE BAHÇELİ 2 +1 MÜSTAKİL EV");
-        Thread.sleep(1000);
-        searchBar.clear();
-        searchBar.sendKeys("100003");
-    }
-
-    public static void clickAdvert() throws InterruptedException {
-        clickElement(By.xpath("//div[contains(@class, 'advert-content')]"));
-    }
-
-    public static void scrollToBottom() {
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
-    }
-
-    public static void scrollByAmount(int pixels) {
-        ((JavascriptExecutor) driver).executeScript("window.scrollBy(0," + pixels + ");");
-    }
-
-    public static void scrollToElement(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
-    }
-
-    public static void clickPriceHistory() throws InterruptedException{
-        clickElement(By.id("click-price-history"));
     }
 
     public static void clickElement(By locator) throws InterruptedException {
