@@ -1,13 +1,18 @@
 package mobile.message;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ChatWithAdvertOwner {
     public static WebDriver driver;
@@ -18,17 +23,46 @@ public class ChatWithAdvertOwner {
         try {
             openRegistrationPage();
             Thread.sleep(2000);
+
+            clickSaveAppSettings();
+            Thread.sleep(2000);
+
+            fullScreen();
+            Thread.sleep(2000);
+
+            clickTabButtonMyAccount();
+            Thread.sleep(2000);
+
+            clickLoginButton();
+            Thread.sleep(2000);
+
             fillForm();
             Thread.sleep(2000);
+
             submitForm();
             Thread.sleep(2000);
-            viewMessages();
+
+            clickSearch();
             Thread.sleep(2000);
-            clickMessage();
+
+            clickCategories();
             Thread.sleep(2000);
-            clickDetails();
+
+            clickAllAds();
             Thread.sleep(2000);
-            goToAdvert();
+
+            clickAdvert();
+            Thread.sleep(2000);
+
+            clickSendMessageButton();
+            Thread.sleep(2000);
+
+            clickMessageInput();
+            Thread.sleep(2000);
+
+            sendMessage();
+
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -36,54 +70,119 @@ public class ChatWithAdvertOwner {
     }
 
     public static void setUpDriver() {
-        driver = new ChromeDriver();
+        Map<String, Object> deviceMetrics = new HashMap<>();
+        deviceMetrics.put("width", 500);
+        deviceMetrics.put("height", 800);
+        deviceMetrics.put("pixelRatio", 3.0);
+
+        Map<String, Object> mobileEmulation = new HashMap<>();
+        mobileEmulation.put("deviceMetrics", deviceMetrics);
+        mobileEmulation.put("userAgent", "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) " +
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15A372 Safari/604.1");
+
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("mobileEmulation", mobileEmulation);
+
+        driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public static void openRegistrationPage() {
-        driver.get("http://localhost:4200/home");
+        driver.get("https://m.alasouq.com");
+    }
+
+    public static void clickSaveAppSettings() {
+        clickElement(By.xpath("//ion-button[text()='Default']"));
+    }
+
+    public static void fullScreen() {
+        driver.manage().window().fullscreen();
+    }
+
+    public static void clickTabButtonMyAccount() {
+        clickElement(By.id("btn-my-account"));
+    }
+
+    public static void clickLoginButton() {
+        clickElement(By.id("login-click"));
     }
 
     public static void fillForm() throws InterruptedException {
-        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//span[contains(@class, 'sc-ion-label-ios') and text()='Giriş Yap']")));
-        loginButton.click();
-        Thread.sleep(1000);
-
         WebElement emailField = driver.findElement(By.id("ion-input-0"));
         emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
-        Thread.sleep(3000);
+        Thread.sleep(1000);
+
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("admin6565");
-        Thread.sleep(3000);
+        currentPasswordField.sendKeys("admin");
+        Thread.sleep(1000);
     }
 
-    public static void submitForm() throws InterruptedException {
+    public static void submitForm() {
         clickElement(By.id("btn-lgn-email"));
-        Thread.sleep(2000);
+    }
+
+    public static void clickSearch() throws InterruptedException {
+        WebElement search = driver.findElement(By.id("btn-search"));
+        search.click();
+    }
+
+    public static void clickCategories() throws InterruptedException {
+        WebElement realEstateElement = driver.findElement(By.xpath("//ion-col[@id='category-selected']//h3[text()='Real Estate']"));
+        realEstateElement.click();
+    }
+
+    public static void clickAllAds() throws InterruptedException {
+        WebElement allAds = driver.findElement(By.id("btn-list-all-ads"));
+        allAds.click();
+    }
+
+    public static void clickAdvert() throws InterruptedException {
+        WebElement advert = driver.findElement(By.xpath("//h3[text()='Arsa']"));
+        advert.click();
+
     }
 
 
-    public static void viewMessages() throws InterruptedException {
-        clickElement(By.id("link-messages"));
-    }
-
-    public static void clickMessage() throws InterruptedException {
-        clickElement(By.id("click-message-detail"));
-    }
-
-    public static void clickDetails() throws InterruptedException {
-        clickElement(By.id("btn-mdl-msg"));
-    }
-
-    public static void goToAdvert() throws InterruptedException {
-        WebElement ilanButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[.//span[text()='İlana Git']]")));
-        ilanButton.click();
-
-    }
-    public static void clickElement(By locator) throws InterruptedException {
+    public static void clickElement(By locator) {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        element.click();
+        try {
+            element.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
+    }
+
+    public static void clickSendMessageButton(){
+        clickElement(By.id("btn-go-to-message"));
+    }
+
+    public static void clickMessageInput() throws InterruptedException {
+        WebElement write = driver.findElement(By.id("chat-text-area"));
+        write.click();
+        Thread.sleep(2000);
+        write.sendKeys("Test");
+    }
+
+    public static void sendMessage() {
+        try {
+
+            for (int i = 0; i < 10; i++) {
+                WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ion-textarea-0")));
+                message.sendKeys("TEST" + i);
+
+                WebElement sendMessageButton = wait.until(ExpectedConditions.elementToBeClickable(
+                        By.id("btn-send-message")));
+                sendMessageButton.click();
+
+                Thread.sleep(1000);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    public static void scrollToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior:'smooth', block:'center'});", element);
     }
 }
