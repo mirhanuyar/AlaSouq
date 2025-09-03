@@ -5,126 +5,128 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PriceInformation {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         setUpDriver();
         try {
-            openRegistrationPage();
             Thread.sleep(2000);
-            accountClick();
-            Thread.sleep(2000);
-            changeLanguage();
-            Thread.sleep(2000);
-            clickTurkishButton();
-            Thread.sleep(2000);
+            saveModal();
+            Thread.sleep(1000);
             fillForm();
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             submitForm();
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             activeAdvert();
             Thread.sleep(2000);
-            searchBar();
+            clickFirstAdvertWithActions();
             Thread.sleep(2000);
-            clickAdvert();
+            scrollToElement(By.id(""));
             Thread.sleep(2000);
-            scrollToBottom();
-            Thread.sleep(2000);
-            scrollByAmount(500);
-            Thread.sleep(2000);
-            scrollToElement(By.id("click-goto-doping"));
-            Thread.sleep(2000);
-            clickPriceHistory();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public static void setUpDriver() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+    public static void setUpDriver() throws InterruptedException {
+
+
+        ChromeOptions options = new ChromeOptions();
+        Map<String, String> mobileEmulation = new HashMap<>();
+        mobileEmulation.put("deviceName", "iPhone X");
+        options.setExperimentalOption("mobileEmulation", mobileEmulation);
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.get("https://m.alasouq.com/en/home");
     }
 
-    public static void openRegistrationPage() {
-        driver.get("http://localhost:4200/home");
-    }
-
-    public static void accountClick() throws InterruptedException{
-        clickElement(By.id("btn-my-account"));
-    }
-
-
-    public static void changeLanguage() throws InterruptedException{
-        clickElement(By.id("present-action-sheet"));
-    }
-
-    public static void clickTurkishButton() throws InterruptedException {
-        WebElement turkishButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(@class, 'action-sheet-button') and span[text()='Türkçe']]")));
-
-        turkishButton.click();
+    public static void saveModal () throws InterruptedException {
         Thread.sleep(2000);
-    }
+        WebElement button = driver.findElement(By.cssSelector("ion-button.button-outline"));
+        button.click();
+        Thread.sleep(2000);
 
+    }
 
     public static void fillForm() throws InterruptedException {
-        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//span[contains(@class, 'sc-ion-label-ios') and text()='Giriş Yap']")));
-        loginButton.click();
+        WebElement userIcon = driver.findElement(By.id("icon-person-outline"));
+        userIcon.click();
         Thread.sleep(1000);
 
-        WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        WebElement loginButton = driver.findElement(
+                By.id("login-click"));
+
+        loginButton.click();
+        Thread.sleep(2000);
+
+        WebElement emailField = driver.findElement(
+                By.cssSelector("input[type='email'].native-input")
+        );
+
+        emailField.sendKeys("tajdin.gurdal@solidsoft.com.tr");
         Thread.sleep(3000);
-        WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
-        currentPasswordField.sendKeys("adminadmin");
+
+        WebElement currentPasswordField = driver.findElement(By.cssSelector("input[type='password']"));
+        currentPasswordField.sendKeys("admin");
         Thread.sleep(3000);
     }
 
     public static void submitForm() throws InterruptedException {
-        clickElement(By.id("btn-lgn-email"));
+        WebElement submitIcon = driver.findElement(By.id("btn-lgn-email"));
+        submitIcon.click();
         Thread.sleep(2000);
     }
 
     public static void activeAdvert() throws InterruptedException {
-        clickElement(By.id("link-active"));
-    }
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-    public static void searchBar() throws InterruptedException {
-        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
-        searchBar.sendKeys("AYDIN GERMENCİKTE BAHÇELİ 2 +1 MÜSTAKİL EV");
-        Thread.sleep(1000);
-        searchBar.clear();
-        searchBar.sendKeys("100003");
-    }
+        WebElement activeTab = wait.until(
+                ExpectedConditions.elementToBeClickable(By.id("link-active"))
+        );
+        activeTab.click();
 
-    public static void clickAdvert() throws InterruptedException {
-        clickElement(By.xpath("//div[contains(@class, 'advert-content')]"));
     }
+    public static void clickFirstAdvertWithActions()throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-    public static void scrollToBottom() {
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
-    }
+        List<WebElement> adverts = wait.until(
+                ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("ion-list.result-list ion-item"))
+        );
 
-    public static void scrollByAmount(int pixels) {
-        ((JavascriptExecutor) driver).executeScript("window.scrollBy(0," + pixels + ");");
+        if (!adverts.isEmpty()) {
+            WebElement firstAdvert = adverts.get(0);
+
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", firstAdvert
+            );
+
+
+            Actions actions = new Actions(driver);
+            actions.moveToElement(firstAdvert).click().perform();
+
+            System.out.println("İlk ilana tıklandı: " + firstAdvert.getText());
+        } else {
+            System.out.println("Hiç ilan bulunamadı.");
+        }
     }
 
     public static void scrollToElement(By locator) {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("click-price-history")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
-    }
-
-    public static void clickPriceHistory() throws InterruptedException{
-        clickElement(By.id("click-price-history"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
 
     public static void clickElement(By locator) throws InterruptedException {

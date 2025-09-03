@@ -5,19 +5,24 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Unpublished {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)throws Exception {
         setUpDriver();
         try {
-            openRegistrationPage();
+            saveModal();
             Thread.sleep(2000);
             fillForm();
             Thread.sleep(2000);
@@ -25,85 +30,101 @@ public class Unpublished {
             Thread.sleep(2000);
             passiveAdvert();
             Thread.sleep(2000);
-            searchBar();
+            passiveAdvert();
             Thread.sleep(2000);
-            clickAdvert();
+            clickFirstAdvert();
             Thread.sleep(2000);
-            clickEdit();
-            Thread.sleep(2000);
-            backPage();
-            Thread.sleep(2000);
-            clickPublish();
-            Thread.sleep(2000);
-            scrollToBottom();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
 
-    public static void setUpDriver() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+    public static void setUpDriver() throws InterruptedException {
+
+
+        ChromeOptions options = new ChromeOptions();
+        Map<String, String> mobileEmulation = new HashMap<>();
+        mobileEmulation.put("deviceName", "iPhone X");
+        options.setExperimentalOption("mobileEmulation", mobileEmulation);
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.get("https://m.alasouq.com/en/home");
     }
 
-    public static void openRegistrationPage() {
-        driver.get("http://localhost:4200/home");
+    public static void saveModal () throws InterruptedException {
+        Thread.sleep(2000);
+        WebElement button = driver.findElement(By.cssSelector("ion-button.button-outline"));
+        button.click();
+        Thread.sleep(2000);
+
     }
 
     public static void fillForm() throws InterruptedException {
-        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//span[contains(@class, 'sc-ion-label-ios') and text()='Giriş Yap']")));
-        loginButton.click();
+        WebElement userIcon = driver.findElement(By.id("icon-person-outline"));
+        userIcon.click();
         Thread.sleep(1000);
 
-        WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        WebElement loginButton = driver.findElement(
+                By.id("login-click"));
+
+        loginButton.click();
+        Thread.sleep(2000);
+
+        WebElement emailField = driver.findElement(
+                By.cssSelector("input[type='email'].native-input")
+        );
+
+        emailField.sendKeys("tajdin.gurdal@solidsoft.com.tr");
         Thread.sleep(3000);
-        WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
+
+        WebElement currentPasswordField = driver.findElement(By.cssSelector("input[type='password']"));
         currentPasswordField.sendKeys("admin");
         Thread.sleep(3000);
     }
 
     public static void submitForm() throws InterruptedException {
-        clickElement(By.id("btn-lgn-email"));
+        WebElement submitIcon = driver.findElement(By.id("btn-lgn-email"));
+        submitIcon.click();
         Thread.sleep(2000);
     }
 
     public static void passiveAdvert() throws InterruptedException {
-        clickElement(By.id("link-passive"));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement activeTab = wait.until(
+                ExpectedConditions.elementToBeClickable(By.id("link-passive"))
+        );
+        activeTab.click();
+
+    }
+    public static void clickFirstAdvert() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        List<WebElement> adverts = wait.until(
+                ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("ion-item"))
+        );
+
+        if (!adverts.isEmpty()) {
+            WebElement firstAdvert = adverts.get(0);
+
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", firstAdvert
+            );
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", firstAdvert);
+
+            System.out.println("İlk ilana tıklandı: " + firstAdvert.getText());
+        } else {
+            System.out.println("Hiç ilan bulunamadı.");
+        }
+        driver.findElement(By.id("btn-take-down-advert")).click();
     }
 
-    public static void searchBar() throws InterruptedException {
-        WebElement searchBar = driver.findElement(By.xpath("//input[@placeholder='Kelime / İlan Numarası Girin']"));
-        searchBar.sendKeys("DENİZ MANZARALI YOLA SIFIR İMARLI TEK TAPU ARSA-ARAÇ TAKASLI");
-        Thread.sleep(1000);
-        searchBar.clear();
-        searchBar.sendKeys("100036");
-    }
-
-    public static void clickAdvert() throws InterruptedException {
-        clickElement(By.xpath("//div[contains(@class, 'advert-content')]"));
-    }
-
-    public static void clickEdit() throws InterruptedException {
-        clickElement(By.id("btn-edit-advert"));
-    }
-
-    public static void backPage() throws InterruptedException {
-        driver.navigate().back();
-    }
-
-    public static void clickPublish() throws InterruptedException {
-        clickElement(By.id("btn-take-down-advert"));
-    }
-
-    public static void scrollToBottom() {
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
-    }
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
     }
+
 }
