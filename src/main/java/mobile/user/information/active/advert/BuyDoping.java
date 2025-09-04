@@ -31,7 +31,9 @@ public class BuyDoping {
             Thread.sleep(2000);
             clickFirstAdvertWithActions();
             Thread.sleep(2000);
-            selectpublıshed();
+            dopingbutton();
+            Thread.sleep(2000);
+            clickFirstDoping();
             Thread.sleep(2000);
 
         } catch (InterruptedException e) {
@@ -91,7 +93,7 @@ public class BuyDoping {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         WebElement activeTab = wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("link-passive"))
+                ExpectedConditions.elementToBeClickable(By.id("link-active"))
         );
         activeTab.click();
 
@@ -100,7 +102,7 @@ public class BuyDoping {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
         List<WebElement> adverts = wait.until(
-                ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("ion-list.result-list ion-item"))
+                ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("ion-list.result-list ion-item"))
         );
 
         if (!adverts.isEmpty()) {
@@ -109,7 +111,6 @@ public class BuyDoping {
             ((JavascriptExecutor) driver).executeScript(
                     "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", firstAdvert
             );
-
 
             Actions actions = new Actions(driver);
             actions.moveToElement(firstAdvert).click().perform();
@@ -121,9 +122,21 @@ public class BuyDoping {
     }
 
 
-    public static void selectpublıshed() throws InterruptedException {
-        WebElement advert = driver.findElement(By.id("btn-take-down-advert"));
+    public static void dopingbutton() throws InterruptedException {
+        WebElement advert = driver.findElement(By.id("click-goto-doping"));
         advert.click();
+    }
+
+    public static void clickFirstDoping() throws InterruptedException {
+        List<WebElement> checkboxes = driver.findElements(By.cssSelector("ion-checkbox"));
+
+        WebElement firstCheckbox = checkboxes.get(0);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", firstCheckbox);
+
+        Thread.sleep(1000);
+
+        driver.findElement(By.id("btn-doping-info-continue")).click();
+
     }
 
 

@@ -28,11 +28,9 @@ public class Unpublished {
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            passiveAdvert();
-            Thread.sleep(2000);
-            passiveAdvert();
-            Thread.sleep(2000);
             clickFirstAdvert();
+            Thread.sleep(2000);
+            clickPublıshAdvert();
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -89,36 +87,28 @@ public class Unpublished {
         Thread.sleep(2000);
     }
 
-    public static void passiveAdvert() throws InterruptedException {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        WebElement activeTab = wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("link-passive"))
-        );
-        activeTab.click();
+    public static void clickFirstAdvert() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        WebElement passiveLink = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("link-passive")));
+        js.executeScript("arguments[0].click();", passiveLink);
+
+        WebElement firstAdvert = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.cssSelector("ion-list.result-list ion-item:first-child")
+        ));
+        js.executeScript("arguments[0].click();", firstAdvert);
+        Thread.sleep(2000);
 
     }
-    public static void clickFirstAdvert() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        List<WebElement> adverts = wait.until(
-                ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("ion-item"))
-        );
+    public static void clickPublıshAdvert() throws InterruptedException {
+        WebElement advert = driver.findElement(By.id("btn-take-down-advert"));
+        advert.click();
+        Thread.sleep(2000);
+        driver.findElement(By.id("btn-offer-buy")).click();
 
-        if (!adverts.isEmpty()) {
-            WebElement firstAdvert = adverts.get(0);
-
-            ((JavascriptExecutor) driver).executeScript(
-                    "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", firstAdvert
-            );
-
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", firstAdvert);
-
-            System.out.println("İlk ilana tıklandı: " + firstAdvert.getText());
-        } else {
-            System.out.println("Hiç ilan bulunamadı.");
-        }
-        driver.findElement(By.id("btn-take-down-advert")).click();
     }
 
 

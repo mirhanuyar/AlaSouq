@@ -100,6 +100,7 @@ public class PriceInformation {
 
     }
     public static void clickFirstAdvertWithActions()throws InterruptedException {
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
         List<WebElement> adverts = wait.until(
@@ -123,10 +124,13 @@ public class PriceInformation {
         }
     }
 
-    public static void scrollToElement(By locator) {
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("click-price-history")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    public static void scrollToElement(By locator)throws InterruptedException {
+        WebElement calendarIcon = driver.findElement(By.id("click-price-history"));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", calendarIcon);
+        Thread.sleep(1000);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", calendarIcon);
+
     }
 
     public static void clickElement(By locator) throws InterruptedException {
