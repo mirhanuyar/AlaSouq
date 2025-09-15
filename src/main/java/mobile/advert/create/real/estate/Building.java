@@ -277,10 +277,9 @@ public class Building {
         selectButton.click();
         Thread.sleep(1000);
 
-        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[span[text()='set-address.alert-next-button']]")
-        ));
-        button.click();
+        WebElement button = driver.findElement(By.xpath("//button[.//span[text()='Next']]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+
 
     }
     public static void clickNextButtonpreview() throws InterruptedException {
