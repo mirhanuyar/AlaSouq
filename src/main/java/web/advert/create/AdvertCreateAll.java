@@ -14,7 +14,7 @@ public class AdvertCreateAll {
         TourismFacilities.main(args);
         TouristicRentals.main(args);
         Vehicles.main(args);
-        InHomeHelp.main(args);
+        //InHomeHelp.main(args);
         Jobs.main(args);
         Machinery.main(args);
         PetsLivestock.main(args);
