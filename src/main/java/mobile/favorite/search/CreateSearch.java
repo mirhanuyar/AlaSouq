@@ -7,13 +7,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Create {
+public class CreateSearch {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -127,13 +124,11 @@ public class Create {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         try {
-            // Modalı aç (sadece bir kez)
             WebElement modalButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("save-search-modal")));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", modalButton);
 
-            Thread.sleep(500); // Modal açılması için kısa bekleme
+            Thread.sleep(500);
 
-            // Input alanı (normal DOM veya Shadow DOM)
             WebElement input;
             try {
                 input = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ion-input-2")));
@@ -145,16 +140,13 @@ public class Create {
                         .executeScript("return arguments[0].shadowRoot.querySelector('input')", shadowHost);
             }
 
-            // Input değerini JS ile ata ve input event tetikle
             ((JavascriptExecutor) driver).executeScript(
                     "arguments[0].value='Test'; arguments[0].dispatchEvent(new Event('input'));", input
             );
 
-            // Kaydet butonunu görünür yap
             WebElement saveButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("btn-save-search")));
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", saveButton);
 
-            // Kaydet butonuna tıkla
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveButton);
 
             System.out.println("Input değeri başarıyla atandı ve kaydedildi.");
@@ -162,12 +154,6 @@ public class Create {
             System.out.println("Bir hata oluştu: " + e.getMessage());
         }
     }
-
-
-
-
-
-
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));

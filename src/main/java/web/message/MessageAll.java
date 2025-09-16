@@ -6,7 +6,7 @@ public class MessageAll {
         Send.main(args);
         //SwearMessage.main(args);
         Called.main(args);
-        Blocked.main(args);
-        DeletedMessage.main(args);
+        //Blocked.main(args);
+        //DeletedMessage.main(args);
     }
 }

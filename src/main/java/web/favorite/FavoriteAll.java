@@ -13,7 +13,7 @@ public class FavoriteAll {
     public static void main(String[] args) {
         AddList.main(args);
         NewList.main(args);
-        Rename.main(args);
+        //Rename.main(args);
         //Transport.main(args);
         //DeleteAdvert.main(args);
         CreateSeller.main(args);

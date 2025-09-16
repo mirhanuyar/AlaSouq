@@ -5,7 +5,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -17,7 +16,7 @@ public class BuyDoping {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main() throws InterruptedException {
         setUpDriver();
             try {
             Thread.sleep(2000);
@@ -35,6 +34,7 @@ public class BuyDoping {
             Thread.sleep(2000);
             clickFirstDoping();
             Thread.sleep(2000);
+            clickContinueButton();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -87,6 +87,7 @@ public class BuyDoping {
         WebElement submitIcon = driver.findElement(By.id("btn-lgn-email"));
         submitIcon.click();
         Thread.sleep(2000);
+        driver.manage().window().fullscreen();
     }
 
     public static void passiveAdvert() throws InterruptedException {
@@ -111,6 +112,7 @@ public class BuyDoping {
             ((JavascriptExecutor) driver).executeScript(
                     "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", firstAdvert
             );
+
 
             Actions actions = new Actions(driver);
             actions.moveToElement(firstAdvert).click().perform();
@@ -137,6 +139,16 @@ public class BuyDoping {
 
         driver.findElement(By.id("btn-doping-info-continue")).click();
 
+    }
+
+
+    public static void clickContinueButton() throws InterruptedException {
+        WebElement shadowHost = driver.findElement(By.cssSelector("#btn-doping-info-continue"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement realButton = (WebElement) js.executeScript(
+                "return arguments[0].shadowRoot.querySelector('button')", shadowHost);
+
+        js.executeScript("arguments[0].click();", realButton);
     }
 
 

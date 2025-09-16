@@ -6,20 +6,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Unpublished {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    public static void main(String[] args)throws Exception {
+    public static void main(String[] args) throws Exception {
         setUpDriver();
         try {
             saveModal();
@@ -50,12 +48,11 @@ public class Unpublished {
         driver.get("https://m.alasouq.com/en/home");
     }
 
-    public static void saveModal () throws InterruptedException {
+    public static void saveModal() throws InterruptedException {
         Thread.sleep(2000);
         WebElement button = driver.findElement(By.cssSelector("ion-button.button-outline"));
         button.click();
         Thread.sleep(2000);
-
     }
 
     public static void fillForm() throws InterruptedException {
@@ -110,7 +107,6 @@ public class Unpublished {
         driver.findElement(By.id("btn-offer-buy")).click();
 
     }
-
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));

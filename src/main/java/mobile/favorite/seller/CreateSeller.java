@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Create {
+public class CreateSeller {
     public static WebDriver driver;
     public static WebDriverWait wait;
     private static List<String> favoriteAdverts = new ArrayList<>();

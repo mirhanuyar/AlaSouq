@@ -137,7 +137,7 @@ public class AddList {
     }
 
     public static void clickAdvert() throws InterruptedException {
-        WebElement advert = driver.findElement(By.xpath("//h3[text()='Arsa']"));
+        WebElement advert = driver.findElement(By.xpath("//h3[text()='208 M2 ARSA ÜZERİNDE SIFIRLANMIŞ 2+1 BAHÇELİ MÜSTAKİL']"));
         advert.click();
 
     }

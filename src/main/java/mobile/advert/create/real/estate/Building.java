@@ -1,8 +1,6 @@
 package mobile.advert.create.real.estate;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;

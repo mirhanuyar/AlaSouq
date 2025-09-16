@@ -51,7 +51,7 @@ public class Vehicles {
             enterPrice();
             Thread.sleep(2000);
             chooseCurrency();
-            scrollScreen(200);
+            scrollScreen(300);
             Thread.sleep(2000);
             clickYear();
             scrollScreen(100);
@@ -88,9 +88,9 @@ public class Vehicles {
             Thread.sleep(2000);
             chooseWheelDrive();
             Thread.sleep(2000);
-            clickExchangeable();
+            clickTraction();
             Thread.sleep(2000);
-            chooseExchangeable();
+            chooseTraction();
             Thread.sleep(2000);
             clickColor();
             Thread.sleep(2000);
@@ -128,11 +128,11 @@ public class Vehicles {
             Thread.sleep(2000);
             continueWithoutUploadingPhotos();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(1000);
             Thread.sleep(2000);
             clickNextButton3();
             Thread.sleep(2000);
-            scrollScreen(300);
+            scrollScreen(600);
             Thread.sleep(2000);
             clickBuyDopingButton();
             Thread.sleep(2000);
@@ -241,70 +241,77 @@ public class Vehicles {
     }
 
     public static void clickYear() throws InterruptedException {
-        WebElement yearInput = driver.findElement(By.cssSelector("input[placeholder='Enter Year']"));
+        WebElement yearInput = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[contains(text(),'Yıl')]/following::input[1]")
+        ));
         yearInput.click();
         Thread.sleep(500);
-        yearInput.sendKeys("2010");
+        yearInput.clear();
+        yearInput.sendKeys("2020");
     }
 
     public static void clickKm() throws InterruptedException {
-        WebElement km = driver.findElement(By.cssSelector("input[placeholder='Enter KM']"));
-        km.click();
+        WebElement kmInput = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[contains(text(),'KM')]/following::input[1]")
+        ));
+        kmInput.click();
         Thread.sleep(500);
-        km.sendKeys("30022");
+        kmInput.clear();
+        kmInput.sendKeys("50000");
     }
 
+
     public static void clickFuel() throws InterruptedException {
-        WebElement fuel = driver.findElement(By.id("facet-fuel"));
+        WebElement fuel = driver.findElement(By.id("facet-yakit"));
         fuel.click();
     }
 
     public static void chooseFuel() throws InterruptedException {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Petrol & LPG']")
+                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Benzin & LPG']")
         ));
         option.click();
 
     }
 
     public static void clickGear() throws InterruptedException {
-        WebElement gear = driver.findElement(By.id("facet-gear"));
+        WebElement gear = driver.findElement(By.id("facet-vites"));
         gear.click();
     }
 
     public static void chooseGear() throws InterruptedException {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Manual']")
+                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Manuel']")
         ));
         option.click();
     }
 
     public static void clickVehicleStatus() throws InterruptedException {
-        WebElement vehicleStatus = driver.findElement(By.id("facet-vehicle-status"));
+        WebElement vehicleStatus = driver.findElement(By.id("facet-arac-durumu"));
         vehicleStatus.click();
     }
 
     public static void chooseVehicleStatus() throws InterruptedException {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Second Hand']")
+                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Sıfır']")
         ));
         option.click();
     }
 
     public static void clickCaseType() throws InterruptedException {
-        WebElement caseType = driver.findElement(By.id("facet-case-type"));
+        WebElement caseType = driver.findElement(By.id("facet-kasa-tipi"));
         caseType.click();
     }
 
     public static void chooseCaseType() throws InterruptedException {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Convertible']")
+                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Coupe']")
         ));
         option.click();
     }
 
     public static void clickEnginePower() throws InterruptedException {
-        WebElement enginePower = driver.findElement(By.id("facet-engine-power"));
+        WebElement enginePower = driver.findElement(By.id("facet-motor-gucu"));
         enginePower.click();
     }
 
@@ -316,7 +323,7 @@ public class Vehicles {
     }
 
     public static void clickEngineDisplacement() throws InterruptedException {
-        WebElement engineDisplacement = driver.findElement(By.id("facet-engine-displacement"));
+        WebElement engineDisplacement = driver.findElement(By.id("facet-motor-hacmi"));
         engineDisplacement.click();
     }
 
@@ -328,61 +335,66 @@ public class Vehicles {
     }
 
     public static void clickWheelDrive() throws InterruptedException {
-        WebElement wheelDrive = driver.findElement(By.id("facet-wheel-drive"));
+        WebElement wheelDrive = driver.findElement(By.id("facet-takasli"));
         wheelDrive.click();
     }
 
     public static void chooseWheelDrive() throws InterruptedException {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Front-Wheel Drive']")
+                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Evet']")
         ));
         option.click();
     }
 
-    public static void clickExchangeable() throws InterruptedException {
-        WebElement exchangeable = driver.findElement(By.id("facet-exchangeable"));
-        exchangeable.click();
+    public static void clickTraction() throws InterruptedException {
+        WebElement cekisDropdown = wait.until(ExpectedConditions.elementToBeClickable(
+                By.id("facet-cekis")
+        ));
+        cekisDropdown.click();
+        Thread.sleep(1000);
     }
 
-    public static void chooseExchangeable() throws InterruptedException {
+
+    public static void chooseTraction() throws InterruptedException {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Yes']")
+                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Önden Çekiş']")
         ));
-        option.click();
+        option.click();;
     }
+
 
     public static void clickColor() throws InterruptedException {
-        WebElement color = driver.findElement(By.id("facet-color"));
+        WebElement color = driver.findElement(By.id("facet-renk"));
         color.click();
     }
 
     public static void chooseColor() throws InterruptedException {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='White']")
+                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Beyaz']")
         ));
         option.click();
     }
 
     public static void clickGuarantee() throws InterruptedException {
-        WebElement guarantee = driver.findElement(By.id("facet-guarantee"));
+        WebElement guarantee = driver.findElement(By.id("facet-garanti"));
         guarantee.click();
     }
 
     public static void chooseGuarantee() throws InterruptedException {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Yes']")
+                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Evet']")
         ));
         option.click();
     }
 
     public static void clickDamageRecord() throws InterruptedException {
-        WebElement record = driver.findElement(By.id("facet-damage-record"));
+        WebElement record = driver.findElement(By.id("facet-agir-hasar-kayitli"));
         record.click();
     }
 
     public static void chooseDamageRecord() throws InterruptedException {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='No']")
+                By.xpath("//div[contains(@class, 'ng-option')]//span[text()='Hayır']")
         ));
         option.click();
     }

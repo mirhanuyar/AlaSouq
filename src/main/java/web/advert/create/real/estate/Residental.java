@@ -64,27 +64,22 @@ public class Residental {
             clickNumberOfBathrooms();
             Thread.sleep(2000);
             chooseNumberOfBathrooms();
-            scrollScreen(200);
             Thread.sleep(2000);
             clickHeating();
             Thread.sleep(2000);
             chooseHeating();
-            scrollScreen(200);
             Thread.sleep(2000);
             clickNumberOfRooms();
-            scrollScreen(200);
             Thread.sleep(2000);
             chooseNumberOfRooms();
             Thread.sleep(2000);
             clickFurnished();
-            scrollScreen(200);
             Thread.sleep(2000);
             chooseFurnished();
             Thread.sleep(2000);
             clickFloorNumber();
             Thread.sleep(2000);
             chooseFloorNumber();
-            scrollScreen(350);
             Thread.sleep(2000);
             clickM2Gross();
             Thread.sleep(2000);
@@ -243,8 +238,8 @@ public class Residental {
     }
 
     public static void chooseBalcony() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("a04c3425727c-0"));
-        selectDropdown.click();
+        WebElement option = driver.findElement(By.xpath("//span[text()='Var']"));
+        option.click();
     }
 
     public static void clickNumberOfBathrooms() throws InterruptedException {
@@ -253,8 +248,8 @@ public class Residental {
     }
 
     public static void chooseNumberOfBathrooms() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("a158967c1f6c-1"));
-        selectDropdown.click();
+        WebElement option = driver.findElement(By.xpath("//span[text()='2']"));
+        option.click();
     }
 
     public static void clickHeating() throws InterruptedException {
@@ -263,8 +258,8 @@ public class Residental {
     }
 
     public static void chooseHeating() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("ab0862d819cb-1"));
-        selectDropdown.click();
+        WebElement option = driver.findElement(By.xpath("//span[text()='Merkezi']"));
+        option.click();
     }
 
     public static void clickNumberOfRooms() throws InterruptedException {
@@ -273,8 +268,8 @@ public class Residental {
     }
 
     public static void chooseNumberOfRooms() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("afd66bbca941-2"));
-        selectDropdown.click();
+        WebElement option = driver.findElement(By.xpath("//span[text()='2+1']"));
+        option.click();
     }
 
     public static void clickFurnished() throws InterruptedException {
@@ -283,8 +278,8 @@ public class Residental {
     }
 
     public static void chooseFurnished() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("a46ea8ba1d29-0"));
-        selectDropdown.click();
+        WebElement option = driver.findElement(By.xpath("//span[text()='Evet']"));
+        option.click();
     }
 
     public static void clickFloorNumber() throws InterruptedException {
@@ -293,22 +288,29 @@ public class Residental {
     }
 
     public static void chooseFloorNumber() throws InterruptedException {
-        WebElement selectDropdown = driver.findElement(By.id("a3e08dd3b7aa-0"));
-        selectDropdown.click();
+        WebElement option = driver.findElement(By.xpath("//span[text()='Müstakil']"));
+        option.click();
     }
 
     public static void clickM2Gross() throws InterruptedException {
-        WebElement clickM2 = driver.findElement(By.id("value-num"));
-        clickM2.click();
+        WebElement grossInput = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[contains(text(),'m² (Brüt)')]/following::input[1]")
+        ));
+        grossInput.click();
         Thread.sleep(500);
-        clickM2.sendKeys("1000");
+        grossInput.clear();
+        grossInput.sendKeys("120");
     }
 
+
     public static void clickM2Net() throws InterruptedException {
-        WebElement clickM2Net = driver.findElement(By.id("value-num"));
-        clickM2Net.click();
+        WebElement netInput = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[contains(text(),'m² (Net)')]/following::input[1]")
+        ));
+        netInput.click();
         Thread.sleep(500);
-        clickM2Net.sendKeys("900");
+        netInput.clear();
+        netInput.sendKeys("90");
     }
 
 

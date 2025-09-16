@@ -1,7 +1,6 @@
-package mobile.favorite.search;
+package mobile.favorite.seller;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,12 +8,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Rename {
+public class ControlSeller {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -29,18 +26,14 @@ public class Rename {
             Thread.sleep(2000);
             submitForm();
             Thread.sleep(2000);
-            favoriteAdvert();
+            favoriteTenant();
             Thread.sleep(2000);
-            clickEditFavoriteSearch();
-            Thread.sleep(2000);
-            renameFavoriteSearch();
-            Thread.sleep(2000);
-            saveChanges();
+
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 
     public static void setUpDriver() throws InterruptedException {
 
@@ -51,10 +44,8 @@ public class Rename {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("https://m.alasouq.com/en/home");
-
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
     }
+
     public static void saveModal() throws InterruptedException {
         Thread.sleep(2000);
         WebElement button = driver.findElement(By.cssSelector("ion-button.button-outline"));
@@ -62,7 +53,6 @@ public class Rename {
         Thread.sleep(2000);
 
     }
-
 
     public static void fillForm() throws InterruptedException {
         WebElement userIcon = driver.findElement(By.id("icon-person-outline"));
@@ -91,29 +81,18 @@ public class Rename {
         WebElement submitIcon = driver.findElement(By.id("btn-lgn-email"));
         submitIcon.click();
         Thread.sleep(2000);
+
     }
 
-    public static void favoriteAdvert() throws InterruptedException {
-        clickElement(By.id("link-favorite-search"));
+    public static void favoriteTenant() throws InterruptedException {
+        WebElement tenant= driver.findElement(By.id("link-favorite-tenant"));
+        tenant.click();
+        Thread.sleep(2000);
     }
 
-    public static void clickEditFavoriteSearch() throws InterruptedException {
-        WebElement editButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("change-list-name")));
-        editButton.click();
-    }
 
     public static void clickElement(By locator) throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
-    }
-
-    public static void renameFavoriteSearch() throws InterruptedException {
-        WebElement newNameField = wait.until(ExpectedConditions.elementToBeClickable(By.id("search-list-name")));
-        newNameField.clear();
-        newNameField.sendKeys("testtt");
-    }
-
-    public static void saveChanges() throws InterruptedException {
-        clickElement(By.id("btn-save-search"));
     }
 }
