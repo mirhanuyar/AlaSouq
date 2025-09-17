@@ -158,13 +158,15 @@ public class AddList {
     public static void newFavoriteListName() throws InterruptedException {
         WebElement input = driver.findElement(By.cssSelector("ion-input#new-favorite-list-name input.native-input"));
         input.click();
-        input.sendKeys("Test");
-        Thread.sleep(500);
+        input.sendKeys("Test2");
+        Thread.sleep(1000);
         WebElement body = driver.findElement(By.tagName("body"));
         body.click();
-        Thread.sleep(500);
-        WebElement save= driver.findElement(By.id("btn-save-favorite-list"));
+        Thread.sleep(1000);
+        WebElement save = driver.findElement(By.id("btn-save-favorite-list"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", save);
         save.click();
+
     }
 
 
