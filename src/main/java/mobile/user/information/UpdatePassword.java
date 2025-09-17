@@ -11,36 +11,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UpdatePassword {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)throws InterruptedException {
         setUpDriver();
         try {
-            openRegistrationPage();
-            Thread.sleep(2000);
-
-            clickSaveAppSettings();
-            Thread.sleep(2000);
-
-            fullScreen();
-            Thread.sleep(2000);
-
-            clickTabButtonMyAccount();
-            Thread.sleep(2000);
-
-            clickLoginButton();
+            saveModal();
             Thread.sleep(2000);
 
             fillForm();
             Thread.sleep(2000);
 
             submitForm();
-            Thread.sleep(2000);
-            scrollToElement(By.id("link-account-info"));
             Thread.sleep(2000);
 
             clickAccountInfo();
@@ -51,8 +38,10 @@ public class UpdatePassword {
 
             currentPasswordInput();
             Thread.sleep(2000);
+
             newPasswordInput();
             Thread.sleep(2000);
+
             confirmPasswordInput();
             Thread.sleep(2000);
 
@@ -64,65 +53,67 @@ public class UpdatePassword {
         }
     }
 
-    public static void setUpDriver() {
-        Map<String, Object> deviceMetrics = new HashMap<>();
-        deviceMetrics.put("width", 500);
-        deviceMetrics.put("height", 800);
-        deviceMetrics.put("pixelRatio", 3.0);
 
-        Map<String, Object> mobileEmulation = new HashMap<>();
-        mobileEmulation.put("deviceMetrics", deviceMetrics);
-        mobileEmulation.put("userAgent", "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) " +
-                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15A372 Safari/604.1");
+    public static void setUpDriver() throws InterruptedException {
+
 
         ChromeOptions options = new ChromeOptions();
+        Map<String, String> mobileEmulation = new HashMap<>();
+        mobileEmulation.put("deviceName", "iPhone X");
         options.setExperimentalOption("mobileEmulation", mobileEmulation);
-
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        driver.manage().window().maximize();
+        driver.get("https://m.alasouq.com/en/home");
     }
 
-    public static void openRegistrationPage() {
-        driver.get("https://m.alasouq.com");
-    }
+    public static void saveModal () throws InterruptedException {
+        Thread.sleep(2000);
+        WebElement button = driver.findElement(By.cssSelector("ion-button.button-outline"));
+        button.click();
+        Thread.sleep(2000);
 
-    public static void clickSaveAppSettings() {
-        clickElement(By.xpath("//ion-button[text()='Default']"));
     }
-
-    public static void fullScreen() {
-        driver.manage().window().fullscreen();
-    }
-
-    public static void clickTabButtonMyAccount() {
-        clickElement(By.id("btn-my-account"));
-    }
-
-    public static void clickLoginButton() {
-        clickElement(By.id("login-click"));
-    }
-
     public static void fillForm() throws InterruptedException {
-        WebElement emailField = driver.findElement(By.id("ion-input-0"));
-        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        WebElement userIcon = driver.findElement(By.id("icon-person-outline"));
+        userIcon.click();
         Thread.sleep(1000);
+
+        WebElement loginButton = driver.findElement(
+                By.id("login-click"));
+
+        loginButton.click();
+        Thread.sleep(2000);
+
+        WebElement emailField = driver.findElement(
+                By.cssSelector("input[type='email'].native-input")
+        );
+
+        emailField.sendKeys("yakup.backoffice@solidsoft.com.tr");
+        Thread.sleep(3000);
 
         WebElement currentPasswordField = driver.findElement(By.id("ion-input-1"));
         currentPasswordField.sendKeys("admin");
-        Thread.sleep(1000);
+        Thread.sleep(3000);
     }
 
-    public static void submitForm() {
-        clickElement(By.id("btn-lgn-email"));
+    public static void submitForm() throws InterruptedException {
+        WebElement submitIcon = driver.findElement(By.id("btn-lgn-email"));
+        submitIcon.click();
+        Thread.sleep(2000);
     }
 
     public static void clickAccountInfo() throws InterruptedException {
-        WebElement accountInfo = driver.findElement(By.id("link-account-info"));
-        accountInfo.click();
+        WebElement element = driver.findElement(By.id("link-dashboard"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
+
     }
 
     public static void clickPasswordChangeButton() throws InterruptedException {
-        clickElement(By.id("link-change-password"));
+        WebElement buttons = driver.findElement(By.id("link-change-password"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", buttons);
+        Thread.sleep(1000);
     }
 
     public static void currentPasswordInput() throws InterruptedException {
